@@ -7,7 +7,11 @@ using UnityEngine.UI;
 public class Unit : Card
 {
     public UnitCardData CardData;
-    private Image UnitPower;
+    private Image unitPower;
+    /* 
+     La propiedad serializada de tipo array de GameObject llamada AttackTypesIcons
+     permie almacenar una referencia a los objetos de la interfaz de usuario que representan los íconos de los tipos de ataque.
+    */
     [SerializeField] GameObject[] AttackTypesIcons;
     public int Power {get; private set;}
     
@@ -15,13 +19,13 @@ public class Unit : Card
     {
         Power = CardData.Power;
         Image.sprite = CardData.CardImage;
-        UnitPower.sprite = CardData.PowerImage;
+        unitPower.sprite = CardData.PowerImage;
 
-        if(!CardData.attackTypes.Contains(AttackType.Melee)) 
+        if(!CardData.AttackTypes.Contains(AttackType.Melee)) 
             AttackTypesIcons[0].SetActive(false);
-        if(!CardData.attackTypes.Contains(AttackType.Ranged)) 
+        if(!CardData.AttackTypes.Contains(AttackType.Ranged)) 
             AttackTypesIcons[1].SetActive(false);
-        if(!CardData.attackTypes.Contains(AttackType.Siege)) 
+        if(!CardData.AttackTypes.Contains(AttackType.Siege)) 
             AttackTypesIcons[2].SetActive(false);
     }
 }
