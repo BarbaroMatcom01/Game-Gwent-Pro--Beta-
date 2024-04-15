@@ -298,11 +298,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3809920706611171952, guid: 93e4e5ae66741ef4cad072c91d4989c1, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -135
+      value: -138
       objectReference: {fileID: 0}
     - target: {fileID: 3809920706611171952, guid: 93e4e5ae66741ef4cad072c91d4989c1, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.0000012711
+      value: 0.000030518
       objectReference: {fileID: 0}
     - target: {fileID: 3809920706611171952, guid: 93e4e5ae66741ef4cad072c91d4989c1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -317,17 +317,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4840122448305352469, guid: 93e4e5ae66741ef4cad072c91d4989c1, type: 3}
-      propertyPath: CardData
-      value: 
-      objectReference: {fileID: 11400000, guid: a12e552df3dc6d1478f3610ee6665fbb, type: 2}
-    - target: {fileID: 4840122448305352469, guid: 93e4e5ae66741ef4cad072c91d4989c1, type: 3}
       propertyPath: cardData
       value: 
       objectReference: {fileID: 11400000, guid: 253b910a3b935bd409e12dfd65b9e90f, type: 2}
-    - target: {fileID: 4840122448305352469, guid: 93e4e5ae66741ef4cad072c91d4989c1, type: 3}
-      propertyPath: AttackTypesIcons.Array.size
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 9093913197528887525, guid: 93e4e5ae66741ef4cad072c91d4989c1, type: 3}
       propertyPath: m_Name
       value: Silver Variant (1)

@@ -7,9 +7,6 @@ public class Special : Card
 {
     public SpecialCardData CardData;
     public Image TypeIcon;
-   /*
-     El método Start se utiliza para inicializar la carta especial, estableciendo las imágenes de la carta y del tipo de ícono.
-   */
     void Start()
     {
         Image.sprite = CardData.CardImage;
