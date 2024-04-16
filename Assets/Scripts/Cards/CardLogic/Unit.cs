@@ -17,11 +17,11 @@ public class Unit : Card
         Image.sprite = CardData.CardImage;
         UnitPower.sprite = CardData.PowerImage;
 
-        if(!CardData.attackTypes.Contains(AttackType.Melee)) 
+        if(!CardData.AttackTypes.Contains(AttackType.Melee)) 
             AttackTypesIcons[0].SetActive(false);
-        if(!CardData.attackTypes.Contains(AttackType.Ranged)) 
+        if(!CardData.AttackTypes.Contains(AttackType.Ranged)) 
             AttackTypesIcons[1].SetActive(false);
-        if(!CardData.attackTypes.Contains(AttackType.Siege)) 
+        if(!CardData.AttackTypes.Contains(AttackType.Siege)) 
             AttackTypesIcons[2].SetActive(false);
     }
 }

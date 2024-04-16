@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Card", menuName = "SpecialCard")]
 public class SpecialCardData : CardData
 {
-    public SpecialType specialType;
+    public SpecialType SpecialType;
     public Sprite TypeIcon;
 }
 public enum SpecialType

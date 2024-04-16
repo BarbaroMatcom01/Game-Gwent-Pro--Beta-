@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c8256566a5f809140863d9d08f1bfc0b, type: 3}
-  m_Name: Fauno
+  m_Name: Centaur1
   m_EditorClassIdentifier: 
-  Name: Fauno "El Valiente"
+  Name: Centaur "El Temible"
   CardType: 1
   Faction: Narnia
   Description: 
-  CardImage: {fileID: 21300000, guid: 0886c2bbc699f244ebebd8725febec2b, type: 3}
-  UnitType: 0
-  attackTypes: 00000000
-  Power: 3
-  PowerImage: {fileID: 0}
+  CardImage: {fileID: 21300000, guid: 9793f9b1a2a865f459ba37bb42a18a89, type: 3}
+  UnitType: 1
+  attackTypes: 01000000
+  Power: 4
+  PowerImage: {fileID: 21300000, guid: 983677d16bd4a4c4d944936c96f177d0, type: 3}
   skill: 0

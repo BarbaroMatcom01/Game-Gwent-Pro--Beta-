@@ -8,16 +8,17 @@ using UnityEngine;
 public class UnitCardData : CardData
 {
     public UnitType UnitType;
-    public AttackType[] attackTypes;
+    public AttackType[] AttackTypes;
     public int Power ;
     public Sprite PowerImage;
-    public Skill skill;
+    public Skill Skill;
 }
 public enum UnitType
 {
     Golden,Silver
 }
-public enum AttackType{
+public enum AttackType
+{
     Melee,Ranged,Siege
 }
 public enum Skill

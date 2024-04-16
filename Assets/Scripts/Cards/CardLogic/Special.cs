@@ -7,6 +7,7 @@ public class Special : Card
 {
     public SpecialCardData CardData;
     public Image TypeIcon;
+    
     void Start()
     {
         Image.sprite = CardData.CardImage;

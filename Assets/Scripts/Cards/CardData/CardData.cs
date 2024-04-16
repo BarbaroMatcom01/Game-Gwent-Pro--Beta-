@@ -14,7 +14,6 @@ public class CardData : ScriptableObject
 }
 public enum CardType
 {
-    Leader,Unit,Special
-     
+     Leader,Unit,Special
 }
 
