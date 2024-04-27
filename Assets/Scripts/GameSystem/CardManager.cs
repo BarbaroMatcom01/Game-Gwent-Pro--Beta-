@@ -4,15 +4,54 @@ using UnityEngine;
 
 public class CardManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public CardData CardData;
+    public UnitCardData UnitCardData;
+    public SpecialCardData SpecialCardData;
+    public Battlefield battlefield;
+    public Unit unit;
+    public void InvocarCard(Card card)
     {
-        
+        switch (card.CardType)
+        {
+            case CardType.Unit:
+                string attackType = UnitCardData.AttackTypes[0].ToString();
+                switch (attackType)
+                {
+                    case "Melee":
+                        battlefield.MeeleRow.AddUnitCard(unit);
+                        break;
+                    case "Ranged":
+                        battlefield.RangedRow.AddUnitCard(unit);
+                        break;
+                    case "Siege":
+                        battlefield.SiegeRow.AddUnitCard(unit);
+                        break;
+                }
+                break;
+            case CardType.Special:
+                string specialType = SpecialCardData.SpecialType.ToString();
+                switch(specialType)
+                {
+                    case "Rain":
+
+                    break;
+
+                    case "Storm":
+
+                    break;
+
+                    case "Snow":
+
+                    break;
+                    
+
+                }
+                
+            break;
+        }
+
+
+
     }
 }

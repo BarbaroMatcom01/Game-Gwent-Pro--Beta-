@@ -18,7 +18,7 @@ MonoBehaviour:
   Description: 
   CardImage: {fileID: 21300000, guid: b7aa7989933943541ab84d6905ac959e, type: 3}
   UnitType: 0
-  attackTypes: 0100000002000000
+  AttackTypes: 01000000
   Power: 7
   PowerImage: {fileID: 21300000, guid: 5d827fa3509807d4997bef3715ed802f, type: 3}
-  skill: 0
+  Skill: 0

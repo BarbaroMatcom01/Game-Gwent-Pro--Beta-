@@ -20,7 +20,7 @@ public class PlayerInfo : MonoBehaviour
    }
    public void UpdateFilePower()
    {
-      int power = battlefield.PowerBattlefield();
+      int power = battlefield.BattlefieldPower();
       fieldPower.text = power.ToString();
    }
 

@@ -6,22 +6,22 @@ using UnityEngine.UI;
 
 public class Unit : Card
 {
-    public UnitCardData CardData;
+    public UnitCardData UnitCardData;
     private Image UnitPower;
     [SerializeField] GameObject[] AttackTypesIcons;
     public int Power {get; private set;}
-    
+
     void Start()
     {
-        Power = CardData.Power;
-        Image.sprite = CardData.CardImage;
-        UnitPower.sprite = CardData.PowerImage;
+        Power = UnitCardData.Power;
+        Image.sprite = UnitCardData.CardImage;
+        UnitPower.sprite = UnitCardData.PowerImage;
 
-        if(!CardData.AttackTypes.Contains(AttackType.Melee)) 
+        if(!UnitCardData.AttackTypes.Contains(AttackType.Melee)) 
             AttackTypesIcons[0].SetActive(false);
-        if(!CardData.AttackTypes.Contains(AttackType.Ranged)) 
+        if(!UnitCardData.AttackTypes.Contains(AttackType.Ranged)) 
             AttackTypesIcons[1].SetActive(false);
-        if(!CardData.AttackTypes.Contains(AttackType.Siege)) 
+        if(!UnitCardData.AttackTypes.Contains(AttackType.Siege)) 
             AttackTypesIcons[2].SetActive(false);
     }
 }

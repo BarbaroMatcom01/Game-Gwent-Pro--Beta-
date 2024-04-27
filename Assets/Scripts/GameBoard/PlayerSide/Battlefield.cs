@@ -10,20 +10,20 @@ public class Battlefield : MonoBehaviour
     public Row RangedRow => playerBattlefield[1];
     public Row SiegeRow => playerBattlefield[2];
 
-    public int PowerBattlefield()
+    public int BattlefieldPower()
     {
-        int powerBattlefield = 0;
+        int battlefieldPower = 0;
         foreach (Row row in playerBattlefield)
         {
-            powerBattlefield += row.TotalRowPower();
+            battlefieldPower += row.TotalRowPower();
         }
-        return powerBattlefield;
+        return battlefieldPower;
     }
 
     public Row GetRowWithLeastUnits()
     {
-        Row rowWithLeastUnit = null;
-        int leastUnitsCount = 15;
+        Row rowWithLeastUnit = playerBattlefield[0] ;
+        int leastUnitsCount = int.MaxValue;
         foreach (Row row in playerBattlefield)
         {
             int newUnitsCount = row.CountCardsInRow();

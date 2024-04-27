@@ -1439,7 +1439,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: f67d5028a273bfd4db36e17828c72684, type: 2}
     - target: {fileID: 2119936594990116553, guid: a6d121d3fa67e67428daf6c526c0f80f, type: 3}
       propertyPath: DeckCards.Array.size
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2119936594990116553, guid: a6d121d3fa67e67428daf6c526c0f80f, type: 3}
       propertyPath: deckCards.Array.size
@@ -1448,19 +1448,19 @@ PrefabInstance:
     - target: {fileID: 2119936594990116553, guid: a6d121d3fa67e67428daf6c526c0f80f, type: 3}
       propertyPath: DeckCards.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 253b910a3b935bd409e12dfd65b9e90f, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 2119936594990116553, guid: a6d121d3fa67e67428daf6c526c0f80f, type: 3}
       propertyPath: DeckCards.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: a12e552df3dc6d1478f3610ee6665fbb, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 2119936594990116553, guid: a6d121d3fa67e67428daf6c526c0f80f, type: 3}
       propertyPath: DeckCards.Array.data[2]
       value: 
-      objectReference: {fileID: 11400000, guid: cfc9d90170d4a504ebea1a41103fad78, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 2119936594990116553, guid: a6d121d3fa67e67428daf6c526c0f80f, type: 3}
       propertyPath: DeckCards.Array.data[3]
       value: 
-      objectReference: {fileID: 11400000, guid: d1626815829e3d34f972d700fbdda4a5, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 2119936594990116553, guid: a6d121d3fa67e67428daf6c526c0f80f, type: 3}
       propertyPath: DeckCards.Array.data[4]
       value: 
@@ -1524,7 +1524,7 @@ PrefabInstance:
     - target: {fileID: 3580660168261136435, guid: a6d121d3fa67e67428daf6c526c0f80f, type: 3}
       propertyPath: unitCards.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: a12e552df3dc6d1478f3610ee6665fbb, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 3580660168261136435, guid: a6d121d3fa67e67428daf6c526c0f80f, type: 3}
       propertyPath: unitCards.Array.data[1]
       value: 

@@ -11,6 +11,7 @@ public class CardData : ScriptableObject
     public string Faction;
     public string Description;
     public Sprite CardImage;
+
 }
 public enum CardType
 {

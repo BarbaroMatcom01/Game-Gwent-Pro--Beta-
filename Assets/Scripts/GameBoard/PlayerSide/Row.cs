@@ -8,7 +8,7 @@ public class Row : MonoBehaviour
     [SerializeField] GameObject increaseSlot;
     public GameObject IncreaseSlot => increaseSlot;
     [SerializeField] GameObject unitCardGrid;
-    [SerializeField] List<UnitCardData> unitCards;
+    [SerializeField] List<Unit> unitCards;
     public GameObject UnitCardsGrid => unitCardGrid;
 
     bool increaseIsActive;
@@ -21,12 +21,12 @@ public class Row : MonoBehaviour
         rowPowerText.SetText(totalPower.ToString());
 
     }
-    public void AddUnitCard(UnitCardData newCard)
+    public void AddUnitCard(Unit newCard)
     {
         unitCards.Add(newCard);
     }
 
-    public void RemoveUnitCard(UnitCardData removeCard)
+    public void RemoveUnitCard(Unit removeCard)
     {
         unitCards.Remove(removeCard);
     }
@@ -38,9 +38,9 @@ public class Row : MonoBehaviour
     public int CountGoldenUnitCards()
     {
         int goldenCount = 0;
-        foreach (UnitCardData unitCardData in unitCards)
+        foreach (Unit unitCard in unitCards)
         {
-            if (unitCardData.UnitType == UnitType.Golden)
+            if (unitCard.UnitType == UnitType.Golden)
             {
                 goldenCount++;
             }
@@ -51,9 +51,9 @@ public class Row : MonoBehaviour
     public int CountSilverUnitCards()
     {
         int silverCount = 0;
-        foreach (UnitCardData unitCardData in unitCards)
+        foreach (Unit unitCard in unitCards)
         {
-            if (unitCardData.UnitType == UnitType.Silver)
+            if (unitCard.UnitType == UnitType.Silver)
             {
                 silverCount++;
             }
@@ -64,9 +64,9 @@ public class Row : MonoBehaviour
     public int RowPower()
     {
         int rowPower = 0;
-        foreach (UnitCardData unitCardData in unitCards)
+        foreach (Unit unitCard in unitCards)
         {
-            rowPower += unitCardData.Power;
+            rowPower += unitCard.Power;
         }
         return rowPower;
     }

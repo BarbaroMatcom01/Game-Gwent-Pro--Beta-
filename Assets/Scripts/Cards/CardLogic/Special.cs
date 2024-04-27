@@ -13,4 +13,6 @@ public class Special : Card
         Image.sprite = CardData.CardImage;
         TypeIcon.sprite = CardData.TypeIcon;
     }
+
+
 }
