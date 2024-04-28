@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Data.Common;
+using UnityEditor.Build;
 public class Row : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI rowPowerText;
@@ -10,12 +12,22 @@ public class Row : MonoBehaviour
     [SerializeField] GameObject unitCardGrid;
     [SerializeField] List<Unit> unitCards;
     public GameObject UnitCardsGrid => unitCardGrid;
+    public Weathers Weathers;
+    public Battlefield Battlefield;
+   
+    public bool IncreaseIsActive;
+    public bool WeatherIsActive ;
+    
 
-    bool increaseIsActive;
-    bool weatherIsActive;
-
-
-    public void RowPowerText()
+    public void ActivateIncrease()
+    {
+        IncreaseIsActive = true;
+    }
+    public void DeactivateIncrease()
+    {
+        IncreaseIsActive = false;
+    }
+        public void RowPowerText()
     {
         int totalPower = TotalRowPower();
         rowPowerText.SetText(totalPower.ToString());
@@ -75,19 +87,19 @@ public class Row : MonoBehaviour
     {
         int totalRowPower = 0;
 
-        if (increaseIsActive && weatherIsActive)
+        if (IncreaseIsActive && WeatherIsActive)
         {
             totalRowPower = RowPower();
         }
-        else if (!increaseIsActive && !weatherIsActive)
+        else if (!IncreaseIsActive && !WeatherIsActive)
         {
             totalRowPower = RowPower();
         }
-        else if (!increaseIsActive && weatherIsActive)
+        else if (!IncreaseIsActive && WeatherIsActive)
         {
             totalRowPower = RowPower() - (2 * CountSilverUnitCards());
         }
-        else if (increaseIsActive && !weatherIsActive)
+        else if (IncreaseIsActive && !WeatherIsActive)
         {
             totalRowPower = RowPower() + 2 * CountSilverUnitCards();
         }

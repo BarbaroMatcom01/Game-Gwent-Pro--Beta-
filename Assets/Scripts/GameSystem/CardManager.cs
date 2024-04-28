@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+    // LeenTween.move(gameObject, newPosition, Duration);
 
 public class CardManager : MonoBehaviour
 {
@@ -8,50 +9,47 @@ public class CardManager : MonoBehaviour
     public CardData CardData;
     public UnitCardData UnitCardData;
     public SpecialCardData SpecialCardData;
-    public Battlefield battlefield;
-    public Unit unit;
-    public void InvocarCard(Card card)
+    public Battlefield Battlefield;
+    public Weathers Weathers;
+    public Unit Unit;
+    public void InvokeCard(Card card)
     {
-        switch (card.CardType)
+        switch (card.SpecificTypeCard)
         {
-            case CardType.Unit:
-                string attackType = UnitCardData.AttackTypes[0].ToString();
-                switch (attackType)
-                {
-                    case "Melee":
-                        battlefield.MeeleRow.AddUnitCard(unit);
-                        break;
-                    case "Ranged":
-                        battlefield.RangedRow.AddUnitCard(unit);
-                        break;
-                    case "Siege":
-                        battlefield.SiegeRow.AddUnitCard(unit);
-                        break;
-                }
+            case SpecificTypeCard.MeleeUnit:
+                Battlefield.MeleeRow.AddUnitCard(Unit);
                 break;
-            case CardType.Special:
-                string specialType = SpecialCardData.SpecialType.ToString();
-                switch(specialType)
-                {
-                    case "Rain":
+            case SpecificTypeCard.RangedUnit:
+                Battlefield.RangedRow.AddUnitCard(Unit);
+                break;
+            case SpecificTypeCard.SiegeUnit:
+                Battlefield.SiegeRow.AddUnitCard(Unit);
+                break;
+            case SpecificTypeCard.IncreaseMelee:
+                Battlefield.MeleeRow.ActivateIncrease();
+                break;
+            case SpecificTypeCard.IncreaseRanged:
+                Battlefield.RangedRow.ActivateIncrease();
+                break;
+            case SpecificTypeCard.IncreaseSiege:
+                Battlefield.SiegeRow.ActivateIncrease();
+                break;
+            case SpecificTypeCard.Rain:
+                Weathers.ActivateRain();
+                break;
+            case SpecificTypeCard.Storm:
+                Weathers.ActivateStorm();
+                break;
+            case SpecificTypeCard.Snow:
+                Weathers.ActivateSnow();
+                break; 
+            case SpecificTypeCard.Clearing:
+                Weathers.ActivateClearing();
+                break;
+            case SpecificTypeCard.Decoy:
 
-                    break;
-
-                    case "Storm":
-
-                    break;
-
-                    case "Snow":
-
-                    break;
-                    
-
-                }
-                
-            break;
+                break;  
         }
-
-
 
     }
 }

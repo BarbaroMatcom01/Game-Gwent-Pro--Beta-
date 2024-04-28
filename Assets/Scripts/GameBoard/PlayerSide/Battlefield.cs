@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class Battlefield : MonoBehaviour
 {
-    [SerializeField] Row[] playerBattlefield = new Row[3];
+    [SerializeField]  public Row[] PlayerBattlefield = new Row[3];
 
-    public Row MeeleRow => playerBattlefield[0];
-    public Row RangedRow => playerBattlefield[1];
-    public Row SiegeRow => playerBattlefield[2];
-
+    public Row MeleeRow => PlayerBattlefield[0];
+    public Row RangedRow => PlayerBattlefield[1];
+    public Row SiegeRow => PlayerBattlefield[2];
+    
     public int BattlefieldPower()
     {
         int battlefieldPower = 0;
-        foreach (Row row in playerBattlefield)
+        foreach (Row row in PlayerBattlefield)
         {
             battlefieldPower += row.TotalRowPower();
         }
@@ -22,9 +22,9 @@ public class Battlefield : MonoBehaviour
 
     public Row GetRowWithLeastUnits()
     {
-        Row rowWithLeastUnit = playerBattlefield[0] ;
+        Row rowWithLeastUnit = PlayerBattlefield[0] ;
         int leastUnitsCount = int.MaxValue;
-        foreach (Row row in playerBattlefield)
+        foreach (Row row in PlayerBattlefield)
         {
             int newUnitsCount = row.CountCardsInRow();
             if (newUnitsCount < leastUnitsCount)
