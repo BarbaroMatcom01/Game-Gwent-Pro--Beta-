@@ -1,14 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-    // LeenTween.move(gameObject, newPosition, Duration);
+  // LeenTween.move(gameObject, newPosition, Duration);
 
 public class CardManager : MonoBehaviour
 {
-
-    public CardData CardData;
-    public UnitCardData UnitCardData;
-    public SpecialCardData SpecialCardData;
     public Battlefield Battlefield;
     public Weathers Weathers;
     public Unit Unit;

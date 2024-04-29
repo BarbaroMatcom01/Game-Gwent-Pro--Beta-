@@ -19,15 +19,6 @@ public enum CardType
 }
 public enum SpecificTypeCard
 {
-    IncreaseMelee,
-    IncreaseRanged,
-    IncreaseSiege,
-    Rain,
-    Storm,
-    Snow,
-    Clearing,
-    Decoy,
-    MeleeUnit,
-    RangedUnit,
-    SiegeUnit
+    IncreaseMelee, IncreaseRanged, IncreaseSiege, Rain, Storm,
+    Snow,Clearing,Decoy,MeleeUnit,RangedUnit,SiegeUnit
 }

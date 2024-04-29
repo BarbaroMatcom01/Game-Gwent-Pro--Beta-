@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
-   [SerializeField] PlayerSide playerOneSide;
-   [SerializeField] PlayerSide playerTwoSide;
-   [SerializeField] Weathers weathers;
+   [SerializeField] public PlayerSide PlayerOneSide;
+   [SerializeField] public PlayerSide PlayerTwoSide;
+   [SerializeField] public Weathers Weathers;
 
-
+    
 }

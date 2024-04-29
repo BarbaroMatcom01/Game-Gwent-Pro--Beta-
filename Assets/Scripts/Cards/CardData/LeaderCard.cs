@@ -8,11 +8,9 @@ using UnityEngine;
 public class LeaderCard : CardData
 {
     public Skills Skill;
-    public enum Skills
-    {
-        None, Draw, DestroyStrongestUnit, DestroyWeakestUnit, DestroyLeastPopulatedRow,
-        SetBuff, MultiplyPower, SetRain, SetSnow, SetStorm
-    }
-
-
+}
+public enum Skills
+{
+    None, Draw, IncreaseRowPower, SetWeather, ClearStrongestUnit,
+    ClearLessStrongUnit, MultiplyPower, ClearLeastPopulatedRow, SetAveragePower,
 }

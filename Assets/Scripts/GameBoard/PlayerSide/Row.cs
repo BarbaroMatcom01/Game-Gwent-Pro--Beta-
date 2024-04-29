@@ -10,7 +10,7 @@ public class Row : MonoBehaviour
     [SerializeField] GameObject increaseSlot;
     public GameObject IncreaseSlot => increaseSlot;
     [SerializeField] GameObject unitCardGrid;
-    [SerializeField] List<Unit> unitCards;
+    [SerializeField] public List<Unit> UnitCards;
     public GameObject UnitCardsGrid => unitCardGrid;
     public Weathers Weathers;
     public Battlefield Battlefield;
@@ -27,7 +27,7 @@ public class Row : MonoBehaviour
     {
         IncreaseIsActive = false;
     }
-        public void RowPowerText()
+    public void RowPowerText()
     {
         int totalPower = TotalRowPower();
         rowPowerText.SetText(totalPower.ToString());
@@ -35,22 +35,29 @@ public class Row : MonoBehaviour
     }
     public void AddUnitCard(Unit newCard)
     {
-        unitCards.Add(newCard);
+        UnitCards.Add(newCard);
     }
 
     public void RemoveUnitCard(Unit removeCard)
     {
-        unitCards.Remove(removeCard);
+        UnitCards.Remove(removeCard);
     }
-
+    
+    public void RemoveAllUnitCards()
+    {
+        foreach (Unit card in UnitCards)
+        {
+            RemoveUnitCard(card);
+        }
+    }
     public int CountCardsInRow()
     {
-        return unitCards.Count;
+        return UnitCards.Count;
     }
     public int CountGoldenUnitCards()
     {
         int goldenCount = 0;
-        foreach (Unit unitCard in unitCards)
+        foreach (Unit unitCard in UnitCards)
         {
             if (unitCard.UnitType == UnitType.Golden)
             {
@@ -59,11 +66,10 @@ public class Row : MonoBehaviour
         }
         return goldenCount;
     }
-
     public int CountSilverUnitCards()
     {
         int silverCount = 0;
-        foreach (Unit unitCard in unitCards)
+        foreach (Unit unitCard in UnitCards)
         {
             if (unitCard.UnitType == UnitType.Silver)
             {
@@ -72,17 +78,15 @@ public class Row : MonoBehaviour
         }
         return silverCount;
     }
-
     public int RowPower()
     {
         int rowPower = 0;
-        foreach (Unit unitCard in unitCards)
+        foreach (Unit unitCard in UnitCards)
         {
             rowPower += unitCard.Power;
         }
         return rowPower;
     }
-
     public int TotalRowPower()
     {
         int totalRowPower = 0;

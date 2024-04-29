@@ -6,6 +6,9 @@ public class Deck : MonoBehaviour
 {
     [SerializeField] DeckData deckData;
     public List<Card> DeckCards = new List<Card>();
+    [SerializeField] private Silver Silver;
+    [SerializeField] private Golden Golden;
+    [SerializeField] private Special Special;
 
     public int CountCardsInDeck => DeckCards.Count;
     public Card DrawCard()
@@ -20,9 +23,6 @@ public class Deck : MonoBehaviour
         DeckCards.RemoveAt(random);
         return drawnCard;
     }
-    [SerializeField] private Silver Silver;
-    [SerializeField] private Golden Golden;
-    [SerializeField] private Special Special;
 
     public Card InstantiateCard(CardData cardData)
     {

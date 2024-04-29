@@ -9,7 +9,7 @@ public class Unit : Card
     public UnitCardData UnitCardData;
     private Image UnitPower;
     [SerializeField] GameObject[] AttackTypesIcons;
-    public int Power {get; private set;}
+    public int Power {get; set;}
 
     void Start()
     {

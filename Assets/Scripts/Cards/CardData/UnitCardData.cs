@@ -11,7 +11,7 @@ public class UnitCardData : CardData
     public AttackType[] AttackTypes;
     public int Power ;
     public Sprite PowerImage;
-    public Skill Skill;
+    public UnitSkills Skill;
 }
 public enum UnitType
 {
@@ -21,9 +21,9 @@ public enum AttackType
 {
     Melee,Ranged,Siege
 }
-public enum Skill
+public enum UnitSkills
 {
-    None,Draw, DestroyStrongestUnit, DestroyWeakestUnit, DestroyLeastPopulatedRow, 
-    SetIncrease, MultiplyPower, SetRain, SetSnow, SetStorm
+  None,Draw,IncreaseRowPower,SetWeather,ClearStrongestUnit,
+  ClearLessStrongUnit,MultiplyPower,ClearLeastPopulatedRow,SetAveragePower,
 }
 
