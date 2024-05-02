@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Fauno
   m_EditorClassIdentifier: 
   Name: Fauno "El Valiente"
-  CardType: 1
   Faction: Narnia
   Description: 
   CardImage: {fileID: 21300000, guid: 0886c2bbc699f244ebebd8725febec2b, type: 3}
+  TypeIcon: {fileID: 21300000, guid: 0bce26f87698a8f4788b8115e09be943, type: 3}
   UnitType: 1
-  AttackTypes: 00000000
   Power: 3
   PowerImage: {fileID: 21300000, guid: 1834abe7cff98864084043e5759077af, type: 3}
-  Skill: 0
+  Skill: 2
+  AttackType: 0

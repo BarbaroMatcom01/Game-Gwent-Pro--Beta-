@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.Collections.LowLevel.Unsafe;
 
 public class PlayerInfo : MonoBehaviour
 {
@@ -12,18 +13,17 @@ public class PlayerInfo : MonoBehaviour
    [SerializeField] TextMeshProUGUI fieldPower;
    [SerializeField] GameObject leaderSlot;
    public GameObject LeaderSlot => leaderSlot;
-   [SerializeField] Battlefield battlefield;
-
+   public Battlefield Battlefield;
    public void UpdatePlayerName(string newName)
    {
       playerName.text = newName;
    }
-   public void UpdateFilePower()
-   {
-      int power = battlefield.BattlefieldPower();
-      fieldPower.text = power.ToString();
-   }
-
+ 
+   void Update()
+    {
+       fieldPower.text = Battlefield.BattlefieldPower().ToString();
+      
+    }
    private int victories = 0;
    public void IncrementVictories()
    {

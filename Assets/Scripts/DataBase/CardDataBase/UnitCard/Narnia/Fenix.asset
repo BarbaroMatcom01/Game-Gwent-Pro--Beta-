@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Fenix
   m_EditorClassIdentifier: 
   Name: Fenix " El Ave de Fuego"
-  CardType: 1
   Faction: Narnia
   Description: 
   CardImage: {fileID: 21300000, guid: ccc0f4165d1fcf04ea4ac0e168d55d2f, type: 3}
+  TypeIcon: {fileID: 21300000, guid: 619b1dd0a2f2cfb44bf2a77287d0dbce, type: 3}
   UnitType: 1
-  AttackTypes: 01000000
   Power: 6
   PowerImage: {fileID: 21300000, guid: d557215fd2efe9a40a97c213152159bc, type: 3}
   Skill: 0
+  AttackType: 2

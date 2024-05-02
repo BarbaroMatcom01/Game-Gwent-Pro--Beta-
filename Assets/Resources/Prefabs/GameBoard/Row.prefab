@@ -137,7 +137,7 @@ MonoBehaviour:
     m_Left: 0
     m_Right: 0
     m_Top: 0
-    m_Bottom: 0
+    m_Bottom: 7
   m_ChildAlignment: 4
   m_Spacing: 3
   m_ChildForceExpandWidth: 0
@@ -285,8 +285,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rowPowerText: {fileID: 5213899042665810691}
   increaseSlot: {fileID: 8429086887680615428}
-  unitCards: []
   unitCardGrid: {fileID: 4774774670368339649}
+  UnitCards: []
+  IncreaseIsActive: 0
+  WeatherIsActive: 0
 --- !u!1 &8429086887680615428
 GameObject:
   m_ObjectHideFlags: 0
@@ -423,15 +425,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: 0
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: b246c4190f4e46ec9352fe15a7b09ce0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278979597
-  m_fontColor: {r: 0.04905659, g: 0.046187244, b: 0.046187244, a: 1}
+    rgba: 4278387459
+  m_fontColor: {r: 0.01132071, g: 0.0112566305, b: 0.0112566305, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -448,13 +450,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
+  m_fontSize: 35.85
   m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 3
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535

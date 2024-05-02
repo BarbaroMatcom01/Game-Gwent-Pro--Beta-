@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c8256566a5f809140863d9d08f1bfc0b, type: 3}
-  m_Name: New Card
+  m_Name: CentaurMelee
   m_EditorClassIdentifier: 
-  Name: crisrfgy
-  CardType: 1
-  Faction: 
+  Name: Centaur "El Veloz"
+  Faction: Narnia
   Description: 
-  CardImage: {fileID: 21300000, guid: 4b0d04e8f5fd745479890e03fef6f98a, type: 3}
+  CardImage: {fileID: 21300000, guid: 9bb14d44961cc95449e0e7fc6695f05c, type: 3}
+  TypeIcon: {fileID: 21300000, guid: 0bce26f87698a8f4788b8115e09be943, type: 3}
   UnitType: 1
-  AttackTypes: 0000000001000000
-  Power: 8
-  PowerImage: {fileID: 21300000, guid: 509a1a7863064a448ad9c582e8906aa2, type: 3}
-  Skill: 1
+  Power: 5
+  PowerImage: {fileID: 21300000, guid: d3cf713318e82b44f8cc937935ba73b5, type: 3}
+  Skill: 0
+  AttackType: 0

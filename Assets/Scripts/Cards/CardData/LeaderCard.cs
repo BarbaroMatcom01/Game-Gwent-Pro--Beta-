@@ -9,8 +9,3 @@ public class LeaderCard : CardData
 {
     public Skills Skill;
 }
-public enum Skills
-{
-    None, Draw, IncreaseRowPower, SetWeather, ClearStrongestUnit,
-    ClearLessStrongUnit, MultiplyPower, ClearLeastPopulatedRow, SetAveragePower,
-}

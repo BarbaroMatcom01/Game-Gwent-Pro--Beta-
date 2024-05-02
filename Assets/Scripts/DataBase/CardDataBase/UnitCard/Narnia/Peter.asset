@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Peter
   m_EditorClassIdentifier: 
   Name: Peter '''El Caballero de Narnia'
-  CardType: 1
   Faction: Narnia
   Description: 
   CardImage: {fileID: 21300000, guid: 5ffde6d2529e7984bac8355caa99afc3, type: 3}
+  TypeIcon: {fileID: 21300000, guid: 0bce26f87698a8f4788b8115e09be943, type: 3}
   UnitType: 0
-  AttackTypes: 00000000
   Power: 9
   PowerImage: {fileID: 21300000, guid: ff8f6c987e08c2042bf2e10f11b589d3, type: 3}
-  Skill: 0
+  Skill: 1
+  AttackType: 0

@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Edmun
   m_EditorClassIdentifier: 
   Name: Edmun "El Redentor"
-  CardType: 1
   Faction: Narnia
   Description: 
   CardImage: {fileID: 21300000, guid: 6fff717f72923ae4892b5f3f478d431d, type: 3}
+  TypeIcon: {fileID: 21300000, guid: 0bce26f87698a8f4788b8115e09be943, type: 3}
   UnitType: 0
-  AttackTypes: 00000000
   Power: 8
   PowerImage: {fileID: 21300000, guid: 509a1a7863064a448ad9c582e8906aa2, type: 3}
   Skill: 0
+  AttackType: 0

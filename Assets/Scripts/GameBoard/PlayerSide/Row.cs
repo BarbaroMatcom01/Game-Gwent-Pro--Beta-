@@ -10,45 +10,96 @@ public class Row : MonoBehaviour
     [SerializeField] GameObject increaseSlot;
     public GameObject IncreaseSlot => increaseSlot;
     [SerializeField] GameObject unitCardGrid;
-    [SerializeField] public List<Unit> UnitCards;
     public GameObject UnitCardsGrid => unitCardGrid;
-    public Weathers Weathers;
-    public Battlefield Battlefield;
-   
-    public bool IncreaseIsActive;
-    public bool WeatherIsActive ;
-    
+    [SerializeField] public List<Unit> UnitCards;
 
+    public bool IncreaseIsActive;
+    public bool WeatherIsActive;
+
+    public void ActiveWeather()
+    {
+        WeatherIsActive = true;
+
+        foreach (Unit card in UnitCards)
+        {
+            if (card.UnitType == UnitType.Silver)
+            {
+                card.Power = card.Power - 2;
+            }
+
+        }
+    }
+    public void DeactivateWeather()
+    {
+        WeatherIsActive = false;
+        foreach (Unit card in UnitCards)
+        {
+            if (card.UnitType == UnitType.Silver)
+            {
+                card.Power = card.Power + 2;
+            }
+        }
+    }
     public void ActivateIncrease()
     {
         IncreaseIsActive = true;
+        foreach (Unit card in UnitCards)
+        {
+            if (card.UnitType == UnitType.Silver)
+            {
+                card.Power = card.Power + 2;
+            }
+        }
     }
     public void DeactivateIncrease()
     {
         IncreaseIsActive = false;
-    }
-    public void RowPowerText()
-    {
-        int totalPower = TotalRowPower();
-        rowPowerText.SetText(totalPower.ToString());
-
+        foreach (Unit card in UnitCards)
+        {
+            if (card.UnitType == UnitType.Silver)
+            {
+                card.Power = card.Power - 2;
+            }
+        }
     }
     public void AddUnitCard(Unit newCard)
     {
-        UnitCards.Add(newCard);
+
+        if (!IncreaseIsActive && !WeatherIsActive)
+        {
+            UnitCards.Add(newCard);
+        }
+        else if (IncreaseIsActive && !WeatherIsActive)
+        {
+            DeactivateIncrease();
+            UnitCards.Add(newCard);
+            ActivateIncrease();
+
+        }
+        else if (!IncreaseIsActive && WeatherIsActive)
+        {
+            DeactivateWeather();
+            UnitCards.Add(newCard);
+            ActiveWeather();
+        }
+        else if (!IncreaseIsActive && !WeatherIsActive)
+        {
+            DeactivateIncrease();
+            DeactivateWeather();
+            UnitCards.Add(newCard);
+            ActivateIncrease();
+            ActiveWeather();
+        }
     }
 
     public void RemoveUnitCard(Unit removeCard)
     {
         UnitCards.Remove(removeCard);
     }
-    
+
     public void RemoveAllUnitCards()
     {
-        foreach (Unit card in UnitCards)
-        {
-            RemoveUnitCard(card);
-        }
+        UnitCards.Clear();
     }
     public int CountCardsInRow()
     {
@@ -78,36 +129,20 @@ public class Row : MonoBehaviour
         }
         return silverCount;
     }
-    public int RowPower()
-    {
-        int rowPower = 0;
-        foreach (Unit unitCard in UnitCards)
-        {
-            rowPower += unitCard.Power;
-        }
-        return rowPower;
-    }
+
     public int TotalRowPower()
     {
         int totalRowPower = 0;
-
-        if (IncreaseIsActive && WeatherIsActive)
+        foreach (Unit card in UnitCards)
         {
-            totalRowPower = RowPower();
-        }
-        else if (!IncreaseIsActive && !WeatherIsActive)
-        {
-            totalRowPower = RowPower();
-        }
-        else if (!IncreaseIsActive && WeatherIsActive)
-        {
-            totalRowPower = RowPower() - (2 * CountSilverUnitCards());
-        }
-        else if (IncreaseIsActive && !WeatherIsActive)
-        {
-            totalRowPower = RowPower() + 2 * CountSilverUnitCards();
+            totalRowPower += card.Power;
         }
         return totalRowPower;
+
+    }
+
+    void Update()
+    {
+        rowPowerText.text = TotalRowPower().ToString();
     }
 }
-

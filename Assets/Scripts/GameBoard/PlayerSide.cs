@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlayerSide : MonoBehaviour
 {
-    [SerializeField] PlayerInfo playerInfo ;
+    [SerializeField] public PlayerInfo PlayerInfo ;
     [SerializeField] public Battlefield Battlefield ;
-    [SerializeField] Deck deck; 
+    [SerializeField] public Deck Deck; 
     [SerializeField] GameObject hand;
     [SerializeField] GameObject graveyard;
 }

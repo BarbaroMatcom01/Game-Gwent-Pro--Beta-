@@ -5,53 +5,55 @@ using UnityEngine;
 public class Deck : MonoBehaviour
 {
     [SerializeField] DeckData deckData;
-    public List<Card> DeckCards = new List<Card>();
+    public List<CardData> DeckCards = new List<CardData>();
     [SerializeField] private Silver Silver;
     [SerializeField] private Golden Golden;
     [SerializeField] private Special Special;
+    [SerializeField] private GameObject Hand;
 
     public int CountCardsInDeck => DeckCards.Count;
-    public Card DrawCard()
+
+    void Awake()
     {
-        if (CountCardsInDeck == 0)
+        DeckCards = new List<CardData>(deckData.DeckCards);
+    }
+    void Start()
+    {
+        for (int i = 0; i < 10; i++)
         {
-            return null;
+            DrawCard();   
         }
+    }
+    public void DrawCard()
+    {
+        Debug.Log("Carta robada");
+        if (CountCardsInDeck == 0)
+            return;
 
         int random = Random.Range(0, CountCardsInDeck);
-        Card drawnCard = DeckCards[random];
+        InstantiateCard(DeckCards[random]);
         DeckCards.RemoveAt(random);
-        return drawnCard;
     }
 
-    public Card InstantiateCard(CardData cardData)
+    public void InstantiateCard(CardData cardData)
     {
-        Card drawnCard = null;
-        switch (cardData.CardType)
+        switch (cardData)
         {
-            case CardType.Special:
-                drawnCard = Instantiate(Special, this.transform);
+            case SpecialCardData specialCardData:
+                var specialCard = Instantiate(Special, Hand.transform);
+                specialCard.CardData = specialCardData;
                 break;
-            case CardType.Unit:
-                if (cardData.Faction == "Silver")
-                {
-                    drawnCard = Instantiate(Silver, this.transform);
-                }
-                else if (cardData.Faction == "Golden")
-                {
-                    drawnCard = Instantiate(Golden, this.transform);
-                }
+            case UnitCardData unitCardData when unitCardData.UnitType == UnitType.Silver:
+                var silverCard = Instantiate(Silver, Hand.transform);
+                silverCard.UnitCardData = unitCardData;
+                break;
+            case UnitCardData unitCardData when unitCardData.UnitType == UnitType.Golden:
+                var goldenCard = Instantiate(Golden, Hand.transform);
+                goldenCard.UnitCardData = unitCardData;
                 break;
             default:
-                Debug.LogError("Unsupported card type.");
+                Debug.LogError("Tipo no soportado");
                 break;
         }
-
-        if (drawnCard != null)
-        {
-            drawnCard.SetCardData(cardData);
-        }
-
-        return drawnCard;
     }
 }

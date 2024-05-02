@@ -168,7 +168,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3717757792614873348
 RectTransform:
   m_ObjectHideFlags: 0
@@ -239,7 +239,7 @@ GameObject:
   - component: {fileID: 5696709723946406678}
   - component: {fileID: 7881183379309063635}
   m_Layer: 5
-  m_Name: iconType1
+  m_Name: iconType
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -319,7 +319,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6331666917493302750
 RectTransform:
   m_ObjectHideFlags: 0
@@ -628,6 +628,38 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: dafcbd6e3ffb0c04ba165c3ab7c5e18f, type: 3}
+    - target: {fileID: 4998407734459353888, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4998407734459353888, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4998407734459353888, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 11400000, guid: e65d9d827307c7a4ea378eba3e14f14f, type: 2}
+    - target: {fileID: 4998407734459353888, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4998407734459353888, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: InvokeCard
+      objectReference: {fileID: 0}
+    - target: {fileID: 4998407734459353888, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CardManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4998407734459353888, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 832709340050528459}
+    - target: {fileID: 4998407734459353888, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: Card, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 5264283268994889029, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0.67700005
@@ -662,7 +694,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 1fdfb084b2b82854688bb66463616f47, type: 3}
     - target: {fileID: 9001128238080307320, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
       propertyPath: m_Name
-      value: Golden Variant
+      value: GoldenCard
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -679,10 +711,50 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6140057079481714818, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5931697362589408681}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9001128238080307320, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 832709340050528459}
   m_SourcePrefab: {fileID: 100100000, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
 --- !u!224 &1487387532779079707 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6140057079481714818, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
   m_PrefabInstance: {fileID: 4724731711542591641}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4430398559309181153 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9001128238080307320, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
+  m_PrefabInstance: {fileID: 4724731711542591641}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &832709340050528459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4430398559309181153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ed4b1bb23bc4ab42bbc614ba037bf6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Image: {fileID: 5252391907798850692}
+  UnitCardData: {fileID: 11400000, guid: e4aa936a10dfe94448ba71427485ab3c, type: 2}
+  UnitPower: {fileID: 2281639006128745183}
+  TypeIcon: {fileID: 7881183379309063635}
+  AttackTypesIcons:
+  - {fileID: 2532453429267214804}
+  - {fileID: 5539560094123220071}
+  - {fileID: 3160868657506922348}
+  UnitType: 0
+--- !u!114 &5252391907798850692 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 681627844978777117, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
+  m_PrefabInstance: {fileID: 4724731711542591641}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

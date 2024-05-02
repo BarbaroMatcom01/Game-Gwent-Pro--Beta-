@@ -31,6 +31,14 @@ public class Battlefield : MonoBehaviour
                 leastUnitsCount = newUnitsCount;
                 rowWithLeastUnit = row;
             }
+            else if  (newUnitsCount==leastUnitsCount)
+            {  
+                if(row.CountSilverUnitCards()>rowWithLeastUnit.CountSilverUnitCards())
+                {
+                   rowWithLeastUnit=row;
+                }
+            }
+
         }
         return rowWithLeastUnit;
     }
@@ -43,7 +51,7 @@ public class Battlefield : MonoBehaviour
         {
             foreach (Unit unit in row.UnitCards)
             {
-                if (unit.Power < leastPower)
+                if (unit.UnitType==UnitType.Silver && unit.Power < leastPower)
                 {
                     leastPower = unit.Power;
                     leesStrongUnit = unit;
@@ -55,10 +63,10 @@ public class Battlefield : MonoBehaviour
     public int GetPositionLessStrongUnit()
     {
         Unit lessStrongUnit = GetLessStrongUnit();
-        SpecificTypeCard Name = lessStrongUnit.SpecificTypeCard;
-        if (Name == SpecificTypeCard.MeleeUnit) { return 0; }
-        else if (Name == SpecificTypeCard.RangedUnit) { return 1; }
-        else if (Name == SpecificTypeCard.SiegeUnit) { return 2; }
+        AttackType Name = lessStrongUnit.AttackType;
+        if (Name == AttackType.Melee) { return 0; }
+        else if (Name == AttackType.Ranged) { return 1; }
+        else if (Name == AttackType.Siege) { return 2; }
         else { return -1; }
 
     }
@@ -71,7 +79,7 @@ public class Battlefield : MonoBehaviour
         {
             foreach (Unit unit in row.UnitCards)
             {
-                if (unit.Power > strongPower)
+                if (unit.UnitType==UnitType.Silver && unit.Power > strongPower)
                 {
                     strongPower = unit.Power;
                     strongestUnit = unit;
@@ -83,10 +91,10 @@ public class Battlefield : MonoBehaviour
     public int GetPositionStrongestUnit()
     {
         Unit strongestUnit = GetStrongestUnit();
-        SpecificTypeCard Name = strongestUnit.SpecificTypeCard;
-        if (Name == SpecificTypeCard.MeleeUnit) { return 0; }
-        else if (Name == SpecificTypeCard.RangedUnit) { return 1; }
-        else if (Name == SpecificTypeCard.SiegeUnit) { return 2; }
+        AttackType Name = strongestUnit.AttackType;
+        if (Name == AttackType.Melee) { return 0; }
+        else if (Name == AttackType.Ranged) { return 1; }
+        else if (Name == AttackType.Siege) { return 2; }
         else { return -1; }
     }
     public int CardAppearances(Unit card)
@@ -114,6 +122,16 @@ public class Battlefield : MonoBehaviour
            numberOfCardsOnTheBattlefield+=row.CountCardsInRow();            
         }
         return numberOfCardsOnTheBattlefield;
+    }
+
+    public int GetPositionUnit(Unit card)
+    {   
+        Unit unit = card;
+        AttackType Name = unit.AttackType;
+        if (Name == AttackType.Melee) { return 0; }
+        else if (Name == AttackType.Ranged) { return 1; }
+        else if (Name == AttackType.Siege) { return 2; }
+        else { return -1; }
     }
 }
 

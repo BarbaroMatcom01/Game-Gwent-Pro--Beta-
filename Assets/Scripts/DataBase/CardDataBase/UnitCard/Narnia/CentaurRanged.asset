@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c8256566a5f809140863d9d08f1bfc0b, type: 3}
-  m_Name: Centaur2
+  m_Name: CentaurRanged
   m_EditorClassIdentifier: 
-  Name: Centaur "El Veloz"
-  CardType: 1
+  Name: Centaur "El Temible"
   Faction: Narnia
   Description: 
-  CardImage: {fileID: 21300000, guid: 9bb14d44961cc95449e0e7fc6695f05c, type: 3}
+  CardImage: {fileID: 21300000, guid: 9793f9b1a2a865f459ba37bb42a18a89, type: 3}
+  TypeIcon: {fileID: 21300000, guid: 4bc26a7a1baa7184986ff553fd7f13b5, type: 3}
   UnitType: 1
-  AttackTypes: 00000000
-  Power: 5
-  PowerImage: {fileID: 21300000, guid: d3cf713318e82b44f8cc937935ba73b5, type: 3}
+  Power: 4
+  PowerImage: {fileID: 21300000, guid: 983677d16bd4a4c4d944936c96f177d0, type: 3}
   Skill: 0
+  AttackType: 1

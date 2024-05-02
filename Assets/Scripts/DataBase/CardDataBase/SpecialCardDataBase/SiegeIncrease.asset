@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ab0146adc88d9a74e94b334618ef1a6c, type: 3}
-  m_Name: Rain
+  m_Name: SiegeIncrease
   m_EditorClassIdentifier: 
-  Name: Rain
+  Name: Increase
   Faction: Neutral
   Description: 
-  CardImage: {fileID: 21300000, guid: da0a56c63eb3b974a8f8b2437bef74ec, type: 3}
-  TypeIcon: {fileID: 21300000, guid: a9f35bb30649bc040bc90a0485794a46, type: 3}
-  SpecialType: 4
+  CardImage: {fileID: 21300000, guid: 988ec761c3e9bac45a163875a686aa7c, type: 3}
+  TypeIcon: {fileID: 21300000, guid: ddd7e9ee1e1b2634bbd55e9d545e639a, type: 3}
+  SpecialType: 3

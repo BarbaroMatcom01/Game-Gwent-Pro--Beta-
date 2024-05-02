@@ -251,13 +251,45 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: b878ae49d1b88c646bda1f6ad06cb4b4, type: 3}
+    - target: {fileID: 4998407734459353888, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4998407734459353888, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4998407734459353888, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 11400000, guid: e65d9d827307c7a4ea378eba3e14f14f, type: 2}
+    - target: {fileID: 4998407734459353888, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4998407734459353888, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: InvokeCard
+      objectReference: {fileID: 0}
+    - target: {fileID: 4998407734459353888, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CardManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4998407734459353888, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 2053865081510350863}
+    - target: {fileID: 4998407734459353888, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: Card, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 7693059219665399385, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 7cc4f7341cabb8745a5b5a8d651bf72b, type: 3}
     - target: {fileID: 9001128238080307320, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
       propertyPath: m_Name
-      value: Special Variant
+      value: SpecialCard
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -265,8 +297,42 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6140057079481714818, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
       insertIndex: -1
       addedObject: {fileID: 303401488198129438}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9001128238080307320, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2053865081510350863}
   m_SourcePrefab: {fileID: 100100000, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
+--- !u!114 &2664284882480772775 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 681627844978777117, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
+  m_PrefabInstance: {fileID: 3282227021090663098}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &5865584904503270082 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9001128238080307320, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
+  m_PrefabInstance: {fileID: 3282227021090663098}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2053865081510350863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5865584904503270082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b9bf30731039e0439dd87197e0621c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Image: {fileID: 2664284882480772775}
+  CardData: {fileID: 0}
+  TypeIcon: {fileID: 3160573467310851976}
 --- !u!224 &8698998947436126776 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6140057079481714818, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}

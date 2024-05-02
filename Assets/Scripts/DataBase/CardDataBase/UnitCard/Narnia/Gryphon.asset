@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Gryphon
   m_EditorClassIdentifier: 
   Name: "Gryphon \"El Due\xF1o de los cielos''\""
-  CardType: 1
   Faction: Narnia
   Description: 
   CardImage: {fileID: 21300000, guid: 5db6287b5f4a2e14fac07d251c280d1f, type: 3}
+  TypeIcon: {fileID: 21300000, guid: 619b1dd0a2f2cfb44bf2a77287d0dbce, type: 3}
   UnitType: 1
-  AttackTypes: 02000000
   Power: 6
   PowerImage: {fileID: 21300000, guid: d557215fd2efe9a40a97c213152159bc, type: 3}
   Skill: 0
+  AttackType: 2

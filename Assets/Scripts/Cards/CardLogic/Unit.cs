@@ -7,21 +7,20 @@ using UnityEngine.UI;
 public class Unit : Card
 {
     public UnitCardData UnitCardData;
-    private Image UnitPower;
+    [SerializeField] private Image UnitPower;
+    [SerializeField] private Image TypeIcon;
     [SerializeField] GameObject[] AttackTypesIcons;
-    public int Power {get; set;}
-
+    public int Power { get; set; }
+    public UnitType UnitType;
+    public AttackType AttackType;
     void Start()
     {
+        this.gameObject.name = UnitCardData.name;
         Power = UnitCardData.Power;
         Image.sprite = UnitCardData.CardImage;
         UnitPower.sprite = UnitCardData.PowerImage;
-
-        if(!UnitCardData.AttackTypes.Contains(AttackType.Melee)) 
-            AttackTypesIcons[0].SetActive(false);
-        if(!UnitCardData.AttackTypes.Contains(AttackType.Ranged)) 
-            AttackTypesIcons[1].SetActive(false);
-        if(!UnitCardData.AttackTypes.Contains(AttackType.Siege)) 
-            AttackTypesIcons[2].SetActive(false);
+        UnitType = UnitCardData.UnitType;
+        this.AttackType = UnitCardData.AttackType;
+        TypeIcon.sprite = UnitCardData.TypeIcon;
     }
 }
