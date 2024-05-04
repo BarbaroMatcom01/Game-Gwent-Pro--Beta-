@@ -32,6 +32,7 @@ public class Row : MonoBehaviour
     public void DeactivateWeather()
     {
         WeatherIsActive = false;
+        
         foreach (Unit card in UnitCards)
         {
             if (card.UnitType == UnitType.Silver)
@@ -91,12 +92,10 @@ public class Row : MonoBehaviour
             ActiveWeather();
         }
     }
-
     public void RemoveUnitCard(Unit removeCard)
     {
         UnitCards.Remove(removeCard);
     }
-
     public void RemoveAllUnitCards()
     {
         UnitCards.Clear();
@@ -129,7 +128,6 @@ public class Row : MonoBehaviour
         }
         return silverCount;
     }
-
     public int TotalRowPower()
     {
         int totalRowPower = 0;
@@ -140,7 +138,6 @@ public class Row : MonoBehaviour
         return totalRowPower;
 
     }
-
     void Update()
     {
         rowPowerText.text = TotalRowPower().ToString();

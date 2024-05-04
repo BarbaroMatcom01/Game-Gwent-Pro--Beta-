@@ -1,21 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Runtime.Serialization.Formatters;
 using UnityEngine;
 
 public class EffectManager : MonoBehaviour
 {
 
-    Board board;
-    Deck Deck;
-    Battlefield battlefield;
-    Battlefield [] battlefields = new Battlefield[2];
+    public Board board;
+    public Battlefield[] battlefields = new Battlefield[2];
+    public GameManager GameManager;
     public void ActivateUnitEffect(Unit unit)
     {
         switch (unit.UnitCardData.Skill)
         {
             case Skills.Draw:
                 Draw();
+                break;
+            case Skills.MultiplyPower:
+                MultiplyPower(unit);
+                break;
+            case Skills.SetAveragePower:
+                SetAveragePower(board);
                 break;
             case Skills.IncreaseRowPower:
                 IncreaseRowPower(unit);
@@ -29,14 +35,8 @@ public class EffectManager : MonoBehaviour
             case Skills.ClearLessStrongUnit:
                 ClearLessStrongUnit(board);
                 break;
-            case Skills.MultiplyPower:
-                MultiplyPower(unit);
-                break;
             case Skills.ClearLeastPopulatedRow:
                 ClearLeastPopulatedRow(board);
-                break;
-            case Skills.SetAveragePower:
-                SetAveragePower(board);
                 break;
         }
     }
@@ -57,34 +57,116 @@ public class EffectManager : MonoBehaviour
         }
     }
     public void Draw()
-    {   
-        
-        Deck.DrawCard();
+    {
+        if (GameManager.CurrentPlayer == Player.PlayerOne)
+        {
+            board.PlayerOneSide.Deck.DrawCard();
+        }
+        else
+        {
+            board.PlayerTwoSide.Deck.DrawCard();
+        }
+
+    }
+    public void MultiplyPower(Unit unit)
+    {
+        int cardAppearancesInBoard = board.PlayerOneSide.Battlefield.CardAppearances(unit) + board.PlayerTwoSide.Battlefield.CardAppearances(unit);
+        unit.Power = unit.Power * cardAppearancesInBoard;
+    }
+    public void SetAveragePower(Board board)
+    {
+
+        int battlefieldPowerPlayerOne = board.PlayerOneSide.Battlefield.BattlefieldPower();
+        int battlefieldPowerPlayerTwo = board.PlayerTwoSide.Battlefield.BattlefieldPower();
+        int numberOfCardsOnTheBattlefieldPlayerOne = board.PlayerOneSide.Battlefield.NumberOfCardsOnTheBattlefield();
+        int numberOfCardsOnTheBattlefieldPlayerTwo = board.PlayerTwoSide.Battlefield.NumberOfCardsOnTheBattlefield();
+        Row[] battlefieldPlayerOne = board.PlayerOneSide.Battlefield.PlayerBattlefield;
+        Row[] battlefieldPlayerTwo = board.PlayerTwoSide.Battlefield.PlayerBattlefield;
+
+        int averagePower = (battlefieldPowerPlayerOne + battlefieldPowerPlayerTwo) / (numberOfCardsOnTheBattlefieldPlayerOne + numberOfCardsOnTheBattlefieldPlayerTwo);
+
+        foreach (Row row in battlefieldPlayerOne)
+        {
+            foreach (Unit card in row.UnitCards)
+            {
+                if (card.UnitType == UnitType.Silver)
+                {
+                    card.Power = averagePower;
+                }
+            }
+        }
+        foreach (Row row in battlefieldPlayerTwo)
+        {
+            foreach (Unit card in row.UnitCards)
+            {
+                if (card.UnitType == UnitType.Silver)
+                {
+                    card.Power = averagePower;
+                }
+            }
+        }
     }
     public void IncreaseRowPower(Unit unit)
     {
-        int getPositionCard = battlefield.GetPositionUnit(unit);
-        Row inreaseRow = battlefield.PlayerBattlefield[getPositionCard];
-        foreach (Unit card in inreaseRow.UnitCards)
+        if (GameManager.CurrentPlayer == Player.PlayerOne)
         {
-            card.Power = card.Power + 2;
+            int getPositionCard = battlefields[0].GetPositionUnit(unit);
+            Row inreaseRow = battlefields[0].PlayerBattlefield[getPositionCard];
+            foreach (Unit card in inreaseRow.UnitCards)
+            {
+                if (card.UnitType == UnitType.Silver)
+                {
+                    card.Power = card.Power + 2;
+                }
+            }
+        }
+        else
+        {
+            int getPositionCard = battlefields[1].GetPositionUnit(unit);
+            Row inreaseRow = battlefields[1].PlayerBattlefield[getPositionCard];
+            foreach (Unit card in inreaseRow.UnitCards)
+            {
+                if (card.UnitType == UnitType.Silver)
+                {
+                    card.Power = card.Power + 2;
+                }
+            }
         }
     }
-    public void SetWeather(Unit unit) 
+    public void SetWeather(Unit unit)
     {
-        int getPositionCard = battlefield.GetPositionUnit(unit);
-        Row inreaseRowPlayerOne = battlefields[0].PlayerBattlefield[getPositionCard];
-        Row inreaseRowPlayerTwo = battlefields[1].PlayerBattlefield[getPositionCard];
-        
-        foreach (Unit card in inreaseRowPlayerOne.UnitCards)
+        if (GameManager.CurrentPlayer == Player.PlayerOne)
         {
-            card.Power = card.Power - 2;
+            int getPositionCard = battlefields[0].GetPositionUnit(unit);
+            if (getPositionCard == 0)
+            {
+                board.Weathers.ActivateRain();
+            }
+            else if (getPositionCard == 1)
+            {
+                board.Weathers.ActivateSnow();
+            }
+            else if (getPositionCard == 2)
+            {
+                board.Weathers.ActivateStorm();
+            }
         }
-         foreach (Unit card in inreaseRowPlayerTwo.UnitCards)
+        else
         {
-            card.Power = card.Power - 2;
+            int getPositionCard = battlefields[1].GetPositionUnit(unit);
+            if (getPositionCard == 0)
+            {
+                board.Weathers.ActivateRain();
+            }
+            else if (getPositionCard == 1)
+            {
+                board.Weathers.ActivateSnow();
+            }
+            else if (getPositionCard == 2)
+            {
+                board.Weathers.ActivateStorm();
+            }
         }
-
     }
     public void ClearStrongestUnit(Board board)
     {
@@ -94,51 +176,56 @@ public class EffectManager : MonoBehaviour
         Battlefield battlefieldPlayerTwo = board.PlayerTwoSide.Battlefield;
         int positionUnitPlayerOne = battlefieldPlayerOne.GetPositionStrongestUnit();
         int positionUnitPlayerTwo = battlefieldPlayerTwo.GetPositionStrongestUnit();
-
-        if (strongestUnitPlayerOne.Power < strongestUnitPlayerTwo.Power)
+        if ((strongestUnitPlayerOne != null) && (strongestUnitPlayerTwo != null))
+        {
+            if (strongestUnitPlayerOne.Power > strongestUnitPlayerTwo.Power)
+            {
+                battlefieldPlayerOne.PlayerBattlefield[positionUnitPlayerOne].RemoveUnitCard(strongestUnitPlayerOne);
+            }
+            else if (strongestUnitPlayerOne.Power < strongestUnitPlayerTwo.Power)
+            {
+                battlefieldPlayerTwo.PlayerBattlefield[positionUnitPlayerTwo].RemoveUnitCard(strongestUnitPlayerTwo);
+            }
+            else
+            {
+                battlefieldPlayerOne.PlayerBattlefield[positionUnitPlayerOne].RemoveUnitCard(strongestUnitPlayerOne);
+                battlefieldPlayerTwo.PlayerBattlefield[positionUnitPlayerTwo].RemoveUnitCard(strongestUnitPlayerTwo);
+            }
+        }
+        else if ((strongestUnitPlayerOne != null) && (strongestUnitPlayerTwo == null))
         {
             battlefieldPlayerOne.PlayerBattlefield[positionUnitPlayerOne].RemoveUnitCard(strongestUnitPlayerOne);
         }
-        else if (strongestUnitPlayerOne.Power > strongestUnitPlayerTwo.Power)
+        else if ((strongestUnitPlayerOne == null) && (strongestUnitPlayerTwo != null))
         {
-            battlefieldPlayerTwo.PlayerBattlefield[positionUnitPlayerTwo].RemoveUnitCard(strongestUnitPlayerTwo);
-        }
-        else
-        {
-            battlefieldPlayerOne.PlayerBattlefield[positionUnitPlayerOne].RemoveUnitCard(strongestUnitPlayerOne);
-
             battlefieldPlayerTwo.PlayerBattlefield[positionUnitPlayerTwo].RemoveUnitCard(strongestUnitPlayerTwo);
         }
     }
     public void ClearLessStrongUnit(Board board)
     {
-        Unit strongestUnitPlayerOne = board.PlayerOneSide.Battlefield.GetStrongestUnit();
-        Unit strongestUnitPlayerTwo = board.PlayerTwoSide.Battlefield.GetStrongestUnit();
+        Unit strongestUnitPlayerOne = board.PlayerOneSide.Battlefield.GetLessStrongUnit();
+        Unit strongestUnitPlayerTwo = board.PlayerTwoSide.Battlefield.GetLessStrongUnit();
         Battlefield battlefieldPlayerOne = board.PlayerOneSide.Battlefield;
-        int positionUnitPlayerOne = battlefieldPlayerOne.GetPositionStrongestUnit();
         Battlefield battlefieldPlayerTwo = board.PlayerTwoSide.Battlefield;
-        int positionUnitPlayerTwo = battlefieldPlayerTwo.GetPositionStrongestUnit();
+        int positionUnitPlayerOne = battlefieldPlayerOne.GetPositionLessStrongUnit();
+        int positionUnitPlayerTwo = battlefieldPlayerTwo.GetPositionLessStrongUnit();
 
-
-        if (strongestUnitPlayerOne.Power < strongestUnitPlayerTwo.Power)
+        if (GameManager.CurrentPlayer == Player.PlayerOne)
         {
-            battlefieldPlayerOne.PlayerBattlefield[positionUnitPlayerOne].RemoveUnitCard(strongestUnitPlayerOne);
-        }
-        else if (strongestUnitPlayerOne.Power > strongestUnitPlayerTwo.Power)
-        {
-            battlefieldPlayerTwo.PlayerBattlefield[positionUnitPlayerTwo].RemoveUnitCard(strongestUnitPlayerTwo);
+            if (strongestUnitPlayerTwo != null)
+            {
+                battlefieldPlayerTwo.PlayerBattlefield[positionUnitPlayerTwo].RemoveUnitCard(strongestUnitPlayerTwo);
+            }
+            else if (strongestUnitPlayerTwo == null) { }
         }
         else
         {
-            battlefieldPlayerOne.PlayerBattlefield[positionUnitPlayerOne].RemoveUnitCard(strongestUnitPlayerOne);
-
-            battlefieldPlayerTwo.PlayerBattlefield[positionUnitPlayerTwo].RemoveUnitCard(strongestUnitPlayerTwo);
+            if (strongestUnitPlayerOne != null)
+            {
+                battlefieldPlayerOne.PlayerBattlefield[positionUnitPlayerOne].RemoveUnitCard(strongestUnitPlayerOne);
+            }
+            else if (strongestUnitPlayerOne == null) { }
         }
-    }
-    public void MultiplyPower(Unit card)
-    {
-        int cardAppearancesInBoard = board.PlayerOneSide.Battlefield.CardAppearances(card) + board.PlayerTwoSide.Battlefield.CardAppearances(card);
-        card.Power = card.Power * cardAppearancesInBoard;
     }
     public void ClearLeastPopulatedRow(Board board)
     {
@@ -159,33 +246,6 @@ public class EffectManager : MonoBehaviour
         {
             leastPopulateRowPlayerOne.RemoveAllUnitCards();
             leastPopulateRowPlayerTwo.RemoveAllUnitCards();
-        }
-    }
-    public void SetAveragePower(Board board)
-    {
-
-        int battlefieldPowerPlayerOne = board.PlayerOneSide.Battlefield.BattlefieldPower();
-        int battlefieldPowerPlayerTwo = board.PlayerTwoSide.Battlefield.BattlefieldPower();
-        int numberOfCardsOnTheBattlefieldPlayerOne = board.PlayerOneSide.Battlefield.NumberOfCardsOnTheBattlefield();
-        int numberOfCardsOnTheBattlefieldPlayerTwo = board.PlayerTwoSide.Battlefield.NumberOfCardsOnTheBattlefield();
-        Row[] battlefieldPlayerOne = board.PlayerOneSide.Battlefield.PlayerBattlefield;
-        Row[] battlefieldPlayerTwo = board.PlayerTwoSide.Battlefield.PlayerBattlefield;
-
-        int averagePower = (battlefieldPowerPlayerOne + battlefieldPowerPlayerTwo) / (numberOfCardsOnTheBattlefieldPlayerOne + numberOfCardsOnTheBattlefieldPlayerTwo);
-
-        foreach (Row row in battlefieldPlayerOne)
-        {
-            foreach (Unit card in row.UnitCards)
-            {
-                card.Power = averagePower;
-            }
-        }
-        foreach (Row row in battlefieldPlayerTwo)
-        {
-            foreach (Unit card in row.UnitCards)
-            {
-                card.Power = averagePower;
-            }
         }
     }
 }

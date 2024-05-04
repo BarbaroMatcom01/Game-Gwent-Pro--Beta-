@@ -24,9 +24,9 @@ public class Battlefield : MonoBehaviour
         Row rowWithLeastUnit = PlayerBattlefield[0];
         int leastUnitsCount = int.MaxValue;
         foreach (Row row in PlayerBattlefield)
-        {
+        {   
             int newUnitsCount = row.CountCardsInRow();
-            if (newUnitsCount < leastUnitsCount)
+            if ((newUnitsCount < leastUnitsCount)&&(newUnitsCount!=0))
             {
                 leastUnitsCount = newUnitsCount;
                 rowWithLeastUnit = row;
@@ -45,7 +45,7 @@ public class Battlefield : MonoBehaviour
     public Unit GetLessStrongUnit()
     {
         Unit leesStrongUnit = null;
-        int leastPower = int.MinValue;
+        int leastPower = int.MaxValue;
 
         foreach (Row row in PlayerBattlefield)
         {
@@ -61,14 +61,16 @@ public class Battlefield : MonoBehaviour
         return leesStrongUnit;
     }
     public int GetPositionLessStrongUnit()
-    {
+    {   if(GetLessStrongUnit()!=null)
+        {
         Unit lessStrongUnit = GetLessStrongUnit();
         AttackType Name = lessStrongUnit.AttackType;
         if (Name == AttackType.Melee) { return 0; }
         else if (Name == AttackType.Ranged) { return 1; }
         else if (Name == AttackType.Siege) { return 2; }
-        else { return -1; }
-
+        else return -1;
+        }
+        else return-1;
     }
     public Unit GetStrongestUnit()
     {
@@ -89,22 +91,27 @@ public class Battlefield : MonoBehaviour
         return strongestUnit;
     }
     public int GetPositionStrongestUnit()
-    {
+    {   
+        if(GetStrongestUnit()!=null)
+        {
         Unit strongestUnit = GetStrongestUnit();
         AttackType Name = strongestUnit.AttackType;
         if (Name == AttackType.Melee) { return 0; }
         else if (Name == AttackType.Ranged) { return 1; }
         else if (Name == AttackType.Siege) { return 2; }
-        else { return -1; }
+        else  return -1;
+        }
+        else return -1;
     }
-    public int CardAppearances(Unit card)
+    public int CardAppearances(Unit unit)
     {
         int cardAppearances = 0;
+        string unitCard=unit.name;
         foreach (Row row in PlayerBattlefield)
         {
-            foreach (Unit unit in row.UnitCards)
+            foreach (Unit card in row.UnitCards)
             {
-                if (unit.Name == card.Name)
+                if (unitCard==card.name)                
                 {
                  cardAppearances ++ ;
                 }
@@ -112,7 +119,6 @@ public class Battlefield : MonoBehaviour
         }
         return cardAppearances;
     }
-
     public int NumberOfCardsOnTheBattlefield()
     {
         int numberOfCardsOnTheBattlefield=0;
@@ -123,10 +129,8 @@ public class Battlefield : MonoBehaviour
         }
         return numberOfCardsOnTheBattlefield;
     }
-
-    public int GetPositionUnit(Unit card)
+    public int GetPositionUnit(Unit unit)
     {   
-        Unit unit = card;
         AttackType Name = unit.AttackType;
         if (Name == AttackType.Melee) { return 0; }
         else if (Name == AttackType.Ranged) { return 1; }

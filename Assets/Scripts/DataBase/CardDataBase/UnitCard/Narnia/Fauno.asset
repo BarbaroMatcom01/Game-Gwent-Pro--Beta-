@@ -20,5 +20,5 @@ MonoBehaviour:
   UnitType: 1
   Power: 3
   PowerImage: {fileID: 21300000, guid: 1834abe7cff98864084043e5759077af, type: 3}
-  Skill: 2
+  Skill: 3
   AttackType: 0

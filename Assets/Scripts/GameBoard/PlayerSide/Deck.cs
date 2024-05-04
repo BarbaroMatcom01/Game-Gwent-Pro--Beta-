@@ -34,7 +34,6 @@ public class Deck : MonoBehaviour
         InstantiateCard(DeckCards[random]);
         DeckCards.RemoveAt(random);
     }
-
     public void InstantiateCard(CardData cardData)
     {
         switch (cardData)

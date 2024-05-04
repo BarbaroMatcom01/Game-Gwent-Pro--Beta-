@@ -5,7 +5,7 @@ using UnityEngine;
 public class Weathers : MonoBehaviour
 {
     [SerializeField] GameObject weathers;
-    public Battlefield [] Battlefields = new Battlefield[2];
+    public Battlefield[] Battlefields = new Battlefield[2];
     public bool[] weatherIsActive = new bool[3];
     public bool Rain => weatherIsActive[0];
     public bool Storm => weatherIsActive[1];
@@ -13,44 +13,62 @@ public class Weathers : MonoBehaviour
 
     public void ActivateClearing()
     {
-          DeactivateRain();
-          DeactivateSnow();
-          DeactivateStorm();
+        if (weatherIsActive[0]) { DeactivateRain(); }
+        if (weatherIsActive[1]) { DeactivateStorm(); }
+        if (weatherIsActive[2]) { DeactivateSnow(); }
     }
     public void ActivateRain()
     {
-        weatherIsActive[0] = true;
-        Battlefields[0].MeleeRow.ActiveWeather();
-        Battlefields[1].MeleeRow.ActiveWeather();
+        if (!weatherIsActive[0])
+        {
+            weatherIsActive[0] = true;
+            Battlefields[0].MeleeRow.ActiveWeather();
+            Battlefields[1].MeleeRow.ActiveWeather();
+        }
     }
     public void DeactivateRain()
     {
-        weatherIsActive[0] = false;
-        Battlefields[0].MeleeRow.DeactivateWeather();
-        Battlefields[1].MeleeRow.DeactivateWeather();
+        if (weatherIsActive[0])
+        {
+            weatherIsActive[0] = false;
+            Battlefields[0].MeleeRow.DeactivateWeather();
+            Battlefields[1].MeleeRow.DeactivateWeather();
+        }
     }
     public void ActivateStorm()
     {
-        weatherIsActive[1] = true;
-        Battlefields[0].RangedRow.ActiveWeather();
-        Battlefields[1].RangedRow.ActiveWeather();
+        if (!weatherIsActive[1])
+        {
+            weatherIsActive[1] = true;
+            Battlefields[0].RangedRow.ActiveWeather();
+            Battlefields[1].RangedRow.ActiveWeather();
+        }
     }
     public void DeactivateStorm()
     {
-        weatherIsActive[1] = false;
-        Battlefields[0].RangedRow.DeactivateWeather();
-        Battlefields[1].RangedRow.DeactivateWeather();
+        if (weatherIsActive[1])
+        {
+            weatherIsActive[1] = false;
+            Battlefields[0].RangedRow.DeactivateWeather();
+            Battlefields[1].RangedRow.DeactivateWeather();
+        }
     }
     public void ActivateSnow()
     {
-        weatherIsActive[2] = true;
-        Battlefields[0].SiegeRow.ActiveWeather();
-        Battlefields[1].SiegeRow.ActiveWeather();
+        if (!weatherIsActive[2])
+        {
+            weatherIsActive[2] = true;
+            Battlefields[0].SiegeRow.ActiveWeather();
+            Battlefields[1].SiegeRow.ActiveWeather();
+        }
     }
     public void DeactivateSnow()
     {
-        weatherIsActive[2] = false;
-        Battlefields[0].SiegeRow.DeactivateWeather();
-        Battlefields[1].SiegeRow.DeactivateWeather();
+        if (weatherIsActive[2])
+        {
+            weatherIsActive[2] = false;
+            Battlefields[0].SiegeRow.DeactivateWeather();
+            Battlefields[1].SiegeRow.DeactivateWeather();
+        }
     }
 }

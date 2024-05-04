@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 
@@ -8,7 +9,7 @@ public class CardManager : MonoBehaviour
     public static CardManager Instance;
     public Battlefield[] Battlefields = new Battlefield[2];
     public Weathers Weathers;
-    public EffectManager EffectManager;
+     public EffectManager effectManager;
 
     void Awake()
     {
@@ -24,28 +25,31 @@ public class CardManager : MonoBehaviour
 
     public void InvokeCard(Card card)
     {
+
         int numberCurrentPlayer = (int)GameManager.CurrentPlayer;
         float moveDuration = 0.7f;
         Transform newPosition;
-        
         switch (card)
         {
             case Unit unit when unit.AttackType == AttackType.Melee:
-               
+
                 Battlefields[numberCurrentPlayer].MeleeRow.AddUnitCard(unit);
                 newPosition = Battlefields[numberCurrentPlayer].MeleeRow.UnitCardsGrid.transform;
+                effectManager.ActivateUnitEffect(unit);
                 Debug.Log("MeleeUnit");
                 break;
 
             case Unit unit when unit.AttackType == AttackType.Ranged:
                 Battlefields[numberCurrentPlayer].RangedRow.AddUnitCard(unit);
                 newPosition = Battlefields[numberCurrentPlayer].RangedRow.UnitCardsGrid.transform;
+                effectManager.ActivateUnitEffect(unit);
                 Debug.Log("RangedUnit");
                 break;
 
             case Unit unit when unit.AttackType == AttackType.Siege:
                 Battlefields[numberCurrentPlayer].SiegeRow.AddUnitCard(unit);
                 newPosition = Battlefields[numberCurrentPlayer].SiegeRow.UnitCardsGrid.transform;
+                effectManager.ActivateUnitEffect(unit);
                 Debug.Log("SiegeUnit");
                 break;
 
@@ -86,9 +90,10 @@ public class CardManager : MonoBehaviour
                 break;
 
             case Special special when special.SpecialType == SpecialType.Clearing:
-                
+
                 Weathers.ActivateClearing();
                 newPosition = Weathers.transform;
+                Debug.Log("Clearing");
                 break;
             case Special special when special.SpecialType == SpecialType.Decoy:
                 newPosition = null;
@@ -100,10 +105,15 @@ public class CardManager : MonoBehaviour
                 break;
         }
         if (newPosition is not null)
+        {
             LeanTween.move(card.gameObject, newPosition, moveDuration)
-            .setOnComplete(()=>
-            card.transform.SetParent(newPosition));
+            .setOnComplete(() =>
+            card.transform.SetParent(newPosition)
+            );
+            GameManager.Instance.ChangerTurn();
+        
+        }
+        
     }
-
 
 }
