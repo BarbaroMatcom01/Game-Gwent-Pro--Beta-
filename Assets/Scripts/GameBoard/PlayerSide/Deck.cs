@@ -24,9 +24,14 @@ public class Deck : MonoBehaviour
             DrawCard();   
         }
     }
+
+    public void AddCard(CardData cardData)
+    {
+        DeckCards.Add(cardData);
+    }
+    
     public void DrawCard()
     {
-        Debug.Log("Carta robada");
         if (CountCardsInDeck == 0)
             return;
 

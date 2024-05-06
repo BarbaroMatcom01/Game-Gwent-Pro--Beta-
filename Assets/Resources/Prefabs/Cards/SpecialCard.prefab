@@ -283,6 +283,10 @@ PrefabInstance:
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: Card, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 5264283268994889029, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.000030517578
+      objectReference: {fileID: 0}
     - target: {fileID: 7693059219665399385, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -332,6 +336,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Image: {fileID: 2664284882480772775}
   CardData: {fileID: 0}
+  SpecialType: 0
   TypeIcon: {fileID: 3160573467310851976}
 --- !u!224 &8698998947436126776 stripped
 RectTransform:

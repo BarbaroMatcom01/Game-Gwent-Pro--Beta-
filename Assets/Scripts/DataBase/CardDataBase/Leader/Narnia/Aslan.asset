@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Aslan
   Faction: Narnia
-  Description: 
+  Description: El Rey de Narnia tiene la habilidad de robar una carta
   CardImage: {fileID: 21300000, guid: 4b0d04e8f5fd745479890e03fef6f98a, type: 3}
   TypeIcon: {fileID: 0}
-  CardType: 11
-  Skill: 0
+  Skill: 1

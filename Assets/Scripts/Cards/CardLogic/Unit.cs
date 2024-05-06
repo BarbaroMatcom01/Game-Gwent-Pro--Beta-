@@ -16,6 +16,9 @@ public class Unit : Card
     void Start()
     {
         this.gameObject.name = UnitCardData.name;
+        Name = UnitCardData.Name;
+        Faction=UnitCardData.Faction;
+        Description=UnitCardData.Description;
         Power = UnitCardData.Power;
         Image.sprite = UnitCardData.CardImage;
         UnitPower.sprite = UnitCardData.PowerImage;

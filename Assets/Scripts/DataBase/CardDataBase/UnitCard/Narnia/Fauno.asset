@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8256566a5f809140863d9d08f1bfc0b, type: 3}
   m_Name: Fauno
   m_EditorClassIdentifier: 
-  Name: Fauno "El Valiente"
+  Name: Fauno El Valiente
   Faction: Narnia
-  Description: 
+  Description: 'Tiene el poder de multiplicar su poder por la cantidad de cartas
+    iguales a ella '
   CardImage: {fileID: 21300000, guid: 0886c2bbc699f244ebebd8725febec2b, type: 3}
   TypeIcon: {fileID: 21300000, guid: 0bce26f87698a8f4788b8115e09be943, type: 3}
   UnitType: 1
   Power: 3
   PowerImage: {fileID: 21300000, guid: 1834abe7cff98864084043e5759077af, type: 3}
-  Skill: 3
+  Skill: 0
   AttackType: 0

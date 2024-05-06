@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Snow
   Faction: Neutral
-  Description: 
+  Description: Disminuye en dos puntos a las unidades de tipo Siege
   CardImage: {fileID: 21300000, guid: e9f8846d67010ce4d9ae9ba5a5596449, type: 3}
   TypeIcon: {fileID: 21300000, guid: 04a81312ab100fb419e9800e1d06c90d, type: 3}
   SpecialType: 6

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Storm
   Faction: Neutral
-  Description: 
+  Description: Disminuye en dos puntos a las unidades de tipo Ranged
   CardImage: {fileID: 21300000, guid: 3d3a04aaf632ed74a9505cbc383567ed, type: 3}
   TypeIcon: {fileID: 21300000, guid: 02dde08f105498d4c9d11e79030a99b4, type: 3}
   SpecialType: 5

@@ -13,10 +13,8 @@ MonoBehaviour:
   m_Name: MeleeIncrease
   m_EditorClassIdentifier: 
   Name: Increase
-  CardType: 2
   Faction: Neutral
-  Description: 
+  Description: Aumenta el poder en dos de las unidades de tipo Melee
   CardImage: {fileID: 21300000, guid: 988ec761c3e9bac45a163875a686aa7c, type: 3}
+  TypeIcon: {fileID: 21300000, guid: 0bce26f87698a8f4788b8115e09be943, type: 3}
   SpecialType: 1
-  TypeIcon: {fileID: 21300000, guid: ddd7e9ee1e1b2634bbd55e9d545e639a, type: 3}
-  IncreaseRow: 00000000

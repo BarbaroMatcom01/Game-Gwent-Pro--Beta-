@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Clearing
   Faction: Neutral
-  Description: 
+  Description: Esta carta puede eliminar todos los climas del campo
   CardImage: {fileID: 21300000, guid: acd969c76ac78eb4ca4636964d9ab78e, type: 3}
   TypeIcon: {fileID: 21300000, guid: 741cf4e7f38687640849c7cd22cef1c2, type: 3}
   SpecialType: 7

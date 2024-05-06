@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8256566a5f809140863d9d08f1bfc0b, type: 3}
   m_Name: CentaurRanged
   m_EditorClassIdentifier: 
-  Name: Centaur "El Temible"
+  Name: Centaur El Temible
   Faction: Narnia
-  Description: 
+  Description: Tiene el poder de eliminar la unidad de plata menor poder
   CardImage: {fileID: 21300000, guid: 9793f9b1a2a865f459ba37bb42a18a89, type: 3}
   TypeIcon: {fileID: 21300000, guid: 4bc26a7a1baa7184986ff553fd7f13b5, type: 3}
   UnitType: 1

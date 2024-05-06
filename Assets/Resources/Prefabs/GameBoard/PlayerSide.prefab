@@ -107,6 +107,7 @@ GameObject:
   - component: {fileID: 2091226421521276674}
   - component: {fileID: 6445160823093322842}
   - component: {fileID: 6175429988572269216}
+  - component: {fileID: 1210046283126480048}
   m_Layer: 5
   m_Name: PlayerOneHand
   m_TagString: Untagged
@@ -207,6 +208,21 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &1210046283126480048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674889638989861800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 2, y: 2}
+  m_UseGraphicAlpha: 1
 --- !u!1 &5394755623311308939
 GameObject:
   m_ObjectHideFlags: 0
@@ -1423,6 +1439,7 @@ MonoBehaviour:
   fieldPower: {fileID: 8288651654976466636}
   leaderSlot: {fileID: 0}
   Battlefield: {fileID: 0}
+  victories: 0
 --- !u!114 &8288651654976466636 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4777224380433504654, guid: e6624d4ae6ce4854b82fee1326fec376, type: 3}

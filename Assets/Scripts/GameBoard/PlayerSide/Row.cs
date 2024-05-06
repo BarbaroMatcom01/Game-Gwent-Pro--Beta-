@@ -32,7 +32,6 @@ public class Row : MonoBehaviour
     public void DeactivateWeather()
     {
         WeatherIsActive = false;
-        
         foreach (Unit card in UnitCards)
         {
             if (card.UnitType == UnitType.Silver)
@@ -54,12 +53,15 @@ public class Row : MonoBehaviour
     }
     public void DeactivateIncrease()
     {
-        IncreaseIsActive = false;
-        foreach (Unit card in UnitCards)
+        if (IncreaseIsActive)
         {
-            if (card.UnitType == UnitType.Silver)
+            IncreaseIsActive = false;
+            foreach (Unit card in UnitCards)
             {
-                card.Power = card.Power - 2;
+                if (card.UnitType == UnitType.Silver)
+                {
+                    card.Power = card.Power - 2;
+                }
             }
         }
     }

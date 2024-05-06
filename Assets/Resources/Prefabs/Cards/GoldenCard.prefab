@@ -662,31 +662,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5264283268994889029, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.67700005
-      objectReference: {fileID: 0}
-    - target: {fileID: 5264283268994889029, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
-      propertyPath: m_AnchorMin.x
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5264283268994889029, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5264283268994889029, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.67700005
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5264283268994889029, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 98
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5264283268994889029, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 118
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5264283268994889029, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -49
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5264283268994889029, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -21.379
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7693059219665399385, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}
       propertyPath: m_Sprite
@@ -747,6 +747,7 @@ MonoBehaviour:
   - {fileID: 5539560094123220071}
   - {fileID: 3160868657506922348}
   UnitType: 0
+  AttackType: 0
 --- !u!114 &5252391907798850692 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 681627844978777117, guid: fde1b9f062b563941a10c3b4cf8afd75, type: 3}

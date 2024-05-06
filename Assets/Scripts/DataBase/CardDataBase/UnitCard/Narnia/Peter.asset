@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8256566a5f809140863d9d08f1bfc0b, type: 3}
   m_Name: Peter
   m_EditorClassIdentifier: 
-  Name: Peter '''El Caballero de Narnia'
+  Name: Peter  El Caballero de Narnia
   Faction: Narnia
-  Description: 
+  Description: 'Tiene el poder de robar una carta '
   CardImage: {fileID: 21300000, guid: 5ffde6d2529e7984bac8355caa99afc3, type: 3}
   TypeIcon: {fileID: 21300000, guid: 0bce26f87698a8f4788b8115e09be943, type: 3}
   UnitType: 0
   Power: 9
   PowerImage: {fileID: 21300000, guid: ff8f6c987e08c2042bf2e10f11b589d3, type: 3}
-  Skill: 1
+  Skill: 0
   AttackType: 0

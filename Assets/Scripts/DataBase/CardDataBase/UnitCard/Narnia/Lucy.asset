@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8256566a5f809140863d9d08f1bfc0b, type: 3}
   m_Name: Lucy
   m_EditorClassIdentifier: 
-  Name: Lucy "La Luz de Narnia"
+  Name: Lucy  Luz de Narnia
   Faction: Narnia
-  Description: 
+  Description: 'Tiene el poder de poner  el efecto de un aumento '
   CardImage: {fileID: 21300000, guid: 4bc29852cd3f6f44190594d3d1ff3412, type: 3}
   TypeIcon: {fileID: 21300000, guid: 619b1dd0a2f2cfb44bf2a77287d0dbce, type: 3}
   UnitType: 0
   Power: 5
   PowerImage: {fileID: 21300000, guid: a90776df533234845abb32da62d9fc6c, type: 3}
-  Skill: 0
+  Skill: 2
   AttackType: 2
