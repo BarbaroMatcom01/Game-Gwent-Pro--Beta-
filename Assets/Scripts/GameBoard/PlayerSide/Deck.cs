@@ -56,7 +56,7 @@ public class Deck : MonoBehaviour
                 goldenCard.UnitCardData = unitCardData;
                 break;
             default:
-                Debug.LogError("Tipo no soportado");
+                Debug.LogError("No Type");
                 break;
         }
     }

@@ -41,24 +41,17 @@ public class EffectManager : MonoBehaviour
                 break;
         }
     }
-
     public void ActivateLeaderEffect(Leader leader)
     {
-        if (leader.IsUsable){
+        if (leader.IsUsableLeader){
             switch (leader.Skills)
             {
                 case Skills.Draw:
                     Draw();
                     break;
-                case Skills.ClearStrongestUnit:
-                    ClearStrongestUnit(board);
-                    break;
-                case Skills.ClearLeastPopulatedRow:
-                    ClearLeastPopulatedRow(board);
-                    break;
             }
         GameManager.ChangeTurn();
-        leader.IsUsable = false;
+        leader.IsUsableLeader = false;
         }
     }
     public void Draw()

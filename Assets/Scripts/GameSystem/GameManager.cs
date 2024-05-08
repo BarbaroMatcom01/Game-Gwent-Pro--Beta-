@@ -8,7 +8,7 @@ public enum Player
 }
 public enum GameState
 {
-   GameStart, RoundStart, Turn, DecoyState, RoundEnd, GameEnd
+   ChangeCards,GameStart, RoundStart, Turn, DecoyState, RoundEnd, GameEnd
 }
 public class GameManager : MonoBehaviour
 {
@@ -31,16 +31,18 @@ public class GameManager : MonoBehaviour
    public bool[] HasPassed = new bool[2];
    bool[] roundWinner = new bool[2];
    public GameObject WinnerScreen;
+   public Leader[] leaders=new Leader[2];
    public TextMeshProUGUI WinnerScreenText;
    bool GameIsOver;
-   // public GameState CurrentState;
+   public GameState CurrentState;
    void Start()
    {
-      ChangeState(GameState.GameStart);
+      ChangeState(GameState.ChangeCards);
    }
 
    public void ChangeState(GameState newState)
    {
+      CurrentState = newState;
       switch (newState)
       {
          case GameState.GameStart:
@@ -54,7 +56,6 @@ public class GameManager : MonoBehaviour
             Update();
             break;
          case GameState.DecoyState:
-
             break;
          case GameState.RoundEnd:
             RoundWinner();
@@ -65,7 +66,6 @@ public class GameManager : MonoBehaviour
             GameIsOver = true;
             break;
       }
-
    }
    public void ChooseRandomPlayer()
    {
@@ -97,14 +97,6 @@ public class GameManager : MonoBehaviour
    }
    public void ChangeTurn()
    {
-      //    if (!HasPassed[(int)NextPlayer])
-      //    {
-      //       var temp = CurrentPlayer;
-      //       CurrentPlayer = NextPlayer;
-      //       NextPlayer = temp;
-      //       ChangeHand();
-      //       Board.GameStatus.text = CurrentPlayer.ToString().Replace('_',' ');
-      //   }
 
       if (!HasPassed[1] && (CurrentPlayer == Player.Player_One))
       {
@@ -133,7 +125,6 @@ public class GameManager : MonoBehaviour
          Board.GameStatus.text = "Player One";
       }
    }
-
    public void PassTurn()
    {
       if ((CurrentPlayer == Player.Player_One) && (!HasPassed[0]))
@@ -161,7 +152,6 @@ public class GameManager : MonoBehaviour
          ChangeState(GameState.RoundEnd);
       }
    }
-
    void Update()
    {
       if (!GameIsOver)
@@ -217,6 +207,9 @@ public class GameManager : MonoBehaviour
       DrawTwoCards(Board);
       HasPassed[0] = false;
       HasPassed[1] = false;
+      leaders[0].IsUsableLeader=true;
+      leaders[1].IsUsableLeader=true;
+      
       if (roundWinner[0] && roundWinner[1])
       {
          Board.GameStatus.text = "Round is Draw";

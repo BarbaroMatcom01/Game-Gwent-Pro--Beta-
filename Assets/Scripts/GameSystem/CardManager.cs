@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.Collections;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -8,11 +10,15 @@ using UnityEngine;
 public class CardManager : MonoBehaviour
 {
     public static CardManager Instance;
-    public Battlefield[] Battlefields = new Battlefield[2];
-    public GameObject[] Graveyard = new GameObject[2];
-    public Weathers Weathers;
     public EffectManager effectManager;
-    public List<Card>[] SummonedCards = new List<Card>[2];
+    public Board board;
+    Player currentPlayer => GameManager.Instance.CurrentPlayer;
+    public Weathers Weathers;
+    public Battlefield[] Battlefields = new Battlefield[2];
+    public GameObject[] Hands = new GameObject[2];
+    public GameObject[] Graveyard = new GameObject[2];
+    public List<Card>[] InvokedCards = new List<Card>[2];
+    private Special decoy;
 
     void Awake()
     {
@@ -25,13 +31,13 @@ public class CardManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        SummonedCards[0] = new();
-        SummonedCards[1] = new();
+        InvokedCards[0] = new();
+        InvokedCards[1] = new();
     }
 
     public void InvokeCard(Card card)
     {
-        SummonedCards[(int)GameManager.Instance.CurrentPlayer].Add(card);
+        InvokedCards[(int)GameManager.Instance.CurrentPlayer].Add(card);
         int numberCurrentPlayer = (int)GameManager.Instance.CurrentPlayer;
         float moveDuration = 0.7f;
         Transform newPosition;
@@ -39,19 +45,19 @@ public class CardManager : MonoBehaviour
         {
             case Unit unit when unit.AttackType == AttackType.Melee:
                 Battlefields[numberCurrentPlayer].MeleeRow.AddUnitCard(unit);
-                newPosition = Battlefields[numberCurrentPlayer].MeleeRow.UnitCardsGrid.transform;
+                newPosition = Battlefields[numberCurrentPlayer].MeleeRow.CardsGrid.transform;
                 effectManager.ActivateUnitEffect(unit);
                 Debug.Log("MeleeUnit");
                 break;
             case Unit unit when unit.AttackType == AttackType.Ranged:
                 Battlefields[numberCurrentPlayer].RangedRow.AddUnitCard(unit);
-                newPosition = Battlefields[numberCurrentPlayer].RangedRow.UnitCardsGrid.transform;
+                newPosition = Battlefields[numberCurrentPlayer].RangedRow.CardsGrid.transform;
                 effectManager.ActivateUnitEffect(unit);
                 Debug.Log("RangedUnit");
                 break;
             case Unit unit when unit.AttackType == AttackType.Siege:
                 Battlefields[numberCurrentPlayer].SiegeRow.AddUnitCard(unit);
-                newPosition = Battlefields[numberCurrentPlayer].SiegeRow.UnitCardsGrid.transform;
+                newPosition = Battlefields[numberCurrentPlayer].SiegeRow.CardsGrid.transform;
                 effectManager.ActivateUnitEffect(unit);
                 Debug.Log("SiegeUnit");
                 break;
@@ -87,20 +93,24 @@ public class CardManager : MonoBehaviour
                 break;
             case Special special when special.SpecialType == SpecialType.Clearing:
                 Weathers.ActivateClearing();
-                newPosition = null;
-                CardManager.Instance.SendToGraveyard(special, Graveyard[(int)GameManager.Instance.CurrentPlayer]);
+                newPosition = Graveyard[(int)GameManager.Instance.CurrentPlayer].transform;
                 for (int i = 0; i < Weathers.weathers.Length; i++)
                 {
                     for (int j = 0; j < Weathers.weathers[i].transform.childCount; j++)
                     {
-
                         Destroy(Weathers.weathers[i].transform.GetChild(j).gameObject);
                     }
                 }
                 Debug.Log("Clearing");
                 break;
             case Special special when special.SpecialType == SpecialType.Decoy:
+                GameManager.Instance.ChangeState(GameState.DecoyState);
                 newPosition = null;
+                decoy = special;
+                break;
+            case Leader leader:
+                newPosition = null;
+                InvokedCards[(int)GameManager.Instance.CurrentPlayer].Remove(leader);
                 break;
             default:
                 Debug.Log("No Valid Type Detected");
@@ -111,17 +121,24 @@ public class CardManager : MonoBehaviour
         {
             LeanTween.move(card.gameObject, newPosition, moveDuration)
             .setOnComplete(() => card.transform.SetParent(newPosition));
+
+            GameManager.Instance.ChangeTurn();
         }
 
-        GameManager.Instance.ChangeTurn();
     }
-
     public void SendToGraveyard(Card card, GameObject graveryard)
     {
         float moveDuration = 0.7f;
 
         LeanTween.move(card.gameObject, graveryard.transform, moveDuration)
-          .setOnComplete(() =>card.transform.SetParent(graveryard.transform));
+          .setOnComplete(() => card.transform.SetParent(graveryard.transform));
+    }
+    public void SendToHand(Silver card, GameObject hand)
+    {
+        float moveDuration = 0.7f;
+        LeanTween.move(card.gameObject, hand.transform, moveDuration)
+        .setOnComplete(() => card.transform.SetParent(hand.transform));
+
     }
     public void DestroyCard(Board board)
     {
@@ -133,16 +150,57 @@ public class CardManager : MonoBehaviour
             board.PlayerTwoSide.Battlefield.PlayerBattlefield[i].DeactivateIncrease();
             board.Weathers.ActivateClearing();
         }
-        for (int i = 0; i < SummonedCards[0].Count; i++)
+        for (int i = 0; i < InvokedCards[0].Count; i++)
         {
-            SendToGraveyard(SummonedCards[0][i],Graveyard[0]);
+            SendToGraveyard(InvokedCards[0][i], Graveyard[0]);
+
         }
-        for (int i = 0; i < SummonedCards[1].Count; i++)
+        for (int i = 0; i < InvokedCards[1].Count; i++)
         {
-            SendToGraveyard(SummonedCards[1][i],Graveyard[1]);
+            SendToGraveyard(InvokedCards[1][i], Graveyard[1]);
+
         }
-        SummonedCards[0].Clear();
-        SummonedCards[1].Clear();
+        InvokedCards[0].Clear();
+        InvokedCards[1].Clear();
+
+    }
+    public void InvokeDecoy(Silver card)
+    {
+        Debug.Log(card.name);
+        if (!(InvokedCards[(int)currentPlayer].Contains(card)
+        && InvokedCards[(int)currentPlayer].Any(card => card is Silver))) 
+        {   
+            decoy.ReturnDecoyToHand(); 
+            GameManager.Instance.ChangeState(GameState.Turn);
+            return ;
+        }
+        card.ReturnToHand();
+
+        if (GameManager.Instance.CurrentPlayer == Player.Player_One)
+        {
+            int rowAttackType = (int)card.AttackType;
+            board.PlayerOneSide.Battlefield.PlayerBattlefield[rowAttackType].RemoveUnitCard(card);
+            InvokedCards[0].Remove(card);
+            SendToHand(card, Hands[0]);
+            var newPosition = board.PlayerOneSide.Battlefield.PlayerBattlefield[rowAttackType].CardsGrid;
+            LeanTween.move(decoy.gameObject, newPosition.transform, 0.7f)
+           .setOnComplete(() => decoy.transform.SetParent(newPosition.transform));
+        }
+        else
+        {
+            int rowAttackType = (int)card.AttackType;
+            board.PlayerTwoSide.Battlefield.PlayerBattlefield[rowAttackType].RemoveUnitCard(card);
+            InvokedCards[1].Remove(card);
+            SendToHand(card, Hands[1]);
+            var newPosition = board.PlayerTwoSide.Battlefield.PlayerBattlefield[rowAttackType].CardsGrid;
+            LeanTween.move(decoy.gameObject, newPosition.transform, 0.7f)
+           .setOnComplete(() => decoy.transform.SetParent(newPosition.transform));
+
+
+        }
+        LeanTween.delayedCall(0.7f, () => GameManager.Instance.ChangeTurn());
+        LeanTween.delayedCall(0.7f, () => GameManager.Instance.ChangeState(GameState.Turn));
+
 
     }
 }

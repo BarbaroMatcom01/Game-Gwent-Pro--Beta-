@@ -9,8 +9,8 @@ public class Row : MonoBehaviour
     [SerializeField] TextMeshProUGUI rowPowerText;
     [SerializeField] GameObject increaseSlot;
     public GameObject IncreaseSlot => increaseSlot;
-    [SerializeField] GameObject unitCardGrid;
-    public GameObject UnitCardsGrid => unitCardGrid;
+    [SerializeField] GameObject cardsGrid;
+    public GameObject CardsGrid => cardsGrid;
     [SerializeField] public List<Unit> UnitCards;
 
     public bool IncreaseIsActive;

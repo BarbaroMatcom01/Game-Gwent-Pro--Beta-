@@ -20,6 +20,9 @@ public class Special : Card
         TypeIcon.sprite = CardData.TypeIcon;
         SpecialType = CardData.SpecialType;
     }
-   
-
+    public void ReturnDecoyToHand()
+        {
+            CardIsInHand = true;
+        }
+    
 }

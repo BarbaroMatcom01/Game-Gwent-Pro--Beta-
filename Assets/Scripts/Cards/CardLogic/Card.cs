@@ -13,14 +13,15 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     public string Description { get; protected set; }
     public Sprite CardImage { get; private set; }
     public Image Image;
-    private bool CardIsInHand = true;
+    protected bool CardIsInHand = true;
+    public Deck[] Decks = new Deck[2];
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (CardIsInHand)
+        if (CardIsInHand && GameManager.Instance.CurrentState == GameState.Turn)
         {
             CardManager.Instance.InvokeCard(this);
-            CardIsInHand=false;
+            CardIsInHand = false;
         }
     }
 
@@ -35,15 +36,5 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     {
         LeanTween.scale(this.gameObject, Vector3.one, 0.2f);
         CardPreview.Instance.DestroyClone();
-
     }
-
-    // public void SetCardData(CardData cardData)
-    // {
-    //     Name = cardData.Name;
-    //     Faction = cardData.Faction;
-    //     Description = cardData.Description;
-    //     CardImage = cardData.CardImage;
-    // }
-
 }

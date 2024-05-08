@@ -285,7 +285,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rowPowerText: {fileID: 5213899042665810691}
   increaseSlot: {fileID: 8429086887680615428}
-  unitCardGrid: {fileID: 4774774670368339649}
+  cardsGrid: {fileID: 4774774670368339649}
   UnitCards: []
   IncreaseIsActive: 0
   WeatherIsActive: 0

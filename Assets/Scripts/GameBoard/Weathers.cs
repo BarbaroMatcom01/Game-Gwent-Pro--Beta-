@@ -5,7 +5,6 @@ using UnityEngine;
 public class Weathers : MonoBehaviour
 {
     [SerializeField] public GameObject[] weathers=new GameObject[4] ;
-
     public Battlefield[] Battlefields = new Battlefield[2];
     public bool[] weatherIsActive = new bool[3];
     public bool Rain => weatherIsActive[0];

@@ -7,7 +7,8 @@ public class Leader : Card
 {
     [SerializeField] LeaderCard cardData;
     public Skills Skills;
-    public bool IsUsable = true;
+    public bool IsUsableLeader = true;
+   
     void Start()
     {
         Name = cardData.Name;

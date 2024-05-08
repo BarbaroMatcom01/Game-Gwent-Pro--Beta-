@@ -131,10 +131,10 @@ public class Battlefield : MonoBehaviour
     }
     public int GetPositionUnit(Unit unit)
     {   
-        AttackType Name = unit.AttackType;
-        if (Name == AttackType.Melee) { return 0; }
-        else if (Name == AttackType.Ranged) { return 1; }
-        else if (Name == AttackType.Siege) { return 2; }
+        AttackType attackType= unit.AttackType;
+        if (attackType == AttackType.Melee) { return 0; }
+        else if (attackType== AttackType.Ranged) { return 1; }
+        else if (attackType == AttackType.Siege) { return 2; }
         else { return -1; }
     }
 }
