@@ -83,6 +83,7 @@ public class GameManager : MonoBehaviour
    }
    public void GameStart()
    {
+      Debug.Log("GameStart");
       ChooseRandomPlayer();
       if (CurrentPlayer == Player.Player_One)
       {

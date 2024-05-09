@@ -1,41 +1,62 @@
+using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.XR;
 
-public class ChangeCards : MonoBehaviour, IPointerClickHandler
-{   
-    public Board board;
-    public Deck[] Decks = new Deck[2];
-    public GameObject[] HandsOfChangeCard = new GameObject[2];
-    public GameObject ChangeCard;
-    public bool[] playersAreReady = new bool[2];
-    public TextMeshProUGUI[] cardCountText;
-    public int[] cardCount;
-    void Update()
+public class ChangeCards : MonoBehaviour
+{
+    public Deck[] Decks;
+    public GameObject[] Hands = new GameObject[2];
+    public GameObject[] ChangeCardPanels = new GameObject[2];
+    public TextMeshProUGUI[] ChangedCardsText;
+    int[] ChangedCardsCount = { 0, 0 };
+    bool[] playersAreReady = new bool[2];
+    
+    public static ChangeCards Instance;
+
+
+    void Awake()
     {
-        HandsOfChangeCard[0]=board.PlayerOneSide.hand;
-        HandsOfChangeCard[1]=board.PlayerTwoSide.hand;
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else if (Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
     }
-     public void SetPlayerReady(int player)
+
+    void Start()
+    {
+
+        Hands[0].transform.SetParent(ChangeCardPanels[0].transform);
+        Hands[1].transform.SetParent(ChangeCardPanels[1].transform);
+
+    }
+
+    public void ChangeCard(Card card)
+    {
+        int player = (card.transform.parent.name == "PlayerOneHand") ? 0 : 1;
+
+        if (ChangedCardsCount[player] == 2) return;
+
+        ChangedCardsCount[player]++;
+        ChangedCardsText[player].text = $"{ChangedCardsCount[player]}/2";
+
+        Decks[player].AddCard(card.CardData);
+        Destroy(card.gameObject);
+        Decks[player].DrawCard();
+    }
+
+    public void SetPlayerReady(int player)
     {
         playersAreReady[player] = true;
         if (playersAreReady[0] && playersAreReady[1])
         {
-            StartGame();
+            GameManager.Instance.ChangeState(GameState.GameStart);
+            Hands[0].transform.SetParent(GameManager.Instance.Board.transform);
+            Hands[1].transform.SetParent(GameManager.Instance.Board.transform);
+            this.gameObject.SetActive(false);
         }
     }
-    void StartGame()
-    {
-        GameManager.Instance.ChangeState(GameState.GameStart);
-        ChangeCard.SetActive(false);
-    }
-
-    public void OnPointerClick(PointerEventData eventData)
-    {   
-        
-        Destroy(this.transform.gameObject);
-        Decks[0].DrawCard();
-    } 
-
 }

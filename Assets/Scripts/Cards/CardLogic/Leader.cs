@@ -16,6 +16,4 @@ public class Leader : Card
         Description = cardData.Description;
         Skills = cardData.Skill;
     }
-
-
 }

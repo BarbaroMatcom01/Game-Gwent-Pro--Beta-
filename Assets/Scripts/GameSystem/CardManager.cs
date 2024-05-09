@@ -162,17 +162,16 @@ public class CardManager : MonoBehaviour
         }
         InvokedCards[0].Clear();
         InvokedCards[1].Clear();
-
     }
     public void InvokeDecoy(Silver card)
     {
         Debug.Log(card.name);
         if (!(InvokedCards[(int)currentPlayer].Contains(card)
-        && InvokedCards[(int)currentPlayer].Any(card => card is Silver))) 
-        {   
-            decoy.ReturnDecoyToHand(); 
+        && InvokedCards[(int)currentPlayer].Any(card => card is Silver)))
+        {
+            decoy.ReturnDecoyToHand();
             GameManager.Instance.ChangeState(GameState.Turn);
-            return ;
+            return;
         }
         card.ReturnToHand();
 
