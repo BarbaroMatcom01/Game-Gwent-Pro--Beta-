@@ -1,16 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using System.Runtime.Serialization.Formatters;
 using UnityEngine;
 
 public class EffectManager : MonoBehaviour
 {
-
-    public Board board;
-    public Battlefield[] battlefields = new Battlefield[2];
+    public Board Board;
+    public Battlefield[] Battlefields = new Battlefield[2];
     public GameObject[] Graveyard = new GameObject[2];
-    public GameManager GameManager;
+
     public void ActivateUnitEffect(Unit unit)
     {
         switch (unit.UnitCardData.Skill)
@@ -21,9 +16,6 @@ public class EffectManager : MonoBehaviour
             case Skills.MultiplyPower:
                 MultiplyPower(unit);
                 break;
-            case Skills.SetAveragePower:
-                SetAveragePower(board);
-                break;
             case Skills.IncreaseRowPower:
                 IncreaseRowPower(unit);
                 break;
@@ -31,49 +23,55 @@ public class EffectManager : MonoBehaviour
                 SetWeather(unit);
                 break;
             case Skills.ClearStrongestUnit:
-                ClearStrongestUnit(board);
+                ClearStrongestUnit(Board);
                 break;
             case Skills.ClearLessStrongUnit:
-                ClearLessStrongUnit(board);
+                ClearLessStrongUnit(Board);
                 break;
             case Skills.ClearLeastPopulatedRow:
-                ClearLeastPopulatedRow(board);
+                ClearLeastPopulatedRow(Board);
+                break;
+            case Skills.SetAveragePower:
+                SetAveragePower(Board);
                 break;
         }
     }
+
     public void ActivateLeaderEffect(Leader leader)
     {
-        if (leader.IsUsableLeader){
+        if (leader.IsUsableLeader)
+        {
             switch (leader.Skills)
             {
                 case Skills.Draw:
                     Draw();
                     break;
             }
-        GameManager.ChangeTurn();
-        leader.IsUsableLeader = false;
+            GameManager.Instance.ChangeTurn();
+            leader.IsUsableLeader = false;
         }
     }
+
     public void Draw()
     {
-        if (GameManager.CurrentPlayer == Player.Player_One)
+        if (GameManager.Instance.CurrentPlayer == Player.Player_One)
         {
-            board.PlayerOneSide.Deck.DrawCard();
+            Board.PlayerOneSide.Deck.DrawCard();
         }
         else
         {
-            board.PlayerTwoSide.Deck.DrawCard();
+            Board.PlayerTwoSide.Deck.DrawCard();
         }
-
     }
+
     public void MultiplyPower(Unit unit)
     {
-        int cardAppearancesInBoard = board.PlayerOneSide.Battlefield.CardAppearances(unit) + board.PlayerTwoSide.Battlefield.CardAppearances(unit);
+        int cardAppearancesInBoard = Board.PlayerOneSide.Battlefield.CardAppearances(unit) + Board.PlayerTwoSide.Battlefield.CardAppearances(unit);
         unit.Power = unit.Power * cardAppearancesInBoard;
     }
+
     public void SetAveragePower(Board board)
     {
-
         int battlefieldPowerPlayerOne = board.PlayerOneSide.Battlefield.BattlefieldPower();
         int battlefieldPowerPlayerTwo = board.PlayerTwoSide.Battlefield.BattlefieldPower();
         int numberOfCardsOnTheBattlefieldPlayerOne = board.PlayerOneSide.Battlefield.NumberOfCardsOnTheBattlefield();
@@ -104,81 +102,76 @@ public class EffectManager : MonoBehaviour
             }
         }
     }
+
     public void IncreaseRowPower(Unit unit)
     {
-        if (GameManager.CurrentPlayer == Player.Player_One)
+        if (GameManager.Instance.CurrentPlayer == Player.Player_One)
         {
-            int getPositionCard = battlefields[0].GetPositionUnit(unit);
-            Row inreaseRow = battlefields[0].PlayerBattlefield[getPositionCard];
-            foreach (Unit card in inreaseRow.UnitCards)
+            int getPositionCard = Battlefields[0].GetPositionUnit(unit);
+            Row increaseRow = Battlefields[0].PlayerBattlefield[getPositionCard];
+            foreach (Unit card in increaseRow.UnitCards)
             {
                 if (card.UnitType == UnitType.Silver)
                 {
-                    card.Power = card.Power + 2;
+                    card.Power += 2;
                 }
             }
         }
         else
         {
-            int getPositionCard = battlefields[1].GetPositionUnit(unit);
-            Row inreaseRow = battlefields[1].PlayerBattlefield[getPositionCard];
-            foreach (Unit card in inreaseRow.UnitCards)
+            int getPositionCard = Battlefields[1].GetPositionUnit(unit);
+            Row increaseRow = Battlefields[1].PlayerBattlefield[getPositionCard];
+            foreach (Unit card in increaseRow.UnitCards)
             {
                 if (card.UnitType == UnitType.Silver)
                 {
-                    card.Power = card.Power + 2;
+                    card.Power += 2;
                 }
             }
         }
     }
+
     public void SetWeather(Unit unit)
     {
-        if (GameManager.CurrentPlayer == Player.Player_One)
+        if (GameManager.Instance.CurrentPlayer == Player.Player_One)
         {
-            int getPositionCard = battlefields[0].GetPositionUnit(unit);
-            if (getPositionCard == 0)
+            int getPositionCard = Battlefields[0].GetPositionUnit(unit);
+            Row weatherRow = Battlefields[0].PlayerBattlefield[getPositionCard];
+            foreach (Unit card in weatherRow.UnitCards)
             {
-                board.Weathers.ActivateRain();
-            }
-            else if (getPositionCard == 1)
-            {
-                board.Weathers.ActivateSnow();
-            }
-            else if (getPositionCard == 2)
-            {
-                board.Weathers.ActivateStorm();
+                if (card.UnitType == UnitType.Silver)
+                {
+                    card.Power -= 2;
+                }
             }
         }
         else
         {
-            int getPositionCard = battlefields[1].GetPositionUnit(unit);
-            if (getPositionCard == 0)
+           int getPositionCard = Battlefields[1].GetPositionUnit(unit);
+            Row weatherRow = Battlefields[1].PlayerBattlefield[getPositionCard];
+            foreach (Unit card in weatherRow.UnitCards)
             {
-                board.Weathers.ActivateRain();
-            }
-            else if (getPositionCard == 1)
-            {
-                board.Weathers.ActivateSnow();
-            }
-            else if (getPositionCard == 2)
-            {
-                board.Weathers.ActivateStorm();
+                if (card.UnitType == UnitType.Silver)
+                {
+                    card.Power -= 2;
+                }
             }
         }
     }
+
     public void ClearStrongestUnit(Board board)
     {
-        Unit strongestUnitPlayerOne = board.PlayerOneSide.Battlefield.GetStrongestUnit();
-        Unit strongestUnitPlayerTwo = board.PlayerTwoSide.Battlefield.GetStrongestUnit();
+        Unit strongestUnitPlayerOne = board.PlayerOneSide.Battlefield.GetStrongestUnitSilver();
+        Unit strongestUnitPlayerTwo = board.PlayerTwoSide.Battlefield.GetStrongestUnitSilver();
         Battlefield battlefieldPlayerOne = board.PlayerOneSide.Battlefield;
         Battlefield battlefieldPlayerTwo = board.PlayerTwoSide.Battlefield;
         int positionUnitPlayerOne = battlefieldPlayerOne.GetPositionStrongestUnit();
         int positionUnitPlayerTwo = battlefieldPlayerTwo.GetPositionStrongestUnit();
+       
         if ((strongestUnitPlayerOne != null) && (strongestUnitPlayerTwo != null))
         {
             if (strongestUnitPlayerOne.Power > strongestUnitPlayerTwo.Power)
-            {    
-
+            {
                 CardManager.Instance.SendToGraveyard(strongestUnitPlayerOne, Graveyard[0]);
                 battlefieldPlayerOne.PlayerBattlefield[positionUnitPlayerOne].RemoveUnitCard(strongestUnitPlayerOne);
             }
@@ -193,48 +186,49 @@ public class EffectManager : MonoBehaviour
                 CardManager.Instance.SendToGraveyard(strongestUnitPlayerTwo, Graveyard[1]);
                 battlefieldPlayerOne.PlayerBattlefield[positionUnitPlayerOne].RemoveUnitCard(strongestUnitPlayerOne);
                 battlefieldPlayerTwo.PlayerBattlefield[positionUnitPlayerTwo].RemoveUnitCard(strongestUnitPlayerTwo);
-
             }
         }
         else if ((strongestUnitPlayerOne != null) && (strongestUnitPlayerTwo == null))
-        {   
+        {
             CardManager.Instance.SendToGraveyard(strongestUnitPlayerOne, Graveyard[0]);
             battlefieldPlayerOne.PlayerBattlefield[positionUnitPlayerOne].RemoveUnitCard(strongestUnitPlayerOne);
-
         }
         else if ((strongestUnitPlayerOne == null) && (strongestUnitPlayerTwo != null))
         {
             CardManager.Instance.SendToGraveyard(strongestUnitPlayerTwo, Graveyard[1]);
             battlefieldPlayerTwo.PlayerBattlefield[positionUnitPlayerTwo].RemoveUnitCard(strongestUnitPlayerTwo);
-
         }
     }
+
     public void ClearLessStrongUnit(Board board)
     {
-        Unit strongestUnitPlayerOne = board.PlayerOneSide.Battlefield.GetLessStrongUnit();
-        Unit strongestUnitPlayerTwo = board.PlayerTwoSide.Battlefield.GetLessStrongUnit();
+        Unit lessStrongUnitPlayerOne = board.PlayerOneSide.Battlefield.GetLessStrongUnitSilver();
+        Unit lessStrongUnitPlayerTwo = board.PlayerTwoSide.Battlefield.GetLessStrongUnitSilver();
         Battlefield battlefieldPlayerOne = board.PlayerOneSide.Battlefield;
         Battlefield battlefieldPlayerTwo = board.PlayerTwoSide.Battlefield;
-        int positionUnitPlayerOne = battlefieldPlayerOne.GetPositionLessStrongUnit();
-        int positionUnitPlayerTwo = battlefieldPlayerTwo.GetPositionLessStrongUnit();
+        int positionUnitPlayerOne = battlefieldPlayerOne.GetPositionLessStrongUnitSilver();
+        int positionUnitPlayerTwo = battlefieldPlayerTwo.GetPositionLessStrongUnitSilver();
 
-        if (GameManager.CurrentPlayer == Player.Player_One)
+        if (GameManager.Instance.CurrentPlayer == Player.Player_One)
         {
-            if (strongestUnitPlayerTwo != null)
+            if (lessStrongUnitPlayerTwo != null)
             {
-                battlefieldPlayerTwo.PlayerBattlefield[positionUnitPlayerTwo].RemoveUnitCard(strongestUnitPlayerTwo);
+                battlefieldPlayerTwo.PlayerBattlefield[positionUnitPlayerTwo].RemoveUnitCard(lessStrongUnitPlayerTwo);
+                CardManager.Instance.SendToGraveyard(lessStrongUnitPlayerTwo, Graveyard[1]);
             }
-            else if (strongestUnitPlayerTwo == null) { }
+            else if (lessStrongUnitPlayerTwo == null) { }
         }
         else
         {
-            if (strongestUnitPlayerOne != null)
+            if (lessStrongUnitPlayerOne != null)
             {
-                battlefieldPlayerOne.PlayerBattlefield[positionUnitPlayerOne].RemoveUnitCard(strongestUnitPlayerOne);
+                battlefieldPlayerOne.PlayerBattlefield[positionUnitPlayerOne].RemoveUnitCard(lessStrongUnitPlayerOne);
+                CardManager.Instance.SendToGraveyard(lessStrongUnitPlayerOne, Graveyard[0]);
             }
-            else if (strongestUnitPlayerOne == null) { }
+            else if (lessStrongUnitPlayerOne == null) { }
         }
     }
+
     public void ClearLeastPopulatedRow(Board board)
     {
         Row leastPopulateRowPlayerOne = board.PlayerOneSide.Battlefield.GetRowWithLeastUnits();
@@ -244,16 +238,27 @@ public class EffectManager : MonoBehaviour
 
         if (playerOneNumbersCards < playerTwoNumbersCards)
         {
+            CardManager.Instance.SendToGraveyardLeastPopulatedRow(leastPopulateRowPlayerOne, Graveyard[0]);
             leastPopulateRowPlayerOne.RemoveAllUnitCards();
         }
         else if (playerOneNumbersCards > playerTwoNumbersCards)
         {
+            CardManager.Instance.SendToGraveyardLeastPopulatedRow(leastPopulateRowPlayerTwo, Graveyard[1]);
             leastPopulateRowPlayerTwo.RemoveAllUnitCards();
         }
         else
         {
-            leastPopulateRowPlayerOne.RemoveAllUnitCards();
-            leastPopulateRowPlayerTwo.RemoveAllUnitCards();
+            if (GameManager.Instance.CurrentPlayer == Player.Player_One)
+            {
+                CardManager.Instance.SendToGraveyardLeastPopulatedRow(leastPopulateRowPlayerTwo, Graveyard[1]);
+                leastPopulateRowPlayerTwo.RemoveAllUnitCards();
+            }
+            else
+            {
+                CardManager.Instance.SendToGraveyardLeastPopulatedRow(leastPopulateRowPlayerOne, Graveyard[0]);
+                leastPopulateRowPlayerOne.RemoveAllUnitCards();
+            }
         }
     }
+
 }

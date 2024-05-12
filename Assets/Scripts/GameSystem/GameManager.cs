@@ -8,10 +8,20 @@ public enum Player
 }
 public enum GameState
 {
-   ChangeCards,GameStart, RoundStart, Turn, DecoyState, RoundEnd, GameEnd
+   ChangeCards, GameStart, RoundStart, Turn, DecoyState, RoundEnd, GameEnd
 }
 public class GameManager : MonoBehaviour
 {
+   public Board Board;
+   public Leader[] leaders = new Leader[2];
+   public Player CurrentPlayer;
+   public Player NextPlayer;
+   public bool[] HasPassed = new bool[2];
+   bool[] roundWinner = new bool[2];
+   bool GameIsOver;
+   public GameObject WinnerScreen;
+   public TextMeshProUGUI WinnerScreenText;
+   public GameState CurrentState;
    public static GameManager Instance;
    void Awake()
    {
@@ -25,16 +35,6 @@ public class GameManager : MonoBehaviour
       }
    }
 
-   public Board Board;
-   public Player CurrentPlayer;
-   public Player NextPlayer;
-   public bool[] HasPassed = new bool[2];
-   bool[] roundWinner = new bool[2];
-   public GameObject WinnerScreen;
-   public Leader[] leaders=new Leader[2];
-   public TextMeshProUGUI WinnerScreenText;
-   bool GameIsOver;
-   public GameState CurrentState;
    void Start()
    {
       ChangeState(GameState.ChangeCards);
@@ -67,6 +67,7 @@ public class GameManager : MonoBehaviour
             break;
       }
    }
+
    public void ChooseRandomPlayer()
    {
       int choosePlayer = UnityEngine.Random.Range(0, 2);
@@ -74,13 +75,16 @@ public class GameManager : MonoBehaviour
       int nextPlayer = (choosePlayer + 1) % 2;
       NextPlayer = (Player)nextPlayer;
    }
+
    public void DrawTwoCards(Board board)
    {
       board.PlayerOneSide.Deck.DrawCard();
       board.PlayerOneSide.Deck.DrawCard();
+     
       board.PlayerTwoSide.Deck.DrawCard();
       board.PlayerTwoSide.Deck.DrawCard();
    }
+
    public void GameStart()
    {
       Debug.Log("GameStart");
@@ -96,6 +100,7 @@ public class GameManager : MonoBehaviour
          Board.GameStatus.text = "Player Two";
       }
    }
+
    public void ChangeTurn()
    {
 
@@ -126,6 +131,7 @@ public class GameManager : MonoBehaviour
          Board.GameStatus.text = "Player One";
       }
    }
+
    public void PassTurn()
    {
       if ((CurrentPlayer == Player.Player_One) && (!HasPassed[0]))
@@ -134,7 +140,6 @@ public class GameManager : MonoBehaviour
          HasPassed[0] = true;
          Board.GameStatus.text = "Player One has passed";
          LeanTween.delayedCall(1.5f, () => Board.GameStatus.text = "Player Two");
-
       }
       else if ((CurrentPlayer == Player.Player_Two) && (!HasPassed[1]))
       {
@@ -142,10 +147,10 @@ public class GameManager : MonoBehaviour
          HasPassed[1] = true;
          Board.GameStatus.text = "Player Two has passed";
          LeanTween.delayedCall(1.5f, () => Board.GameStatus.text = "Player One");
-
       }
       else Debug.Log("No Valid");
    }
+
    public void TurnEnd()
    {
       if (HasPassed[0] && HasPassed[1])
@@ -153,6 +158,7 @@ public class GameManager : MonoBehaviour
          ChangeState(GameState.RoundEnd);
       }
    }
+
    void Update()
    {
       if (!GameIsOver)
@@ -160,6 +166,7 @@ public class GameManager : MonoBehaviour
          TurnEnd();
       }
    }
+
    public void RoundWinner()
    {
       int playerOnePower = Board.PlayerOneSide.Battlefield.BattlefieldPower();
@@ -186,6 +193,7 @@ public class GameManager : MonoBehaviour
          Board.PlayerTwoSide.PlayerInfo.victories++;
       }
    }
+
    public void RoundEnd()
    {
       Debug.Log("The End Round");
@@ -203,14 +211,15 @@ public class GameManager : MonoBehaviour
          ChangeState(GameState.GameEnd);
       }
    }
+
    public void ContinueGame()
    {
       DrawTwoCards(Board);
       HasPassed[0] = false;
       HasPassed[1] = false;
-      leaders[0].IsUsableLeader=true;
-      leaders[1].IsUsableLeader=true;
-      
+      leaders[0].IsUsableLeader = true;
+      leaders[1].IsUsableLeader = true;
+
       if (roundWinner[0] && roundWinner[1])
       {
          Board.GameStatus.text = "Round is Draw";
@@ -240,6 +249,7 @@ public class GameManager : MonoBehaviour
          LeanTween.delayedCall(1.5f, () => Board.GameStatus.text = "Player Two ");
       }
    }
+
    public void GameEnd()
    {
       int victoriesPlayerOne = Board.PlayerOneSide.PlayerInfo.victories;
@@ -269,9 +279,11 @@ public class GameManager : MonoBehaviour
          WinnerScreenText.text = $" Winner Is {GameData.Player2Name}";
       }
    }
+
    public void ChangeHand()
    {
       Board.PlayerOneSide.ShowPlayerHand(CurrentPlayer == Player.Player_One);
       Board.PlayerTwoSide.ShowPlayerHand(CurrentPlayer == Player.Player_Two);
    }
+
 }

@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Fenix  El Ave de Fuego
   Faction: Narnia
-  Description: 'Tiene el poder de multiplicar su poder por la cantidad de cartas
+  Description: 'Tiene la habilidad de multiplicar su poder por la cantidad de cartas
     iguales a ella '
   CardImage: {fileID: 21300000, guid: ccc0f4165d1fcf04ea4ac0e168d55d2f, type: 3}
   TypeIcon: {fileID: 21300000, guid: 619b1dd0a2f2cfb44bf2a77287d0dbce, type: 3}
   UnitType: 1
-  Power: 6
-  PowerImage: {fileID: 21300000, guid: d557215fd2efe9a40a97c213152159bc, type: 3}
-  Skill: 0
+  Power: 4
+  PowerImage: {fileID: 21300000, guid: 983677d16bd4a4c4d944936c96f177d0, type: 3}
+  Skill: 6
   AttackType: 2

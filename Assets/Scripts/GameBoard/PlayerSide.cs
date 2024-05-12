@@ -1,14 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
 
 public class PlayerSide : MonoBehaviour
 {
     [SerializeField] public PlayerInfo PlayerInfo;
     [SerializeField] public Battlefield Battlefield;
     [SerializeField] public Deck Deck;
-    [SerializeField] public GameObject hand;
-    [SerializeField] GameObject graveyard;
+    [SerializeField] public GameObject Hand;
+    [SerializeField] GameObject Graveyard;
     public GameObject HandPlaceOrderIn;
     public GameObject HandPlaceOrderOut;
 
@@ -16,11 +15,11 @@ public class PlayerSide : MonoBehaviour
     {
         if (IsActive)
         {
-            LeanTween.move(hand, HandPlaceOrderIn.transform, 1.5f);
+            LeanTween.move(Hand, HandPlaceOrderIn.transform, 1.5f);
         }
         else
         {
-            LeanTween.move(hand, HandPlaceOrderOut.transform, 1f);
+            LeanTween.move(Hand, HandPlaceOrderOut.transform, 1f);
         }
     }
 }

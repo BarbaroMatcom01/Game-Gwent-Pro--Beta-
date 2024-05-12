@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
+
 
 public class Special : Card 
 {
-    public SpecialCardData CardData;
+    public new SpecialCardData CardData;
     public SpecialType SpecialType;
     public Image TypeIcon;
 
@@ -20,9 +17,9 @@ public class Special : Card
         TypeIcon.sprite = CardData.TypeIcon;
         SpecialType = CardData.SpecialType;
     }
-    public void ReturnDecoyToHand()
+   
+       public void ReturnDecoyToHand()
         {
             CardIsInHand = true;
         }
-    
 }

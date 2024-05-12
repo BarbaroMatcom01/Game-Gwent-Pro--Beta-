@@ -1,6 +1,6 @@
-using System.Linq;
 using TMPro;
 using UnityEngine;
+
 
 public class ChangeCards : MonoBehaviour
 {
@@ -10,10 +10,7 @@ public class ChangeCards : MonoBehaviour
     public TextMeshProUGUI[] ChangedCardsText;
     int[] ChangedCardsCount = { 0, 0 };
     bool[] playersAreReady = new bool[2];
-    
     public static ChangeCards Instance;
-
-
     void Awake()
     {
         if (Instance == null)
@@ -28,10 +25,14 @@ public class ChangeCards : MonoBehaviour
 
     void Start()
     {
+        for (int i = 0; i < 10; i++)
+        {
+            Decks[0].DrawCard();
+            Decks[1].DrawCard();
+        }
 
         Hands[0].transform.SetParent(ChangeCardPanels[0].transform);
         Hands[1].transform.SetParent(ChangeCardPanels[1].transform);
-
     }
 
     public void ChangeCard(Card card)

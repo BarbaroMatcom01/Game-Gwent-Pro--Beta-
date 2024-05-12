@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Decoy
   Faction: Neutral
-  Description: 
+  Description: Te permite retornar a la mano una unidad de plata.
   CardImage: {fileID: 21300000, guid: 834252e67b54e3a47910fe6bdc16bfdf, type: 3}
   TypeIcon: {fileID: 21300000, guid: 77c4da138cfbaa641baeb6c36c8da32d, type: 3}
-  CardType: 7
   SpecialType: 0

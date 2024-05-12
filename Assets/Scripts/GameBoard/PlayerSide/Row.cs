@@ -1,9 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using System.Data.Common;
-using UnityEditor.Build;
+
+
 public class Row : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI rowPowerText;
@@ -24,11 +23,11 @@ public class Row : MonoBehaviour
         {
             if (card.UnitType == UnitType.Silver)
             {
-                card.Power = card.Power - 2;
+                card.Power -= 2;
             }
-
         }
     }
+
     public void DeactivateWeather()
     {
         WeatherIsActive = false;
@@ -36,38 +35,42 @@ public class Row : MonoBehaviour
         {
             if (card.UnitType == UnitType.Silver)
             {
-                card.Power = card.Power + 2;
+                card.Power += 2;
             }
         }
     }
+
     public void ActivateIncrease()
     {
         IncreaseIsActive = true;
+        
         foreach (Unit card in UnitCards)
         {
             if (card.UnitType == UnitType.Silver)
             {
-                card.Power = card.Power + 2;
+                card.Power += 2;
             }
         }
     }
+
     public void DeactivateIncrease()
     {
         if (IncreaseIsActive)
         {
             IncreaseIsActive = false;
+
             foreach (Unit card in UnitCards)
             {
                 if (card.UnitType == UnitType.Silver)
                 {
-                    card.Power = card.Power - 2;
+                    card.Power -= 2;
                 }
             }
         }
     }
+
     public void AddUnitCard(Unit newCard)
     {
-
         if (!IncreaseIsActive && !WeatherIsActive)
         {
             UnitCards.Add(newCard);
@@ -77,7 +80,6 @@ public class Row : MonoBehaviour
             DeactivateIncrease();
             UnitCards.Add(newCard);
             ActivateIncrease();
-
         }
         else if (!IncreaseIsActive && WeatherIsActive)
         {
@@ -94,21 +96,26 @@ public class Row : MonoBehaviour
             ActiveWeather();
         }
     }
+
     public void RemoveUnitCard(Unit removeCard)
     {
         UnitCards.Remove(removeCard);
     }
+
     public void RemoveAllUnitCards()
     {
         UnitCards.Clear();
     }
+
     public int CountCardsInRow()
     {
         return UnitCards.Count;
     }
+
     public int CountGoldenUnitCards()
     {
         int goldenCount = 0;
+       
         foreach (Unit unitCard in UnitCards)
         {
             if (unitCard.UnitType == UnitType.Golden)
@@ -118,9 +125,11 @@ public class Row : MonoBehaviour
         }
         return goldenCount;
     }
+
     public int CountSilverUnitCards()
     {
         int silverCount = 0;
+        
         foreach (Unit unitCard in UnitCards)
         {
             if (unitCard.UnitType == UnitType.Silver)
@@ -130,18 +139,21 @@ public class Row : MonoBehaviour
         }
         return silverCount;
     }
+
     public int TotalRowPower()
     {
         int totalRowPower = 0;
+        
         foreach (Unit card in UnitCards)
         {
             totalRowPower += card.Power;
         }
         return totalRowPower;
-
     }
+
     void Update()
     {
         rowPowerText.text = TotalRowPower().ToString();
     }
+
 }

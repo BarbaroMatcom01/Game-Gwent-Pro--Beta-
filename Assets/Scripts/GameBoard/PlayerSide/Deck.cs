@@ -1,28 +1,20 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 
 public class Deck : MonoBehaviour
 {
     [SerializeField] DeckData deckData;
     public List<CardData> DeckCards = new List<CardData>();
+    [SerializeField] private GameObject Hand;
     [SerializeField] private Silver Silver;
     [SerializeField] private Golden Golden;
     [SerializeField] private Special Special;
-    [SerializeField] private GameObject Hand;
-
     public int CountCardsInDeck => DeckCards.Count;
 
     void Awake()
     {
         DeckCards = new List<CardData>(deckData.DeckCards);
-    }
-    void Start()
-    {
-        for (int i = 0; i < 10; i++)
-        {
-            DrawCard();   
-        }
     }
 
     public void AddCard(CardData cardData)
@@ -32,13 +24,13 @@ public class Deck : MonoBehaviour
     
     public void DrawCard()
     {
-        if (CountCardsInDeck == 0)
-            return;
+        if (CountCardsInDeck == 0) return;
 
         int random = Random.Range(0, CountCardsInDeck);
         InstantiateCard(DeckCards[random]);
         DeckCards.RemoveAt(random);
     }
+  
     public void InstantiateCard(CardData cardData)
     {
         switch (cardData)

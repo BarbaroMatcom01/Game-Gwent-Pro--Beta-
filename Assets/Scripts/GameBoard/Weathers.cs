@@ -1,22 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
 
 public class Weathers : MonoBehaviour
 {
-    [SerializeField] public GameObject[] weathers=new GameObject[4] ;
+    [SerializeField] public GameObject[] weathers = new GameObject[3];
     public Battlefield[] Battlefields = new Battlefield[2];
     public bool[] weatherIsActive = new bool[3];
-    public bool Rain => weatherIsActive[0];
-    public bool Storm => weatherIsActive[1];
-    public bool Snow => weatherIsActive[2];
 
     public void ActivateClearing()
     {
-        if (weatherIsActive[0]) { DeactivateRain();}
+        if (weatherIsActive[0]) { DeactivateRain(); }
         if (weatherIsActive[1]) { DeactivateStorm(); }
         if (weatherIsActive[2]) { DeactivateSnow(); }
     }
+
     public void ActivateRain()
     {
         if (!weatherIsActive[0])
@@ -26,6 +23,7 @@ public class Weathers : MonoBehaviour
             Battlefields[1].MeleeRow.ActiveWeather();
         }
     }
+
     public void DeactivateRain()
     {
         if (weatherIsActive[0])
@@ -35,6 +33,7 @@ public class Weathers : MonoBehaviour
             Battlefields[1].MeleeRow.DeactivateWeather();
         }
     }
+
     public void ActivateStorm()
     {
         if (!weatherIsActive[1])
@@ -44,6 +43,7 @@ public class Weathers : MonoBehaviour
             Battlefields[1].RangedRow.ActiveWeather();
         }
     }
+
     public void DeactivateStorm()
     {
         if (weatherIsActive[1])
@@ -53,6 +53,7 @@ public class Weathers : MonoBehaviour
             Battlefields[1].RangedRow.DeactivateWeather();
         }
     }
+
     public void ActivateSnow()
     {
         if (!weatherIsActive[2])
@@ -62,6 +63,7 @@ public class Weathers : MonoBehaviour
             Battlefields[1].SiegeRow.ActiveWeather();
         }
     }
+
     public void DeactivateSnow()
     {
         if (weatherIsActive[2])
@@ -71,4 +73,5 @@ public class Weathers : MonoBehaviour
             Battlefields[1].SiegeRow.DeactivateWeather();
         }
     }
+
 }

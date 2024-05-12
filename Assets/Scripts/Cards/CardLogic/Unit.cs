@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+
 
 public class Unit : Card
 {
@@ -10,7 +8,7 @@ public class Unit : Card
     [SerializeField] private Image UnitPower;
     [SerializeField] private Image TypeIcon;
     [SerializeField] GameObject[] AttackTypesIcons;
-    public int Power { get; set; }
+    public int Power;
     public UnitType UnitType;
     public AttackType AttackType;
     void Start()

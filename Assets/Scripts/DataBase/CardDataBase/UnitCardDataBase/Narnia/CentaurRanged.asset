@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c8256566a5f809140863d9d08f1bfc0b, type: 3}
-  m_Name: Gryphon
+  m_Name: CentaurRanged
   m_EditorClassIdentifier: 
-  Name: "Gryphon El Due\xF1o de los cielos"
+  Name: Centaur El Temible
   Faction: Narnia
-  Description: Tiene el poder de eliminar la fila de menor cantidad de unidades
-  CardImage: {fileID: 21300000, guid: 5db6287b5f4a2e14fac07d251c280d1f, type: 3}
-  TypeIcon: {fileID: 21300000, guid: 619b1dd0a2f2cfb44bf2a77287d0dbce, type: 3}
+  Description: 'Tiene  la habilidad de robar una carta '
+  CardImage: {fileID: 21300000, guid: 9793f9b1a2a865f459ba37bb42a18a89, type: 3}
+  TypeIcon: {fileID: 21300000, guid: 4bc26a7a1baa7184986ff553fd7f13b5, type: 3}
   UnitType: 1
   Power: 6
   PowerImage: {fileID: 21300000, guid: d557215fd2efe9a40a97c213152159bc, type: 3}
-  Skill: 0
-  AttackType: 2
+  Skill: 1
+  AttackType: 1

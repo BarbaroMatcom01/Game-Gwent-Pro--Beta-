@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+
 
 public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
@@ -13,13 +11,10 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     public string Description { get; protected set; }
     public Sprite CardImage { get; private set; }
     public Image Image;
-    public CardData  CardData; 
+    public CardData CardData;
     protected bool CardIsInHand = true;
-    public bool CardIsPlayerOne;
-    public Deck Deck;
-   
-   
-   void Start()
+
+    void Start()
     {
         this.gameObject.name = CardData.name;
         Name = CardData.Name;
@@ -27,8 +22,7 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         Description = CardData.Description;
         Image.sprite = CardData.CardImage;
     }
-   
-   
+
     public void OnPointerClick(PointerEventData eventData)
     {
         if (CardIsInHand && GameManager.Instance.CurrentState == GameState.Turn)
@@ -36,19 +30,17 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
             CardManager.Instance.InvokeCard(this);
             CardIsInHand = false;
         }
-        else if (GameManager.Instance.CurrentState==GameState.ChangeCards)
+        else if (GameManager.Instance.CurrentState == GameState.ChangeCards)
         {
             ChangeCards.Instance.ChangeCard(this);
             CardPreview.Instance.DestroyClone();
         }
-
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         LeanTween.scale(this.gameObject, new Vector3(1.2f, 1.2f, 1.2f), 0.2f);
         CardPreview.Instance.ShowCardInfo(this);
-
     }
 
     public void OnPointerExit(PointerEventData eventData)

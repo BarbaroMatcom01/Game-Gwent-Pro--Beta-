@@ -226,6 +226,28 @@ MonoBehaviour:
   ChangedCardsText:
   - {fileID: 989908135}
   - {fileID: 1881101514}
+--- !u!114 &79978028 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2395240225462482504, guid: e7eca8657e03abf4d8d20ba4ce7303cc, type: 3}
+  m_PrefabInstance: {fileID: 3502552965999284360}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &94185682 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2785473011687153386, guid: e7eca8657e03abf4d8d20ba4ce7303cc, type: 3}
+  m_PrefabInstance: {fileID: 3502552965999284360}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &129566224
 GameObject:
   m_ObjectHideFlags: 0
@@ -1777,18 +1799,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffb6034030ef67149a44cc4da7c745f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectManager: {fileID: 1902277133}
   board: {fileID: 832411995}
   Weathers: {fileID: 1684499151}
   Battlefields:
   - {fileID: 1549649946}
   - {fileID: 2101660905}
-  Hands:
-  - {fileID: 3502552965999284361}
-  - {fileID: 3502552965999284362}
   Graveyard:
   - {fileID: 1677393085}
   - {fileID: 304489790}
+  Hands:
+  - {fileID: 3502552965999284361}
+  - {fileID: 3502552965999284362}
+  EffectManager: {fileID: 1902277133}
 --- !u!4 &1206816420
 Transform:
   m_ObjectHideFlags: 0
@@ -2559,14 +2581,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a804a73daf326be43aad69b4e22d3077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  board: {fileID: 832411995}
-  battlefields:
+  Board: {fileID: 832411995}
+  Battlefields:
   - {fileID: 1549649946}
   - {fileID: 2101660905}
   Graveyard:
   - {fileID: 1677393085}
   - {fileID: 304489790}
-  GameManager: {fileID: 292200158}
 --- !u!4 &1902277134
 Transform:
   m_ObjectHideFlags: 0
@@ -3118,6 +3139,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3542611173265767892, guid: e7eca8657e03abf4d8d20ba4ce7303cc, type: 3}
+      propertyPath: Board
+      value: 
+      objectReference: {fileID: 832411995}
+    - target: {fileID: 3542611173265767892, guid: e7eca8657e03abf4d8d20ba4ce7303cc, type: 3}
+      propertyPath: Graveyard.Array.data[0]
+      value: 
+      objectReference: {fileID: 1677393085}
+    - target: {fileID: 3542611173265767892, guid: e7eca8657e03abf4d8d20ba4ce7303cc, type: 3}
+      propertyPath: Graveyard.Array.data[1]
+      value: 
+      objectReference: {fileID: 304489790}
+    - target: {fileID: 3542611173265767892, guid: e7eca8657e03abf4d8d20ba4ce7303cc, type: 3}
+      propertyPath: Battlefields.Array.data[0]
+      value: 
+      objectReference: {fileID: 1549649946}
+    - target: {fileID: 3542611173265767892, guid: e7eca8657e03abf4d8d20ba4ce7303cc, type: 3}
+      propertyPath: Battlefields.Array.data[1]
+      value: 
+      objectReference: {fileID: 2101660905}
     - target: {fileID: 3981915732603705766, guid: e7eca8657e03abf4d8d20ba4ce7303cc, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -3143,9 +3184,17 @@ PrefabInstance:
       value: 56
       objectReference: {fileID: 0}
     - target: {fileID: 5922741214415976147, guid: e7eca8657e03abf4d8d20ba4ce7303cc, type: 3}
+      propertyPath: Hand
+      value: 
+      objectReference: {fileID: 3502552965999284362}
+    - target: {fileID: 5922741214415976147, guid: e7eca8657e03abf4d8d20ba4ce7303cc, type: 3}
       propertyPath: hand
       value: 
       objectReference: {fileID: 3502552965999284362}
+    - target: {fileID: 5922741214415976147, guid: e7eca8657e03abf4d8d20ba4ce7303cc, type: 3}
+      propertyPath: Graveyard
+      value: 
+      objectReference: {fileID: 304489790}
     - target: {fileID: 5922741214415976147, guid: e7eca8657e03abf4d8d20ba4ce7303cc, type: 3}
       propertyPath: HandPlaceOrderIn
       value: 
@@ -3171,9 +3220,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3502552965999284362}
     - target: {fileID: 6173216248050114161, guid: e7eca8657e03abf4d8d20ba4ce7303cc, type: 3}
+      propertyPath: Hand
+      value: 
+      objectReference: {fileID: 3502552965999284361}
+    - target: {fileID: 6173216248050114161, guid: e7eca8657e03abf4d8d20ba4ce7303cc, type: 3}
       propertyPath: hand
       value: 
       objectReference: {fileID: 3502552965999284361}
+    - target: {fileID: 6173216248050114161, guid: e7eca8657e03abf4d8d20ba4ce7303cc, type: 3}
+      propertyPath: Graveyard
+      value: 
+      objectReference: {fileID: 1677393085}
     - target: {fileID: 6173216248050114161, guid: e7eca8657e03abf4d8d20ba4ce7303cc, type: 3}
       propertyPath: HandPlaceOrderIn
       value: 
@@ -3194,6 +3251,14 @@ PrefabInstance:
       propertyPath: m_UseGraphicAlpha
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7520632008719418821, guid: e7eca8657e03abf4d8d20ba4ce7303cc, type: 3}
+      propertyPath: PlayerName
+      value: 
+      objectReference: {fileID: 79978028}
+    - target: {fileID: 8053773475174772071, guid: e7eca8657e03abf4d8d20ba4ce7303cc, type: 3}
+      propertyPath: PlayerName
+      value: 
+      objectReference: {fileID: 94185682}
     - target: {fileID: 8610853916482676035, guid: e7eca8657e03abf4d8d20ba4ce7303cc, type: 3}
       propertyPath: m_Name
       value: GameBoard

@@ -10,16 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c8256566a5f809140863d9d08f1bfc0b, type: 3}
-  m_Name: Fauno
+  m_Name: Edmun
   m_EditorClassIdentifier: 
-  Name: Fauno El Valiente
+  Name: Edmun El Redentor
   Faction: Narnia
-  Description: 'Tiene el poder de multiplicar su poder por la cantidad de cartas
-    iguales a ella '
-  CardImage: {fileID: 21300000, guid: 0886c2bbc699f244ebebd8725febec2b, type: 3}
+  Description: Tiene la habilidad de eliminar la fila de menor cantidad de unidades
+  CardImage: {fileID: 21300000, guid: 6fff717f72923ae4892b5f3f478d431d, type: 3}
   TypeIcon: {fileID: 21300000, guid: 0bce26f87698a8f4788b8115e09be943, type: 3}
-  UnitType: 1
-  Power: 3
-  PowerImage: {fileID: 21300000, guid: 1834abe7cff98864084043e5759077af, type: 3}
-  Skill: 0
+  UnitType: 0
+  Power: 8
+  PowerImage: {fileID: 21300000, guid: 509a1a7863064a448ad9c582e8906aa2, type: 3}
+  Skill: 7
   AttackType: 0
