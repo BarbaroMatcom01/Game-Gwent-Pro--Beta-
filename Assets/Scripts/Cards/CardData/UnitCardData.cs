@@ -6,7 +6,7 @@ public enum AttackType { Melee, Ranged, Siege }
 public enum Skills
 {
     None, Draw, IncreaseRowPower, SetWeather, ClearStrongestUnit,
-    ClearLessStrongUnit, MultiplyPower, ClearLeastPopulatedRow, SetAveragePower,
+    ClearLessStrongUnit, MultiplyPower, ClearLeastPopulatedRow, SetAveragePower,Special
 }
 
 

@@ -1,0 +1,34 @@
+card {
+    Type: "Oro",
+    Name: "Beluga",
+    Faction: "Northern Realms",
+    Power: 10,
+    Range: ["Melee" , "Ranged"],
+    OnActivation: [
+        { 
+          Effect: {
+              Name: "Damage",
+              Amount: 5,
+          },
+           Selector: {
+               Sourse: "board" , 
+               Single: false ,
+               Predicate: (unit) => unit.Faction == "Northern" @@ " Realms"
+            },
+      PostAction: {
+        Effect: {
+              Name: "Damage",
+              Amount: 5,
+          },
+           Selector: {
+               Sourse: "board" , 
+               Single: false ,
+               Predicate: (unit) => unit.Faction == "Northern" @@ " Realms"
+            },
+       }
+},
+{
+   Effect: "Draw"
+}
+]
+}

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -13,6 +14,8 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     public Image Image;
     public CardData CardData;
     protected bool CardIsInHand = true;
+    public List<OnActivationObject> OnActivation;
+
 
     void Start()
     {
@@ -21,6 +24,7 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         Faction = CardData.Faction;
         Description = CardData.Description;
         Image.sprite = CardData.CardImage;
+        OnActivation = CardData.OnActivation;
     }
 
     public void OnPointerClick(PointerEventData eventData)

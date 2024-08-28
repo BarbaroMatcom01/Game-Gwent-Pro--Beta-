@@ -1,5 +1,8 @@
 using UnityEngine;
-
+using System.Collections;
+using System.Collections.Generic;
+using System;
+using System.IO;
 public class EffectManager : MonoBehaviour
 {
     public Board Board;
@@ -34,9 +37,21 @@ public class EffectManager : MonoBehaviour
             case Skills.SetAveragePower:
                 SetAveragePower(Board);
                 break;
+            case Skills.Special:
+                ActivateOnActivation(unit);
+                // CardManager.Instance.PostOnActivation(GameManager.Instance);
+                Debug.Log($"Se activo el on activation de la carta {unit.UnitCardData.Name}");
+                break;
         }
     }
-
+    public void ActivateOnActivation(Unit unit)
+    {
+        foreach (var activation in unit.OnActivation)
+        {
+            activation.ExecuteEffect(CardFactory.Instance.effects);
+            activation.Activate(CardFactory.Instance.effects,GameManager.Instance);
+        }
+    }
     public void ActivateLeaderEffect(Leader leader)
     {
         if (leader.IsUsableLeader)
@@ -147,7 +162,7 @@ public class EffectManager : MonoBehaviour
         }
         else
         {
-           int getPositionCard = Battlefields[1].GetPositionUnit(unit);
+            int getPositionCard = Battlefields[1].GetPositionUnit(unit);
             Row weatherRow = Battlefields[1].PlayerBattlefield[getPositionCard];
             foreach (Unit card in weatherRow.UnitCards)
             {
@@ -167,7 +182,7 @@ public class EffectManager : MonoBehaviour
         Battlefield battlefieldPlayerTwo = board.PlayerTwoSide.Battlefield;
         int positionUnitPlayerOne = battlefieldPlayerOne.GetPositionStrongestUnit();
         int positionUnitPlayerTwo = battlefieldPlayerTwo.GetPositionStrongestUnit();
-       
+
         if ((strongestUnitPlayerOne != null) && (strongestUnitPlayerTwo != null))
         {
             if (strongestUnitPlayerOne.Power > strongestUnitPlayerTwo.Power)

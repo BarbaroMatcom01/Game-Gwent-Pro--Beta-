@@ -36,7 +36,7 @@ public class CardManager : MonoBehaviour
         int numberCurrentPlayer = (int)GameManager.Instance.CurrentPlayer;
         float moveDuration = 0.7f;
         Transform newPosition;
-
+  
         switch (card)
         {
             case Unit unit when unit.AttackType == AttackType.Melee:
@@ -133,7 +133,9 @@ public class CardManager : MonoBehaviour
             GameManager.Instance.ChangeTurn();
         }
     }
-
+    
+    public void PostOnActivation(GameManager gameManager)
+    {}
     public void SendToGraveyard(Card card, GameObject graveryard)
     {
         float moveDuration = 0.7f;

@@ -3,8 +3,13 @@ using UnityEngine.SceneManagement;
 
 public class PlayButton : MonoBehaviour
 {
+    public CardFactory cardFactory;
     public void ChangeScene()
     {
+        if (cardFactory != null)
+        {
+            cardFactory.ProcessInput(); 
+        }
         SceneManager.LoadScene("SetPlayer");
     }
 }

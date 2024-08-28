@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,7 @@ public class Unit : Card
     public int Power;
     public UnitType UnitType;
     public AttackType AttackType;
+    
     void Start()
     {
         this.gameObject.name = UnitCardData.name;
@@ -23,5 +25,6 @@ public class Unit : Card
         UnitType = UnitCardData.UnitType;
         this.AttackType = UnitCardData.AttackType;
         TypeIcon.sprite = UnitCardData.TypeIcon;
+        OnActivation=UnitCardData.OnActivation;
     }
 }

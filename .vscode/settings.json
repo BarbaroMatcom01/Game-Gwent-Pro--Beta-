@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Game Gwent-Pro (Beta).sln"
+    "dotnet.defaultSolution": "Gwwn-Pro (Segundo Proyecto).sln"
 }

@@ -1,7 +1,11 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System;
+using System.IO;
 public enum Player
 {
    Player_One, Player_Two
@@ -33,8 +37,16 @@ public class GameManager : MonoBehaviour
       {
          Destroy(gameObject);
       }
+      TriggerPlayer = (int)CurrentPlayer;
    }
 
+    public int TriggerPlayer;
+   public List<Card> BoardCards() { return null; }
+   public List<Card> FieldOfPlayer(int player) { return null; }
+  
+   // public List<Card> GraveYardOfPlayer(int player) { return null; }
+   public List<Card> HandOfPlayer(int player) { return null; }
+   public List<CardData> DeckOfPlayer(int player) { return null; }
    void Start()
    {
       ChangeState(GameState.ChangeCards);
@@ -80,7 +92,7 @@ public class GameManager : MonoBehaviour
    {
       board.PlayerOneSide.Deck.DrawCard();
       board.PlayerOneSide.Deck.DrawCard();
-     
+
       board.PlayerTwoSide.Deck.DrawCard();
       board.PlayerTwoSide.Deck.DrawCard();
    }
