@@ -34,6 +34,7 @@ public class CardManager : MonoBehaviour
     {
         InvokedCards[(int)GameManager.Instance.CurrentPlayer].Add(card);
         int numberCurrentPlayer = (int)GameManager.Instance.CurrentPlayer;
+        card.Owner=GameManager.Instance.TriggerPlayer;
         float moveDuration = 0.7f;
         Transform newPosition;
   

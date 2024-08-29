@@ -200,11 +200,10 @@
             }
             Consume(TokenType.Right_Paren, "Expected ')' after delegate parameters.");
             Consume(TokenType.Lambda, "Expected '=>' after delegate parameters.");
-            var e = Expression();
+            var e =Expression();
 
-            Interpreter interpreter = new Interpreter();
-            Environment delegateEnvironment = new Environment(interpreter.environment);
+       
 
-            return new DelegateExpr(id, e, delegateEnvironment);
+            return new DelegateExpr(id, e);
         }
     }

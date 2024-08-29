@@ -15,36 +15,23 @@ public partial class OnActivationObject : InterpretedElement
         Selector = selector;
         PostAction = postAction;
     }
-
-    public void ExecuteEffect(List<InterpretedEffect> effects)
+    public void ActivateEffect(List<InterpretedEffect> effects, GameManager gameManager)
     {
-        Debug.Log($"Ejecutando efecto: ");
         var effect = effects.FirstOrDefault(e => e.Name == this.Info.Name);
+
         if (effect != null)
         {
             Debug.Log($"Ejecutando efecto: {effect.Name}");
-
-            //    effect.Action.InvokeAction();
-        }
-        else
-        {
-            Debug.LogWarning($"Efecto {this.Info.Name} no encontrado en la lista de efectos.");
-        }
-    }
-
-    public void Activate(List<InterpretedEffect> effects, GameManager gameManager)
-    {
-        var effect = effects.FirstOrDefault(e => e.Name == this.Info.Name);
-        if (effect != null)
-        {
-            Debug.Log($"Ejecutando efecto: {effect.Name}");
-            if (Selector.Source == "deck" || Selector.Source == "otherDeck")
+            if (Selector != null)
             {
-                effect.Action.InvokeAction(effect, GetTargetsCardData(gameManager), gameManager);
-            }
-            else
-            {
-                effect.Action.InvokeAction(effect, GetTargetsCard(gameManager), gameManager);
+                if (Selector.Source == "deck" || Selector.Source == "otherDeck")
+                {
+                    effect.Action.InvokeAction(Info, GetTargetsCardData(gameManager), gameManager);
+                }
+                else
+                {
+                    effect.Action.InvokeAction(Info, GetTargetsCard(gameManager), gameManager);
+                }
             }
         }
         else
@@ -59,17 +46,18 @@ public partial class OnActivationObject : InterpretedElement
         var targetsSource = GetSourceCard(gameManager);
         var filtredCard = new List<Card>();
 
-        // foreach (var target in targetsSource)
-        // {
-        //     if ((bool)Selector.Delegate.InvokeDelegate(target))
-        //     {
-        //         filtredCard.Add(target);
-        //     }
-        // }
-        // if (Selector.Single)
-        // {
-        //     return filtredCard.Count > 0 ? new List<Card>() { filtredCard[0] } : new();
-        // }
+        foreach (var target in targetsSource)
+        {
+            Debug.Log(target.Name.ToString());
+            if (true)
+            {
+                filtredCard.Add(target);
+            }
+        }
+        if (Selector.Single)
+        { 
+            return filtredCard.Count > 0 ? new List<Card>() { filtredCard[0] } : new();
+        }
         return filtredCard;
     }
 
@@ -107,7 +95,7 @@ public partial class OnActivationObject : InterpretedElement
             _ => throw new Exception()
         };
     }
-     private List<CardData> GetSourceCardData(GameManager gameManager)
+    private List<CardData> GetSourceCardData(GameManager gameManager)
     {
         int player = gameManager.TriggerPlayer;
         int otherPlayer = (player + 1) % 2;
@@ -148,23 +136,24 @@ public partial class Delegate : InterpretedElement
 {
     public List<string> Param { get; }
     public Expr Expr { get; }
-    public Environment Environment { get; }
-    public Delegate(List<string> param, Expr expr, Environment environment)
+
+    public Delegate(List<string> param, Expr expr)
     {
         Param = param;
         Expr = expr;
-        Environment = environment;
     }
 
 
-    public object InvokeDelegate(params object[] args )
+    public object InvokeDelegate(params object[] args)
     {
+        Interpreter interpreter = new Interpreter();
+        Environment delegateEnvironment = new Environment(interpreter.environment);
+
         for (int i = 0; i < args.Length; i++)
         {
-            Environment.Define(Param[i], args[i]);
+            delegateEnvironment.Define(Param[i], args[i]);
 
         }
-        Interpreter interpreter = new Interpreter();
-        return interpreter.Evaluate(Expr);
+        return interpreter.ExecuteBlockDelegate(Expr, delegateEnvironment);
     }
 }

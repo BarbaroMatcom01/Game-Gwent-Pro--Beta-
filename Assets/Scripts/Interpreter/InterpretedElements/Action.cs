@@ -15,14 +15,14 @@
             ActionParams = actionParams;
             ActionBlock = actionBlock;
         }
-        public void InvokeAction(InterpretedEffect effect,params object[] args )
+        public void InvokeAction(EffectInfo effectInfo,params object[] args )
         {
             Interpreter interpreter = new Interpreter();
             Environment actionEnvironment = new Environment(interpreter.environment);
             
-            foreach (var param in effect.Params.Keys)
+            foreach (var param in effectInfo.Param)
             {
-                actionEnvironment.Define(param,"");
+                actionEnvironment.Define(param.Key,param.Value);
             }
             for (int i = 0; i < ActionParams.Count; i++)
             {

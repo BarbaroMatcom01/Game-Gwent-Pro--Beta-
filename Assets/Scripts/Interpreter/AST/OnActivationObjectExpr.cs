@@ -54,13 +54,12 @@
     public class DelegateExpr : Expr
     {
         public List<string> ParmasDelegate { get; }
-        public Expr Expr { get; }
-        public Environment Environment { get; }
-        public DelegateExpr(List<string> parmasDelegate, Expr expr, Environment environment)
+        public Expr Expr  { get; }
+        public DelegateExpr(List<string> parmasDelegate,  Expr expr)
         {
             ParmasDelegate = parmasDelegate;
-            Expr = expr;
-            Environment = environment;
+             Expr =expr;
+       
         }
         public override T Accept<T>(IVisitorExp<T> visitor)
         {

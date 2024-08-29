@@ -32,3 +32,24 @@ card {
 }
 ]
 }
+card {
+    Type: "Silver",
+    Name: "Carta Interpretada",
+    Faction: "Narnia",
+    Power: 10,
+    Range: "Ranged", 
+    Description:" Carta creada en el compilador",
+    
+OnActivation: [
+        { 
+          Effect : {
+              Name: "Draw",
+            
+          },  
+           Selector:
+            {
+               Single: false ,
+               Source: "hand", 
+               Predicate: (unit) => unit.Faction == "Narnia",
+            }
+            }]}

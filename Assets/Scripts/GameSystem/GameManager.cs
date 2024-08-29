@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.IO;
+using System.Linq;
 public enum Player
 {
    Player_One, Player_Two
@@ -39,14 +40,61 @@ public class GameManager : MonoBehaviour
       }
       TriggerPlayer = (int)CurrentPlayer;
    }
+   public int TriggerPlayer;
+   public List<Card> BoardCards()
+   {
+      List<Card> allCards = new List<Card>();
 
-    public int TriggerPlayer;
-   public List<Card> BoardCards() { return null; }
-   public List<Card> FieldOfPlayer(int player) { return null; }
-  
+      Battlefield playerOneBattlefield = Board.PlayerOneSide.Battlefield;
+      allCards.AddRange(playerOneBattlefield.MeleeRow.UnitCards);
+      allCards.AddRange(playerOneBattlefield.RangedRow.UnitCards);
+      allCards.AddRange(playerOneBattlefield.SiegeRow.UnitCards);
+
+      Battlefield playerTwoBattlefield = Board.PlayerTwoSide.Battlefield;
+      allCards.AddRange(playerTwoBattlefield.MeleeRow.UnitCards);
+      allCards.AddRange(playerTwoBattlefield.RangedRow.UnitCards);
+      allCards.AddRange(playerTwoBattlefield.SiegeRow.UnitCards);
+
+      return allCards;
+   }
+   public List<Card> FieldOfPlayer(int player)
+   {
+      if (player == 0)
+      {
+         Battlefield battlefield = Board.Instance.PlayerOneSide.Battlefield;
+         List<Card> allCards = new List<Card>();
+         allCards.AddRange(battlefield.MeleeRow.UnitCards);
+         allCards.AddRange(battlefield.RangedRow.UnitCards);
+         allCards.AddRange(battlefield.SiegeRow.UnitCards);
+         return allCards;
+      }
+      else
+      {
+         Battlefield battlefield = Board.Instance.PlayerTwoSide.Battlefield;
+         List<Card> allCards = new List<Card>();
+         allCards.AddRange(battlefield.MeleeRow.UnitCards);
+         allCards.AddRange(battlefield.RangedRow.UnitCards);
+         allCards.AddRange(battlefield.SiegeRow.UnitCards);
+         return allCards;
+      }
+   }
+
    // public List<Card> GraveYardOfPlayer(int player) { return null; }
-   public List<Card> HandOfPlayer(int player) { return null; }
-   public List<CardData> DeckOfPlayer(int player) { return null; }
+   public List<Card> HandOfPlayer(int player)
+   {
+      if (player == 0)
+         return Board.Instance.PlayerOneSide.Hand.GetComponentsInChildren<Card>().ToList();
+      else
+         return Board.Instance.PlayerTwoSide.Hand.GetComponentsInChildren<Card>().ToList();
+   }
+   public List<CardData> DeckOfPlayer(int player)
+   {
+      if (player == 0)
+         return Board.Instance.PlayerOneSide.Deck.DeckCards;
+      else
+         return Board.Instance.PlayerTwoSide.Deck.DeckCards;
+   }
+
    void Start()
    {
       ChangeState(GameState.ChangeCards);

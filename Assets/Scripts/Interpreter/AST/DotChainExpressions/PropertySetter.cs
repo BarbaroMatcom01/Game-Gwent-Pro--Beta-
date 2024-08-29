@@ -2,7 +2,8 @@
    using System;
    using System.Collections;
    using System.Collections.Generic;
-   using System.Linq;    public class PropertySetter : Expr
+   using System.Linq;    
+   public class PropertySetter : Expr
     {
         public Expr Left { get; }
         public string PropertyName { get; }

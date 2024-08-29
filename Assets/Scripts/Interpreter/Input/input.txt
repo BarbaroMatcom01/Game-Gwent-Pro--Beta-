@@ -1,12 +1,15 @@
 effect {
-Name: "Draw",
-Action: (targets , context) => {
-       topCard = context.Deck.Pop();
-       context.Hand.Add(topCard);
-       context.Hand.Shuffle();
-  }
+    Name: "Damage",
+    Params: {
+      Amount: Number
+},
+Action: (targets, context) => { 
+    for( target in targets)
+     { 
+        var a = target.Power ;  
+      };
+    }
 }
-
 card {
     Type: "Silver",
     Name: "Carta Interpretada",
@@ -18,13 +21,15 @@ card {
 OnActivation: [
         { 
           Effect : {
-              Name: "Draw",
+              Name: "Damage",
             
           },  
            Selector:
             {
-               Single: false ,
-               Source: "hand", 
+               Single: true ,
+               Source: "board", 
                Predicate: (unit) => unit.Faction == "Narnia",
             }
-            }]}
+      }
+]
+}

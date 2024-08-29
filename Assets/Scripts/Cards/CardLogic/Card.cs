@@ -14,6 +14,7 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     public Image Image;
     public CardData CardData;
     protected bool CardIsInHand = true;
+    public int Owner;
     public List<OnActivationObject> OnActivation;
 
 

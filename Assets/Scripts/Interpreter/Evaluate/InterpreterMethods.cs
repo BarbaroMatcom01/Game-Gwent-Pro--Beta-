@@ -57,6 +57,20 @@
             }
             return null;
         }
+        public object ExecuteBlockDelegate(Expr expr,Environment environment)
+        {
+            Environment previous = this.environment;
+            try
+            {
+                this.environment = environment;
+                    Evaluate(expr);
+            }
+            finally
+            {
+                this.environment = previous;
+            }
+            return null;
+        }
 
         private bool IsTruthy(object value)
         {
