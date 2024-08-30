@@ -23,7 +23,6 @@ public partial class OnActivationObject : InterpretedElement
 
         if (effect != null)
         {
-            Debug.Log($"Ejecutando efecto: {effect.Name}");
             if (Selector != null)
             {
                 if (Selector.Source == "deck" || Selector.Source == "otherDeck")
@@ -51,6 +50,7 @@ public partial class OnActivationObject : InterpretedElement
         foreach (var target in targetsSource)
         {
             Debug.Log(target.Name.ToString());
+          
             if ((bool)Selector.Delegate.InvokeDelegate(target))
             {
                 filtredCard.Add(target);
@@ -85,7 +85,7 @@ public partial class OnActivationObject : InterpretedElement
 
     private List<Card> GetSourceCard(GameManager gameManager)
     {
-        int player = gameManager.TriggerPlayer;
+        int player = (int)GameManager.Instance.CurrentPlayer;
         int otherPlayer = (player + 1) % 2;
         return Selector.Source switch
         {
@@ -99,8 +99,9 @@ public partial class OnActivationObject : InterpretedElement
     }
     private List<CardData> GetSourceCardData(GameManager gameManager)
     {
-        int player = gameManager.TriggerPlayer;
+        int player = (int)GameManager.Instance.CurrentPlayer;
         int otherPlayer = (player + 1) % 2;
+        
         return Selector.Source switch
         {
             "deck" => gameManager.DeckOfPlayer(player),
@@ -157,7 +158,6 @@ public partial class Delegate : InterpretedElement
 
         }
         var a = interpreter.ExecuteBlockDelegate(Expr, delegateEnvironment);
-        Debug.Log(a.ToString());
         return a;
     }
 }

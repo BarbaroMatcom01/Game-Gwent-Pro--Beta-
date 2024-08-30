@@ -20,13 +20,13 @@
             Interpreter interpreter = new Interpreter();
             Environment actionEnvironment = new Environment(interpreter.environment);
             
-            foreach (var param in effectInfo.Param)
-            {
-                actionEnvironment.Define(param.Key,param.Value);
-            }
             for (int i = 0; i < ActionParams.Count; i++)
             {
                 actionEnvironment.Define(ActionParams[i].Value, args[i]);
+            }
+            foreach (var param in effectInfo.Param)
+            {
+                actionEnvironment.Define(param.Key,param.Value);
             }
             interpreter.ExecuteBlock(ActionBlock.Statements, actionEnvironment);
         }

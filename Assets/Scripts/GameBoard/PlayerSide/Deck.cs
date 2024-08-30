@@ -44,6 +44,7 @@ public class Deck : MonoBehaviour
         switch (cardData)
         {
             case SpecialCardData specialCardData:
+             cardData.Owner=(int)GameManager.Instance.CurrentPlayer;
                 var specialCard = Instantiate(Special, Hand.transform);
                 specialCard.CardData = specialCardData;
                 break;

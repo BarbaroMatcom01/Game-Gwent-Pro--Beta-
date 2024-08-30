@@ -37,7 +37,7 @@ public partial class Interpreter
     }
 
     public object VisitFunctionCall(FunctionCall expr)
-    {
+    {   
         object l = Evaluate(expr.LeftExpression);
         if (l is GameManager gameManager)
         {
@@ -131,6 +131,60 @@ public partial class Interpreter
                     return unit.AttackType;
                 case "Type":
                     return unit.UnitType;
+                case "Owner":
+                    return unit.Owner;
+                default:
+                    throw new Exception($"Property '{expr.PropertyName}' not found.");
+            }
+        }
+        else if (l is Special special)
+        {
+            switch (expr.PropertyName)
+            {
+                case "Name":
+                    return special.Name;
+                case "Faction":
+                    return special.Faction;
+                case "Type":
+                    return special.SpecialType;
+                case "Owner":
+                    return special.Owner;
+                default:
+                    throw new Exception($"Property '{expr.PropertyName}' not found.");
+            }
+        }
+        else if (l is UnitCardData unitCardData)
+        {
+            switch (expr.PropertyName)
+            {
+                case "Name":
+                    return unitCardData.Name;
+                case "Faction":
+                    return unitCardData.Faction;
+                case "Power":
+                    return unitCardData.Power;
+                case "Range":
+                    return unitCardData.AttackType;
+                case "Type":
+                    return unitCardData.UnitType;
+                    case "Owner":
+                    return unitCardData.Owner;
+                default:
+                    throw new Exception($"Property '{expr.PropertyName}' not found.");
+            }
+        }
+        else if (l is SpecialCardData specialCardData)
+        {
+            switch (expr.PropertyName)
+            {
+                case "Name":
+                    return specialCardData.Name;
+                case "Faction":
+                    return specialCardData.Faction;
+                case "Type":
+                    return specialCardData.SpecialType;
+                 case "Owner":
+                    return specialCardData.Owner;
                 default:
                     throw new Exception($"Property '{expr.PropertyName}' not found.");
             }
@@ -172,66 +226,20 @@ public partial class Interpreter
                     throw new Exception();
             }
         }
-        else if (l is Special special)
-        {
-            switch (expr.PropertyName)
-            {
-                case "Name":
-                    return special.Name;
-                case "Faction":
-                    return special.Faction;
-                case "Type":
-                    return special.SpecialType;
-                default:
-                    throw new Exception($"Property '{expr.PropertyName}' not found.");
-            }
-        }
-        else if (l is UnitCardData unitCardData)
-        {
-            switch (expr.PropertyName)
-            {
-                case "Name":
-                    return unitCardData.Name;
-                case "Faction":
-                    return unitCardData.Faction;
-                case "Power":
-                    return unitCardData.Power;
-                case "Range":
-                    return unitCardData.AttackType;
-                case "Type":
-                    return unitCardData.UnitType;
-                default:
-                    throw new Exception($"Property '{expr.PropertyName}' not found.");
-            }
-        }
-        else if (l is SpecialCardData specialCardData)
-        {
-            switch (expr.PropertyName)
-            {
-                case "Name":
-                    return specialCardData.Name;
-                case "Faction":
-                    return specialCardData.Faction;
-                case "Type":
-                    return specialCardData.SpecialType;
-                default:
-                    throw new Exception($"Property '{expr.PropertyName}' not found.");
-            }
-        }
         else if (l is GameManager gameManager)
         {
             switch (expr.PropertyName)
             {
                 case "Board":
-                    return gameManager.BoardCards();
+                    return GameManager.Instance.BoardCards();
                 case "TriggerPlayer":
-                    return gameManager.TriggerPlayer;
+                    return (int)GameManager.Instance.CurrentPlayer;
                 case "Hand":
-                    return gameManager.HandOfPlayer((int)GameManager.Instance.CurrentPlayer);
+                    return GameManager.Instance.HandOfPlayer((int)GameManager.Instance.CurrentPlayer);
                 case "Field":
-                    return gameManager.FieldOfPlayer((int)GameManager.Instance.CurrentPlayer);
+                    return GameManager.Instance.FieldOfPlayer((int)GameManager.Instance.CurrentPlayer);
                 case "Deck":
-                    return gameManager.DeckOfPlayer((int)GameManager.Instance.CurrentPlayer);
+                    return GameManager.Instance.DeckOfPlayer((int)GameManager.Instance.CurrentPlayer);
                 default:
                     throw new Exception($"Property '{expr.PropertyName}' not found.");
             }
@@ -249,6 +257,18 @@ public partial class Interpreter
                 case "Power":
 
                     unit.Power = int.Parse(Evaluate(expr.Value).ToString());
+                    break;
+                default:
+                    throw new Exception();
+            }
+        }
+         else if (l is UnitCardData unitCardData)
+        {
+            switch (expr.PropertyName)
+            {
+                case "Power":
+
+                    unitCardData.Power = int.Parse(Evaluate(expr.Value).ToString());
                     break;
                 default:
                     throw new Exception();

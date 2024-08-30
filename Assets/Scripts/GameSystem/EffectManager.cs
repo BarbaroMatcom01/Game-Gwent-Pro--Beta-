@@ -38,7 +38,7 @@ public class EffectManager : MonoBehaviour
                 SetAveragePower(Board);
                 break;
             case Skills.Special:
-                ActivateOnActivation(unit);
+                ActivateOnActivation(unit);                
                 // CardManager.Instance.PostOnActivation(GameManager.Instance);
                 Debug.Log($"Se activo el on activation de la carta {unit.UnitCardData.Name}");
                 break;

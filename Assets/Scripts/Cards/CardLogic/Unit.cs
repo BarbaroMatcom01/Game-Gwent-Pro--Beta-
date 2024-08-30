@@ -18,6 +18,7 @@ public class Unit : Card
         this.gameObject.name = UnitCardData.name;
         Name = UnitCardData.Name;
         Faction=UnitCardData.Faction;
+        Owner=UnitCardData.Owner;
         Description=UnitCardData.Description;
         Power = UnitCardData.Power;
         Image.sprite = UnitCardData.CardImage;

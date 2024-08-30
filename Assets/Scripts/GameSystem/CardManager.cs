@@ -30,11 +30,15 @@ public class CardManager : MonoBehaviour
         InvokedCards[1] = new();
     }
 
+    public void PostOnActivation(GameManager gameManager)
+    {
+
+    }
     public void InvokeCard(Card card)
     {
         InvokedCards[(int)GameManager.Instance.CurrentPlayer].Add(card);
         int numberCurrentPlayer = (int)GameManager.Instance.CurrentPlayer;
-        card.Owner=GameManager.Instance.TriggerPlayer;
+        card.Owner=(int)GameManager.Instance.CurrentPlayer;
         float moveDuration = 0.7f;
         Transform newPosition;
   
@@ -135,8 +139,6 @@ public class CardManager : MonoBehaviour
         }
     }
     
-    public void PostOnActivation(GameManager gameManager)
-    {}
     public void SendToGraveyard(Card card, GameObject graveryard)
     {
         float moveDuration = 0.7f;

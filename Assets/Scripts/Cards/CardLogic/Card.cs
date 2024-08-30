@@ -23,6 +23,7 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         this.gameObject.name = CardData.name;
         Name = CardData.Name;
         Faction = CardData.Faction;
+        Owner=CardData.Owner;
         Description = CardData.Description;
         Image.sprite = CardData.CardImage;
         OnActivation = CardData.OnActivation;
