@@ -11,9 +11,17 @@ public class Deck : MonoBehaviour
     [SerializeField] private Golden Golden;
     [SerializeField] private Special Special;
     public int CountCardsInDeck => DeckCards.Count;
-
+    public static Deck Instance;
     void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
         DeckCards = new List<CardData>(deckData.DeckCards);
     }
 
@@ -21,7 +29,7 @@ public class Deck : MonoBehaviour
     {
         DeckCards.Add(cardData);
     }
-    
+
     public void DrawCard()
     {
         if (CountCardsInDeck == 0) return;
@@ -30,7 +38,7 @@ public class Deck : MonoBehaviour
         InstantiateCard(DeckCards[random]);
         DeckCards.RemoveAt(random);
     }
-  
+
     public void InstantiateCard(CardData cardData)
     {
         switch (cardData)

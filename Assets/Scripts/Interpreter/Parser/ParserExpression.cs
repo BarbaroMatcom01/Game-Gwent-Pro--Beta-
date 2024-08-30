@@ -136,6 +136,14 @@
             if (Match(TokenType.False)) return new Literal(false);
             if (Match(TokenType.True)) return new Literal(true);
             if (Match(TokenType.Null)) return new Literal(null);
+            if(
+                 MatchPrefix(TokenType.Left_Paren,TokenType.Right_Paren)||
+                 MatchPrefix(TokenType.Left_Paren,TokenType.Identifier,TokenType.Right_Paren,TokenType.Lambda)||
+                 MatchPrefix(TokenType.Left_Paren,TokenType.Identifier,TokenType.Comma)
+                 )
+            {
+                 return DelegateEx();
+            }
 
             if (Match(TokenType.Number))
             {
@@ -152,14 +160,6 @@
                 return new Variable(Previous());
             }
 
-            if(
-                 MatchPrefix(TokenType.Left_Paren,TokenType.Right_Paren)||
-                 MatchPrefix(TokenType.Left_Paren,TokenType.Identifier,TokenType.Right_Paren,TokenType.Lambda)||
-                 MatchPrefix(TokenType.Left_Paren,TokenType.Identifier,TokenType.Comma)
-                 )
-            {
-                 return DelegateEx();
-            }
             if (Match(TokenType.Left_Paren))
             {
                 Expr expr = Expression();

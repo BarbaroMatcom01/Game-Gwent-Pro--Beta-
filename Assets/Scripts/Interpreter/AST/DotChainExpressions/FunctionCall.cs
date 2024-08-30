@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 public class FunctionCall : Expr
 {   
-    public string context{get;}
     public string function { get; }
     public Expr LeftExpression { get; }
     public List<Expr> args { get; }

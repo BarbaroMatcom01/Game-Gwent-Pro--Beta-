@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
    {
       if (player == 0)
       {
-         Battlefield battlefield = Board.Instance.PlayerOneSide.Battlefield;
+         Battlefield battlefield = Board.PlayerOneSide.Battlefield;
          List<Card> allCards = new List<Card>();
          allCards.AddRange(battlefield.MeleeRow.UnitCards);
          allCards.AddRange(battlefield.RangedRow.UnitCards);
@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
       }
       else
       {
-         Battlefield battlefield = Board.Instance.PlayerTwoSide.Battlefield;
+         Battlefield battlefield = Board.PlayerTwoSide.Battlefield;
          List<Card> allCards = new List<Card>();
          allCards.AddRange(battlefield.MeleeRow.UnitCards);
          allCards.AddRange(battlefield.RangedRow.UnitCards);
@@ -83,16 +83,16 @@ public class GameManager : MonoBehaviour
    public List<Card> HandOfPlayer(int player)
    {
       if (player == 0)
-         return Board.Instance.PlayerOneSide.Hand.GetComponentsInChildren<Card>().ToList();
+         return Board.PlayerOneSide.Hand.GetComponentsInChildren<Card>().ToList();
       else
-         return Board.Instance.PlayerTwoSide.Hand.GetComponentsInChildren<Card>().ToList();
+         return Board.PlayerTwoSide.Hand.GetComponentsInChildren<Card>().ToList();
    }
    public List<CardData> DeckOfPlayer(int player)
    {
       if (player == 0)
-         return Board.Instance.PlayerOneSide.Deck.DeckCards;
+         return Board.PlayerOneSide.Deck.DeckCards;
       else
-         return Board.Instance.PlayerTwoSide.Deck.DeckCards;
+         return Board.PlayerTwoSide.Deck.DeckCards;
    }
 
    void Start()

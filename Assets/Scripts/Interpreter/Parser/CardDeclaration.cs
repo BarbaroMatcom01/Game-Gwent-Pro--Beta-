@@ -141,7 +141,7 @@
                         else if (Previous().Value == "Predicate")
                         {
                             Consume(TokenType.Colon, "Expected ':' after 'Predicate'.");
-                            del = (DelegateExpr)Expression();
+                            del = (DelegateExpr)DelegateEx();
                             if (Check(TokenType.Comma))
                             {
                                 Consume(TokenType.Comma, "Expected ',' after 'Predicate' expression.");
@@ -154,6 +154,7 @@
                 }
                 else if (Previous().Value == "PostAction")
                 {
+                    
                 }
             }
             return new OnActivationExpr(effectInfoExpr, selectorExpr, onActivationExpr);
@@ -200,10 +201,7 @@
             }
             Consume(TokenType.Right_Paren, "Expected ')' after delegate parameters.");
             Consume(TokenType.Lambda, "Expected '=>' after delegate parameters.");
-            var e =Expression();
-
-       
-
+            var e = Expression();
             return new DelegateExpr(id, e);
         }
     }

@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Timeline.Actions;
 public partial class Interpreter
 {
     public object VisitEffectStmt(EffectStmt stmt)
@@ -38,7 +39,62 @@ public partial class Interpreter
     public object VisitFunctionCall(FunctionCall expr)
     {
         object l = Evaluate(expr.LeftExpression);
-        if (l is List<object> objectList)
+        if (l is GameManager gameManager)
+        {
+            switch (expr.function)
+            {
+                case "DeckOfPlayer":
+                    return gameManager.DeckOfPlayer(Convert.ToInt32(Evaluate(expr.args[0])));
+                case "HandOfPlayer":
+                    return gameManager.HandOfPlayer(Convert.ToInt32(Evaluate(expr.args[0])));
+                case "FieldOfPlayer":
+                    return gameManager.FieldOfPlayer(Convert.ToInt32(Evaluate(expr.args[0])));
+                default:
+                    throw new Exception();
+            }
+        }
+        else if (l is List<CardData> cardDataList)
+        {
+            switch (expr.function)
+            {
+                case "Remove":
+                    return cardDataList.Remove((CardData)Evaluate(expr.args[0]));
+                case "Push":
+                    cardDataList.Add((CardData)Evaluate(expr.args[0]));
+                    return typeof(void);
+                case "Pop":
+                    var item = cardDataList[^1];
+                    cardDataList.RemoveAt(cardDataList.Count - 1);
+                    return item;
+                default:
+                    throw new Exception();
+            }
+        }
+        else if (l is List<Card> cardList)
+        {
+            switch (expr.function)
+            {
+                case "Remove":
+                    return cardList.Remove((Card)Evaluate(expr.args[0]));
+                case "Push":
+                    object c = Evaluate(expr.args[0]);
+                    if (c is CardData cardData)
+                    {
+                        if (GameManager.Instance.CurrentPlayer == 0)
+                             Board.Instance.PlayerOneSide.Deck.InstantiateCard(cardData);
+                        else Board.Instance.PlayerTwoSide.Deck.InstantiateCard(cardData);
+                    }
+                    else cardList.Add((Card)c);
+                    return typeof(void);
+                case "Pop":
+                    var item = cardList[^1];
+                    cardList.RemoveAt(cardList.Count - 1);
+                    return item;
+                default:
+                    throw new Exception();
+            }
+        }
+        else if (l is List<object> objectList)
         {
             switch (expr.function)
             {
@@ -61,7 +117,25 @@ public partial class Interpreter
     public object VisitPropertyGetter(PropertyGetter expr)
     {
         object l = Evaluate(expr.Left);
-        if (l is List<object> objectList)
+        if (l is Unit unit)
+        {
+            switch (expr.PropertyName)
+            {
+                case "Name":
+                    return unit.Name;
+                case "Faction":
+                    return unit.Faction;
+                case "Power":
+                    return unit.Power;
+                case "Range":
+                    return unit.AttackType;
+                case "Type":
+                    return unit.UnitType;
+                default:
+                    throw new Exception($"Property '{expr.PropertyName}' not found.");
+            }
+        }
+        else if (l is List<object> objectList)
         {
             switch (expr.PropertyName)
             {
@@ -96,24 +170,6 @@ public partial class Interpreter
                     return cardDataList[Convert.ToInt32(Evaluate(expr.Args[0]))];
                 default:
                     throw new Exception();
-            }
-        }
-        else if (l is Unit unit)
-        {
-            switch (expr.PropertyName)
-            {
-                case "Name":
-                    return unit.Name;
-                case "Faction":
-                    return unit.Faction;
-                case "Power":
-                    return unit.Power;
-                case "Range":
-                    return unit.AttackType;
-                case "Type":
-                    return unit.UnitType;
-                default:
-                    throw new Exception($"Property '{expr.PropertyName}' not found.");
             }
         }
         else if (l is Special special)
@@ -171,11 +227,11 @@ public partial class Interpreter
                 case "TriggerPlayer":
                     return gameManager.TriggerPlayer;
                 case "Hand":
-                    return gameManager.HandOfPlayer(gameManager.TriggerPlayer);
+                    return gameManager.HandOfPlayer((int)GameManager.Instance.CurrentPlayer);
                 case "Field":
-                    return gameManager.FieldOfPlayer(gameManager.TriggerPlayer);
+                    return gameManager.FieldOfPlayer((int)GameManager.Instance.CurrentPlayer);
                 case "Deck":
-                    return gameManager.DeckOfPlayer(gameManager.TriggerPlayer);
+                    return gameManager.DeckOfPlayer((int)GameManager.Instance.CurrentPlayer);
                 default:
                     throw new Exception($"Property '{expr.PropertyName}' not found.");
             }
@@ -191,10 +247,9 @@ public partial class Interpreter
             switch (expr.PropertyName)
             {
                 case "Power":
-                   
-                      unit.Power = (int)Evaluate(expr);
-                       break;
-                    
+
+                    unit.Power = int.Parse(Evaluate(expr.Value).ToString());
+                    break;
                 default:
                     throw new Exception();
             }

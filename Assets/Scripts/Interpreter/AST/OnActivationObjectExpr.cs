@@ -53,13 +53,12 @@
 
     public class DelegateExpr : Expr
     {
-        public List<string> ParmasDelegate { get; }
+        public List<string> ParamasDelegate { get; }
         public Expr Expr  { get; }
-        public DelegateExpr(List<string> parmasDelegate,  Expr expr)
+        public DelegateExpr(List<string> paramasDelegate,  Expr expr)
         {
-            ParmasDelegate = parmasDelegate;
+            ParamasDelegate = paramasDelegate;
              Expr =expr;
-       
         }
         public override T Accept<T>(IVisitorExp<T> visitor)
         {

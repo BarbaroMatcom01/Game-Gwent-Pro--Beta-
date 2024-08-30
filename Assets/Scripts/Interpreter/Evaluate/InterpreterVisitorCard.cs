@@ -82,6 +82,6 @@ public partial class Interpreter
 
     public object VisitDelegateExpr(DelegateExpr expr)
     {
-        return new Delegate(expr.ParmasDelegate, expr.Expr);
+        return new Delegate(expr.ParamasDelegate,expr.Expr);
     }
 }

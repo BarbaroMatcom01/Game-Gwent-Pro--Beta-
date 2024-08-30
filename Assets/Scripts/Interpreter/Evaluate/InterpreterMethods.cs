@@ -63,7 +63,7 @@
             try
             {
                 this.environment = environment;
-                    Evaluate(expr);
+                   return Evaluate(expr);
             }
             finally
             {

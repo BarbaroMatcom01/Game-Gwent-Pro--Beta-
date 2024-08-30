@@ -4,6 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor.EditorTools;
+
+
 public partial class OnActivationObject : InterpretedElement
 {
     public EffectInfo Info { get; }
@@ -49,7 +51,7 @@ public partial class OnActivationObject : InterpretedElement
         foreach (var target in targetsSource)
         {
             Debug.Log(target.Name.ToString());
-            if (true)
+            if ((bool)Selector.Delegate.InvokeDelegate(target))
             {
                 filtredCard.Add(target);
             }
@@ -154,6 +156,8 @@ public partial class Delegate : InterpretedElement
             delegateEnvironment.Define(Param[i], args[i]);
 
         }
-        return interpreter.ExecuteBlockDelegate(Expr, delegateEnvironment);
+        var a = interpreter.ExecuteBlockDelegate(Expr, delegateEnvironment);
+        Debug.Log(a.ToString());
+        return a;
     }
 }
