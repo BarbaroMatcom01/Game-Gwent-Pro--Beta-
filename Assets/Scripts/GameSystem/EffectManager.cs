@@ -39,7 +39,6 @@ public class EffectManager : MonoBehaviour
                 break;
             case Skills.Special:
                 ActivateOnActivation(unit);                
-                // CardManager.Instance.PostOnActivation(GameManager.Instance);
                 Debug.Log($"Se activo el on activation de la carta {unit.UnitCardData.Name}");
                 break;
         }
@@ -65,7 +64,6 @@ public class EffectManager : MonoBehaviour
             leader.IsUsableLeader = false;
         }
     }
-
     public void Draw()
     {
         if (GameManager.Instance.CurrentPlayer == Player.Player_One)
@@ -77,13 +75,11 @@ public class EffectManager : MonoBehaviour
             Board.PlayerTwoSide.Deck.DrawCard();
         }
     }
-
     public void MultiplyPower(Unit unit)
     {
         int cardAppearancesInBoard = Board.PlayerOneSide.Battlefield.CardAppearances(unit) + Board.PlayerTwoSide.Battlefield.CardAppearances(unit);
         unit.Power = unit.Power * cardAppearancesInBoard;
     }
-
     public void SetAveragePower(Board board)
     {
         int battlefieldPowerPlayerOne = board.PlayerOneSide.Battlefield.BattlefieldPower();
@@ -116,7 +112,6 @@ public class EffectManager : MonoBehaviour
             }
         }
     }
-
     public void IncreaseRowPower(Unit unit)
     {
         if (GameManager.Instance.CurrentPlayer == Player.Player_One)
@@ -144,7 +139,6 @@ public class EffectManager : MonoBehaviour
             }
         }
     }
-
     public void SetWeather(Unit unit)
     {
         if (GameManager.Instance.CurrentPlayer == Player.Player_One)
@@ -172,7 +166,6 @@ public class EffectManager : MonoBehaviour
             }
         }
     }
-
     public void ClearStrongestUnit(Board board)
     {
         Unit strongestUnitPlayerOne = board.PlayerOneSide.Battlefield.GetStrongestUnitSilver();
@@ -213,7 +206,6 @@ public class EffectManager : MonoBehaviour
             battlefieldPlayerTwo.PlayerBattlefield[positionUnitPlayerTwo].RemoveUnitCard(strongestUnitPlayerTwo);
         }
     }
-
     public void ClearLessStrongUnit(Board board)
     {
         Unit lessStrongUnitPlayerOne = board.PlayerOneSide.Battlefield.GetLessStrongUnitSilver();
@@ -242,7 +234,6 @@ public class EffectManager : MonoBehaviour
             else if (lessStrongUnitPlayerOne == null) { }
         }
     }
-
     public void ClearLeastPopulatedRow(Board board)
     {
         Row leastPopulateRowPlayerOne = board.PlayerOneSide.Battlefield.GetRowWithLeastUnits();
@@ -274,5 +265,4 @@ public class EffectManager : MonoBehaviour
             }
         }
     }
-
 }

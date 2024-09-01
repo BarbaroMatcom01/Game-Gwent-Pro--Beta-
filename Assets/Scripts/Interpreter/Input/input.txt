@@ -1,12 +1,16 @@
+
 effect {
-    Name: "Delete",
-   
-Action: (targets, context) => { 
-     
-    for (target in targets) {
-        context.Board.Remove(target);
-       }; 
-    }
+Name: "ReturnHand",
+Action: (targets , context) =>
+ {
+    for( target in targets){
+       var owner= target.Owner;
+    var    deck = context.DeckOfPlayer(owner);
+      deck.Push(target);
+      deck.Shuffle();
+      context.Board.Remove(target);
+  }
+  }
 }
 card {
     Type: "Silver",
@@ -19,14 +23,13 @@ card {
 OnActivation: [
         { 
           Effect : {
-              Name: "Delete",
-             
-          },  
+              Name: "ReturnHand",
+            },  
            Selector:
             {
                Single:false ,
                Source: "board", 
-               Predicate: (unit) => unit.Faction == "Narnia",
+               Predicate: (unit) => unit.Name == "Fauno",
             }
       }
 ]
