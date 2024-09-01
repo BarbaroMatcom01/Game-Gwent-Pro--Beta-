@@ -37,7 +37,7 @@ public partial class Interpreter
     }
 
     public object VisitFunctionCall(FunctionCall expr)
-    {
+    {   
         object l = Evaluate(expr.LeftExpression);
         if (l is GameManager gameManager)
         {
@@ -57,44 +57,15 @@ public partial class Interpreter
         {
             switch (expr.function)
             {
-                case "Fined":
-
                 case "Remove":
                     return cardDataList.Remove((CardData)Evaluate(expr.args[0]));
                 case "Push":
-                    object card = Evaluate(expr.args[0]);
-                    if (card is CardData cardData)
-                        cardDataList.Add(cardData);
-                    else if (card is Card)
-                    {
-                        Card cardOwner = (Card)Evaluate(expr.args[0]);
-                        if (cardOwner.Owner == 0)
-                            Board.Instance.PlayerOneSide.Deck.AddCard((Card)card);
-                        else
-                            Board.Instance.PlayerTwoSide.Deck.AddCard((Card)card);
-                    }
-                    return typeof(void);
-                case "SendBottom":
-                    object cardSendBottom = Evaluate(expr.args[0]);
-                    if (cardSendBottom is CardData cardDataSendBottom)
-                        cardDataList.Add(cardDataSendBottom);
-                    else if (cardSendBottom is Card)
-                    {
-                        Card cardOwner = (Card)Evaluate(expr.args[0]);
-                        if (cardOwner.Owner == 0)
-                            Board.Instance.PlayerOneSide.Deck.AddCard((Card)cardSendBottom);
-                        else
-                            Board.Instance.PlayerTwoSide.Deck.AddCard((Card)cardSendBottom);
-                    }
+                    cardDataList.Add((CardData)Evaluate(expr.args[0]));
                     return typeof(void);
                 case "Pop":
                     var item = cardDataList[^1];
                     cardDataList.RemoveAt(cardDataList.Count - 1);
                     return item;
-                case "Shuffle":
-                    var rng = new System.Random();
-                    cardDataList = cardDataList.OrderBy(a => rng.Next()).ToList();
-                    return typeof(void);
                 default:
                     throw new Exception();
             }
@@ -102,27 +73,23 @@ public partial class Interpreter
         else if (l is List<Card> cardList)
         {
             switch (expr.function)
-
             {
-                case "Fined":
-
-                case "Push":
-                    object cardPush = Evaluate(expr.args[0]);
-                    CardManager.Instance.PushCardList((List<Card>)l, cardPush);
-                    return typeof(void);
                 case "Remove":
-                    object cardRemove = Evaluate(expr.args[0]);
-                    CardManager.Instance.RemoveCardList((List<Card>)l, cardRemove);
+                    return cardList.Remove((Card)Evaluate(expr.args[0]));
+                case "Push":
+                    object c = Evaluate(expr.args[0]);
+                    if (c is CardData cardData)
+                    {
+                        if (GameManager.Instance.CurrentPlayer == 0)
+                             Board.Instance.PlayerOneSide.Deck.InstantiateCard(cardData);
+                        else Board.Instance.PlayerTwoSide.Deck.InstantiateCard(cardData);
+                    }
+                    else cardList.Add((Card)c);
                     return typeof(void);
                 case "Pop":
-                    object cardPop = cardList[^1];
-                    CardManager.Instance.RemoveCardList((List<Card>)l, cardPop);
-                    return cardPop;
-                case "Shuffle":
-                    var rng = new System.Random();
-                    cardList = cardList.OrderBy(a => rng.Next()).ToList();
-                    return typeof(void);
-
+                    var item = cardList[^1];
+                    cardList.RemoveAt(cardList.Count - 1);
+                    return item;
                 default:
                     throw new Exception();
             }
@@ -140,10 +107,6 @@ public partial class Interpreter
                     var item = objectList[^1];
                     objectList.RemoveAt(objectList.Count - 1);
                     return item;
-                case "Shuffle":
-                    var rng = new System.Random();
-                    objectList = objectList.OrderBy(a => rng.Next()).ToList();
-                    return typeof(void);
                 default:
                     throw new Exception();
             }
@@ -204,7 +167,7 @@ public partial class Interpreter
                     return unitCardData.AttackType;
                 case "Type":
                     return unitCardData.UnitType;
-                case "Owner":
+                    case "Owner":
                     return unitCardData.Owner;
                 default:
                     throw new Exception($"Property '{expr.PropertyName}' not found.");
@@ -220,7 +183,7 @@ public partial class Interpreter
                     return specialCardData.Faction;
                 case "Type":
                     return specialCardData.SpecialType;
-                case "Owner":
+                 case "Owner":
                     return specialCardData.Owner;
                 default:
                     throw new Exception($"Property '{expr.PropertyName}' not found.");
@@ -299,7 +262,7 @@ public partial class Interpreter
                     throw new Exception();
             }
         }
-        else if (l is UnitCardData unitCardData)
+         else if (l is UnitCardData unitCardData)
         {
             switch (expr.PropertyName)
             {

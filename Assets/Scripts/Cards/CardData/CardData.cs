@@ -6,7 +6,6 @@ public class CardData : ScriptableObject
     public string Faction;
     public string Description;
     public int Owner;
-    public int IdCard;
     public Sprite CardImage;
     public Sprite TypeIcon;
     public List<OnActivationObject> OnActivation;

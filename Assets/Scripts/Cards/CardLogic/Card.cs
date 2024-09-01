@@ -13,9 +13,8 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     public Sprite CardImage { get; private set; }
     public Image Image;
     public CardData CardData;
-    public bool CardIsInHand {get; set;}= true ;
+    protected bool CardIsInHand = true;
     public int Owner;
-    public int IdCard;
     public List<OnActivationObject> OnActivation;
 
 
@@ -25,7 +24,6 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         Name = CardData.Name;
         Faction = CardData.Faction;
         Owner=CardData.Owner;
-        IdCard=CardData.IdCard;
         Description = CardData.Description;
         Image.sprite = CardData.CardImage;
         OnActivation = CardData.OnActivation;
