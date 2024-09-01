@@ -1,36 +1,122 @@
-card {
-    Type: "Oro",
-    Name: "Beluga",
-    Faction: "Northern Realms",
-    Power: 10,
-    Range: ["Melee" , "Ranged"],
-    OnActivation: [
-        { 
-          Effect: {
-              Name: "Damage",
-              Amount: 5,
-          },
-           Selector: {
-               Sourse: "board" , 
-               Single: false ,
-               Predicate: (unit) => unit.Faction == "Northern" @@ " Realms"
-            },
-      PostAction: {
-        Effect: {
-              Name: "Damage",
-              Amount: 5,
-          },
-           Selector: {
-               Sourse: "board" , 
-               Single: false ,
-               Predicate: (unit) => unit.Faction == "Northern" @@ " Realms"
-            },
-       }
+effect {
+    Name: "Damage",
+    Params: {
+      Amount: Number
 },
-{
-   Effect: "Draw"
+Action: (targets, context) => { 
+    for (target in targets) {
+         target.Power = target.Power-5;
+       };
+    }
 }
+
+card {
+    Type: "Silver",
+    Name: "Carta Interpretada",
+    Faction: "Narnia",
+    Power: 10,
+    Range: "Ranged", 
+    Description:" Carta creada en el compilador",
+    
+OnActivation: [
+        { 
+          Effect : {
+              Name: "Damage",
+              Amount: 5,
+          },  
+           Selector:
+            {
+               Single:false ,
+               Source: "board", 
+               Predicate: (unit) => unit.Faction == "Narnia",
+            }
+      }
 ]
+}
+
+
+effect {
+    Name: "Damage",
+    Params: {
+      Amount: Number
+},
+Action: (targets, context) => { 
+    for (target in targets) {
+       var i=0;
+       while(i < 3){
+             target.Power = target.Power - 1;
+            i=i+1;
+            }
+       };
+    }
+}
+
+card {
+    Type: "Silver",
+    Name: "Carta Interpretada",
+    Faction: "Narnia",
+    Power: 10,
+    Range: "Ranged", 
+    Description:" Carta creada en el compilador",
+    
+OnActivation: [
+        { 
+          Effect : {
+              Name: "Damage",
+              Amount: 5,
+          },  
+           Selector:
+            {
+               Single:false ,
+               Source: "otherHand", 
+               Predicate: (unit) => unit.Faction == "Narnia",
+            }
+      }
+]
+}
+
+effect {
+    Name: "Kill",
+  
+Action: (targets, context) => { 
+    for (target in targets) 
+    {
+           
+       context.Board.Remove(target);
+    }
+}
+}
+card {
+    Type: "Silver",
+    Name: "Carta Interpretada",
+    Faction: "Narni",
+    Power: 10,
+    Range: "Ranged", 
+    Description:" Carta creada en el compilador",
+    
+OnActivation: [
+        { 
+          Effect : {
+              Name: "Kill",
+          },  
+           Selector:
+            {
+               Single:false ,
+               Source: "board", 
+               Predicate: (unit) => unit.Faction == "Narnia",
+            }
+      }
+]
+}
+
+effect {
+Name: "Draw",
+Action: (targets , context) =>
+ {
+      var  topCard = context.Deck.Pop();
+       context.Hand.Push(topCard);
+       context.Hand.Shuffle();
+  }
 }
 card {
     Type: "Silver",
@@ -44,12 +130,13 @@ OnActivation: [
         { 
           Effect : {
               Name: "Draw",
-            
-          },  
+            },  
            Selector:
             {
-               Single: false ,
-               Source: "hand", 
+               Single:false ,
+               Source: "board", 
                Predicate: (unit) => unit.Faction == "Narnia",
             }
-            }]}
+      }
+]
+}
