@@ -116,22 +116,6 @@ public class CardFactory : MonoBehaviour
         }
         return null;
     }
-    Sprite GetSpecialCardImage(SpecialType specialType)
-    {
-        if (specialType == SpecialType.Rain)
-        {
-            return Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Image/LL");
-        }
-        else if (specialType == SpecialType.Storm)
-        {
-            return Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Image/T");
-        }
-        else if (specialType == SpecialType.Snow)
-        {
-            return Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Image/N");
-        }
-        return null;
-    }
     Sprite GetUnitTypeIcon(AttackType attackType)
     {
         if (attackType == AttackType.Melee)
@@ -148,6 +132,22 @@ public class CardFactory : MonoBehaviour
         }
         return null;
 
+    }
+    Sprite GetSpecialCardImage(SpecialType specialType)
+    {
+        if (specialType == SpecialType.Rain)
+        {
+            return Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Image/LL");
+        }
+        else if (specialType == SpecialType.Storm)
+        {
+            return Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Image/T");
+        }
+        else if (specialType == SpecialType.Snow)
+        {
+            return Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Image/N");
+        }
+        return null;
     }
     Sprite GetSpecialTypeIcon(SpecialType specialType)
     {
