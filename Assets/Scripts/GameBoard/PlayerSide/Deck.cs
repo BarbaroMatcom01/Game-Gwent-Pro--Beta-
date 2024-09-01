@@ -25,32 +25,11 @@ public class Deck : MonoBehaviour
         DeckCards = new List<CardData>(deckData.DeckCards);
     }
 
-    public void AddCardData(CardData cardData)
+    public void AddCard(CardData cardData)
     {
         DeckCards.Add(cardData);
     }
 
-    public void AddCard(Card card)
-    {
-        CardData cardData = null;
-
-        if (card is Special specialCard)
-        {
-            cardData = specialCard.CardData;
-        }
-        else if (card is Unit unitCard)
-        {
-            cardData = unitCard.UnitCardData;
-        }
-        if (cardData != null)
-        {
-            DeckCards.Add(cardData);
-        }
-        else
-        {
-            Debug.LogError("Card type not recognized or CardData is null.");
-        }
-    }
     public void DrawCard()
     {
         if (CountCardsInDeck == 0) return;
@@ -65,7 +44,7 @@ public class Deck : MonoBehaviour
         switch (cardData)
         {
             case SpecialCardData specialCardData:
-                cardData.Owner = (int)GameManager.Instance.CurrentPlayer;
+             cardData.Owner=(int)GameManager.Instance.CurrentPlayer;
                 var specialCard = Instantiate(Special, Hand.transform);
                 specialCard.CardData = specialCardData;
                 break;
@@ -81,29 +60,5 @@ public class Deck : MonoBehaviour
                 Debug.LogError("No Type");
                 break;
         }
-    }
-    public void AddCardToPlayerHand(Card card, List<Card> playerHand, int player)
-    {
-        switch (card)
-        {
-            case Special special:
-                var specialCard = Instantiate(Special, Hand.transform);
-                specialCard.CardData = special.CardData;
-                break;
-            case Unit unitCard when unitCard.UnitType == UnitType.Silver:
-                Silver silver =(Silver)unitCard;
-                var silverCard = Instantiate(silver, Hand.transform);
-                silverCard.UnitCardData =silver.UnitCardData;
-                break;
-            case Unit unitCard when unitCard.UnitType == UnitType.Golden:
-                var goldenCard = Instantiate(Golden, Hand.transform);
-                goldenCard.UnitCardData = (UnitCardData)unitCard.CardData;
-                break;
-            default:
-                Debug.LogError("No Type");
-                break;
-        }
-        card.Owner = player;
-        playerHand.Add(card);
     }
 }

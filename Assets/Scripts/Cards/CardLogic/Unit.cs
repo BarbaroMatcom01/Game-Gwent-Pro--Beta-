@@ -19,7 +19,6 @@ public class Unit : Card
         Name = UnitCardData.Name;
         Faction=UnitCardData.Faction;
         Owner=UnitCardData.Owner;
-        IdCard=UnitCardData.IdCard;
         Description=UnitCardData.Description;
         Power = UnitCardData.Power;
         Image.sprite = UnitCardData.CardImage;

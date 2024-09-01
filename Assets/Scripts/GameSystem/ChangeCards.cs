@@ -44,7 +44,7 @@ public class ChangeCards : MonoBehaviour
         ChangedCardsCount[player]++;
         ChangedCardsText[player].text = $"{ChangedCardsCount[player]}/2";
 
-        Decks[player].AddCardData(card.CardData);
+        Decks[player].AddCard(card.CardData);
         Destroy(card.gameObject);
         Decks[player].DrawCard();
     }

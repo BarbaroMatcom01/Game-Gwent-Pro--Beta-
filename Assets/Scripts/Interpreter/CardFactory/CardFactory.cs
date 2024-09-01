@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.IO;
-using System.Resources;
-using TMPro;
 
 public class CardFactory : MonoBehaviour
 {
@@ -58,37 +56,24 @@ public class CardFactory : MonoBehaviour
                 unitCardData.Power = interpretedCard.Power;
                 unitCardData.Description = interpretedCard.Description;
                 unitCardData.Skill = Skills.Special;
+
                 AttackType attackType;
                 Enum.TryParse(interpretedCard.Range, out attackType);
                 unitCardData.AttackType = attackType;
-
+             
                 if (interpretedCard.Type == "Golden")
                     unitCardData.UnitType = UnitType.Golden;
                 if (interpretedCard.Type == "Silver")
                     unitCardData.UnitType = UnitType.Silver;
-
-                unitCardData.CardImage = GetUnitCardImage(unitCardData.AttackType);
-                unitCardData.TypeIcon = GetUnitTypeIcon(unitCardData.AttackType);
-                unitCardData.PowerImage = GetPowerImage(unitCardData.Power, unitCardData.UnitType);
+               
+                unitCardData.CardImage = Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Image/CardImage");
+                
+                unitCardData.TypeIcon = Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Type/m");
+                
+                unitCardData.PowerImage = Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/g8");
 
                 unitCardData.OnActivation = interpretedCard.OnActivation;
                 cardData = unitCardData;
-            }
-            else if (interpretedCard.Type == "Special")
-            {
-                SpecialCardData specialCardData = ScriptableObject.CreateInstance<SpecialCardData>();
-                specialCardData.Name = interpretedCard.Name;
-                specialCardData.Faction = interpretedCard.Faction;
-                specialCardData.Description = interpretedCard.Description;
-
-                SpecialType specialType;
-                Enum.TryParse(interpretedCard.Range, out specialType);
-                specialCardData.SpecialType = specialType;
-
-                specialCardData.CardImage = GetSpecialCardImage(specialCardData.SpecialType);
-                specialCardData.TypeIcon = GetSpecialTypeIcon(specialCardData.SpecialType);
-                specialCardData.OnActivation = null;
-                cardData = specialCardData;
             }
             else
             {
@@ -96,9 +81,10 @@ public class CardFactory : MonoBehaviour
                 continue;
             }
 
-            deckData.DeckCards.Add(cardData);
+            deckData.DeckCards.Add(cardData); // Agregar la carta al DeckData
         }
     }
+<<<<<<< HEAD
 
     Sprite GetUnitCardImage(AttackType attackType)
     {
@@ -210,4 +196,6 @@ public class CardFactory : MonoBehaviour
             Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/s9");
         return null;
     }
+=======
+>>>>>>> 85dd31fe0978895c72b0ad14b45c36fb60dad318
 }

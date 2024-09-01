@@ -12,8 +12,6 @@ public class Special : Card
         this.gameObject.name = CardData.name;
         Name = CardData.Name;
         Faction = CardData.Faction;
-        Owner=CardData.Owner;
-        IdCard=CardData.IdCard;
         Description = CardData.Description;
         Image.sprite = CardData.CardImage;
         TypeIcon.sprite = CardData.TypeIcon;

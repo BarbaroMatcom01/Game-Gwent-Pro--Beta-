@@ -3,13 +3,7 @@ guid: ffb6034030ef67149a44cc4da7c745f3
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - board: {instanceID: 0}
-  - Weathers: {instanceID: 0}
-  - Silver: {fileID: 4840122448305352469, guid: 93e4e5ae66741ef4cad072c91d4989c1, type: 3}
-  - Golden: {fileID: 832709340050528459, guid: 0c9ce2a8efdc7e048864f0787586fa59, type: 3}
-  - Special: {fileID: 2053865081510350863, guid: 671d5cc0bf8a7194d94b7150c5e2928b, type: 3}
-  - EffectManager: {instanceID: 0}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
