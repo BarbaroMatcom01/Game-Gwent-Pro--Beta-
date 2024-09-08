@@ -16,6 +16,9 @@ MonoBehaviour:
   Faction: Narnia
   Description: 'Tiene la habilidad de multiplicar su poder por la cantidad de cartas
     iguales a ella '
+  Owner: 0
+  IdCard: 35
+  Factory: Game
   CardImage: {fileID: 21300000, guid: ccc0f4165d1fcf04ea4ac0e168d55d2f, type: 3}
   TypeIcon: {fileID: 21300000, guid: 619b1dd0a2f2cfb44bf2a77287d0dbce, type: 3}
   UnitType: 1

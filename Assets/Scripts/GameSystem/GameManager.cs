@@ -274,6 +274,8 @@ public class GameManager : MonoBehaviour
 
          WinnerScreenText.text = $" Winner Is {GameData.Player2Name}";
       }
+
+      CardFactory.Instance.DeleteInterpreterCard();
    }
    public void ChangeHand()
    {

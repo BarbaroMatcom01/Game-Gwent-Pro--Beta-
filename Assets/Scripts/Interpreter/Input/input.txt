@@ -1,35 +1,39 @@
-
 effect {
-Name: "ReturnHand",
-Action: (targets , context) =>
- {
-    for( target in targets){
-       var owner= target.Owner;
-    var    deck = context.DeckOfPlayer(owner);
-      deck.Push(target);
-      deck.Shuffle();
-      context.Board.Remove(target);
-  }
-  }
+    Name: "Damage",
+    Params: {
+      Amount: Number
+},
+Action: (targets, context) => { 
+    for (target in targets) {
+       var i=0;
+       
+       while(i++ <= 3){
+             target.Power = target.Power - 1;
+
+            }
+       };
+    }
 }
+
 card {
     Type: "Silver",
     Name: "Carta Interpretada",
     Faction: "Narnia",
-    Power: 10,
+    Power: 9,
     Range: "Ranged", 
     Description:" Carta creada en el compilador",
     
 OnActivation: [
         { 
           Effect : {
-              Name: "ReturnHand",
-            },  
+              Name: "Damage",
+              Amount: 5,
+          },  
            Selector:
             {
                Single:false ,
                Source: "board", 
-               Predicate: (unit) => unit.Name == "Fauno",
+               Predicate: (unit) => unit.Faction == "Narnia",
             }
       }
 ]

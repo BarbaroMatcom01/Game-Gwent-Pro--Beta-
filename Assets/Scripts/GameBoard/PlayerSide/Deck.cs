@@ -70,10 +70,12 @@ public class Deck : MonoBehaviour
                 specialCard.CardData = specialCardData;
                 break;
             case UnitCardData unitCardData when unitCardData.UnitType == UnitType.Silver:
+                cardData.Owner = (int)GameManager.Instance.CurrentPlayer;
                 var silverCard = Instantiate(Silver, Hand.transform);
                 silverCard.UnitCardData = unitCardData;
                 break;
             case UnitCardData unitCardData when unitCardData.UnitType == UnitType.Golden:
+                cardData.Owner = (int)GameManager.Instance.CurrentPlayer;
                 var goldenCard = Instantiate(Golden, Hand.transform);
                 goldenCard.UnitCardData = unitCardData;
                 break;

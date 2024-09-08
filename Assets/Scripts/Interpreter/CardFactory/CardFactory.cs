@@ -9,25 +9,21 @@ using TMPro;
 public class CardFactory : MonoBehaviour
 {
     [SerializeField] private DeckData deckData;
-    public List<InterpretedEffect> effects;
+    public List<InterpretedEffect> effects =new();
     public static CardFactory Instance;
-    void Awake()
+    void Start()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else if (Instance != this)
-        {
-            Destroy(gameObject);
-        }
+        Instance = this;
+        
+         Debug.Log("CardFactory instance initialized.");
     }
-
-    public void ProcessInput()
+    
+    public void ProcessInput(string inputText)
     {
 
-        string filePath = @"C:\Users\Barbaro\Documents\Personal\Estudio\Programación\Proyectos Pro\Proyectos de la escuela\Proyecto Gwent Pro\Gwwn-Pro (Segundo Proyecto)\Assets\Scripts\Interpreter\Input\input.txt";
-        string input = File.ReadAllText(filePath);
+        // string filePath = @"C:\Users\Barbaro\Documents\Personal\Estudio\Programación\Proyectos Pro\Proyectos de la escuela\Proyecto Gwent Pro\Gwwn-Pro (Segundo Proyecto)\Assets\Scripts\Interpreter\Input\input.txt";
+
+        string input = File.ReadAllText(inputText);
 
         List<Token> listTokens = Lexer.LexicalAnalysis(input);
 
@@ -39,11 +35,38 @@ public class CardFactory : MonoBehaviour
 
         List<InterpretedCard> interpretedCards = interpreter.GetCards();
 
-        effects = interpreter.GetEffects();
+        foreach (var effect in interpreter.GetEffects())
+        {
+            effects.Add(effect);
+        }
 
-        ConvertInterpretedCards(interpretedCards, deckData); // Pasar deckData como parámetro
+        foreach (var card in interpretedCards)
+        {
+            Debug.Log($"Carta: {card.Name}, Tipo: {card.Type}, Facción: {card.Faction}, Rango: {card.Range}, Poder: {card.Power},Desciption :{card.Description}");
+        }
+
+        foreach (var effect in effects)
+        {
+            Debug.Log($"Effect Name: {effect.Name}");
+            foreach (var param in effect.Params)
+            {
+                Debug.Log($"  Param: {param.Key}, Type: {param.Value}");
+            }
+        }
+
+        ConvertInterpretedCards(interpretedCards, deckData);
     }
 
+    public void DeleteInterpreterCard()
+    {
+        foreach (var Card in deckData.DeckCards)
+        {
+            if (Card.Factory == "Interpreter")
+            {
+                deckData.DeckCards.Remove(Card);
+            }
+        }
+    }
     void ConvertInterpretedCards(List<InterpretedCard> interpretedCards, DeckData deckData)
     {
         foreach (var interpretedCard in interpretedCards)
@@ -58,14 +81,15 @@ public class CardFactory : MonoBehaviour
                 unitCardData.Power = interpretedCard.Power;
                 unitCardData.Description = interpretedCard.Description;
                 unitCardData.Skill = Skills.Special;
+                unitCardData.Factory = "Interpreter";
+
                 AttackType attackType;
                 Enum.TryParse(interpretedCard.Range, out attackType);
                 unitCardData.AttackType = attackType;
 
-                if (interpretedCard.Type == "Golden")
-                    unitCardData.UnitType = UnitType.Golden;
-                if (interpretedCard.Type == "Silver")
-                    unitCardData.UnitType = UnitType.Silver;
+                UnitType unitType;
+                Enum.TryParse(interpretedCard.Type, out unitType);
+                unitCardData.UnitType = unitType;
 
                 unitCardData.CardImage = GetUnitCardImage(unitCardData.AttackType);
                 unitCardData.TypeIcon = GetUnitTypeIcon(unitCardData.AttackType);
@@ -80,6 +104,7 @@ public class CardFactory : MonoBehaviour
                 specialCardData.Name = interpretedCard.Name;
                 specialCardData.Faction = interpretedCard.Faction;
                 specialCardData.Description = interpretedCard.Description;
+                specialCardData.Factory = "Interpreter";
 
                 SpecialType specialType;
                 Enum.TryParse(interpretedCard.Range, out specialType);
@@ -88,6 +113,7 @@ public class CardFactory : MonoBehaviour
                 specialCardData.CardImage = GetSpecialCardImage(specialCardData.SpecialType);
                 specialCardData.TypeIcon = GetSpecialTypeIcon(specialCardData.SpecialType);
                 specialCardData.OnActivation = null;
+
                 cardData = specialCardData;
             }
             else
@@ -99,7 +125,6 @@ public class CardFactory : MonoBehaviour
             deckData.DeckCards.Add(cardData);
         }
     }
-
     Sprite GetUnitCardImage(AttackType attackType)
     {
         if (attackType == AttackType.Melee)
@@ -169,45 +194,45 @@ public class CardFactory : MonoBehaviour
     Sprite GetPowerImage(int power, UnitType unitType)
     {
         if (unitType == UnitType.Golden && power == 0)
-            Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/g0");
+            return Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/g0");
         else if (unitType == UnitType.Golden && power == 1)
-            Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/g1");
+            return Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/g1");
         else if (unitType == UnitType.Golden && power == 2)
-            Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/g2");
+            return Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/g2");
         else if (unitType == UnitType.Golden && power == 3)
-            Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/g3");
+            return Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/g3");
         else if (unitType == UnitType.Golden && power == 4)
-            Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/g4");
+            return Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/g4");
         else if (unitType == UnitType.Golden && power == 5)
-            Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/g5");
+            return Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/g5");
         else if (unitType == UnitType.Golden && power == 6)
-            Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/g6");
+            return Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/g6");
         else if (unitType == UnitType.Golden && power == 7)
-            Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/g7");
+            return Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/g7");
         else if (unitType == UnitType.Golden && power == 8)
-            Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/g8");
+            return Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/g8");
         else if (unitType == UnitType.Golden && power == 9)
-            Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/g9");
+            return Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/g9");
         else if (unitType == UnitType.Silver && power == 0)
-            Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/s0");
+            return Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/s0");
         else if (unitType == UnitType.Silver && power == 1)
-            Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/s1");
+            return Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/s1");
         else if (unitType == UnitType.Silver && power == 2)
-            Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/s2");
+            return Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/s2");
         else if (unitType == UnitType.Silver && power == 3)
-            Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/s3");
+            return Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/s3");
         else if (unitType == UnitType.Silver && power == 4)
-            Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/s4");
+            return Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/s4");
         else if (unitType == UnitType.Silver && power == 5)
-            Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/s5");
+            return Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/s5");
         else if (unitType == UnitType.Silver && power == 6)
-            Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/s6");
+            return Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/s6");
         else if (unitType == UnitType.Silver && power == 7)
-            Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/s7");
+            return Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/s7");
         else if (unitType == UnitType.Silver && power == 8)
-            Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/s8");
+            return Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/s8");
         else if (unitType == UnitType.Silver && power == 9)
-            Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/s9");
+            return Resources.Load<Sprite>("Imagenes del juego/Recursos 2/Power/s9");
         return null;
     }
 }

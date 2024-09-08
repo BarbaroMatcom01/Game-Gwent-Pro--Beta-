@@ -15,6 +15,9 @@ MonoBehaviour:
   Name: Centauro El Veloz
   Faction: Narnia
   Description: 'Tiene la habilidad de poner un clima en fila en que se encuentra '
+  Owner: 0
+  IdCard: 29
+  Factory: Game
   CardImage: {fileID: 21300000, guid: 9bb14d44961cc95449e0e7fc6695f05c, type: 3}
   TypeIcon: {fileID: 21300000, guid: 0bce26f87698a8f4788b8115e09be943, type: 3}
   UnitType: 1

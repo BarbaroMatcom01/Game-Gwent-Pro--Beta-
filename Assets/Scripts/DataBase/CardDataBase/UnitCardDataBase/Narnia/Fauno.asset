@@ -17,7 +17,8 @@ MonoBehaviour:
   Description: 'Tiene la habilidad de multiplicar su poder por la cantidad de cartas
     iguales a ella '
   Owner: 0
-  IdCard: 44
+  IdCard: 33
+  Factory: Game
   CardImage: {fileID: 21300000, guid: 0886c2bbc699f244ebebd8725febec2b, type: 3}
   TypeIcon: {fileID: 21300000, guid: 0bce26f87698a8f4788b8115e09be943, type: 3}
   UnitType: 1

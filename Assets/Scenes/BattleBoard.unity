@@ -1810,6 +1810,9 @@ MonoBehaviour:
   Hands:
   - {fileID: 3502552965999284361}
   - {fileID: 3502552965999284362}
+  Silver: {fileID: 0}
+  Golden: {fileID: 0}
+  Special: {fileID: 0}
   EffectManager: {fileID: 1902277133}
 --- !u!4 &1206816420
 Transform:
@@ -2588,6 +2591,7 @@ MonoBehaviour:
   Graveyard:
   - {fileID: 1677393085}
   - {fileID: 304489790}
+  cardFactory: {fileID: 0}
 --- !u!4 &1902277134
 Transform:
   m_ObjectHideFlags: 0

@@ -35,6 +35,9 @@ OnActivation: [
 }
 
 
+
+
+
 effect {
     Name: "Damage",
     Params: {
@@ -43,6 +46,7 @@ effect {
 Action: (targets, context) => { 
     for (target in targets) {
        var i=0;
+       
        while(i < 3){
              target.Power = target.Power - 1;
             i=i+1;
@@ -74,6 +78,9 @@ OnActivation: [
       }
 ]
 }
+
+
+
 
 effect {
     Name: "Kill",
@@ -109,6 +116,9 @@ OnActivation: [
 ]
 }
 
+
+
+
 effect {
 Name: "Draw",
 Action: (targets , context) =>
@@ -138,5 +148,91 @@ OnActivation: [
                Predicate: (unit) => unit.Faction == "Narnia",
             }
       }
+]
+}
+
+
+
+
+effect {
+Name: "ReturnHand",
+Action: (targets , context) =>
+ {
+    for( target in targets){
+       var owner= target.Owner;
+       var hand = context.HandOfPlayer(owner);
+      hand.Push(target);
+      context.Board.Remove(target);
+  }
+  }
+}
+effect {
+Name: "Draw",
+Action: (targets , context) =>
+ {
+      var  topCard = context.Deck.Pop();
+       context.Hand.Push(topCard);
+       context.Hand.Shuffle();
+  }
+}
+effect {
+    Name: "Damage",
+    Params: {
+      Amount: Number
+},
+Action: (targets, context) => { 
+    for (target in targets) {
+       var i=0;
+       while(i < 2){
+             target.Power = target.Power - 1;
+            i=i+1;
+            }
+       };
+    }
+}
+card {
+    Type: "Golden",
+    Name: "Carta Interpretada",
+    Faction: "Narnia",
+    Power: 5,
+    Range: "Melee", 
+    Description:" Carta creada en el compilador",
+    
+OnActivation: [
+        { 
+          Effect : {
+              Name: "Draw",
+            },  
+           Selector:
+            {
+               Single:false ,
+               Source: "board", 
+               Predicate: (unit) => unit.Faction == "Narnia",
+            }
+
+            PostAction: {
+          Effect : {
+              Name: "Damage",
+              Amount: 5,
+          },  
+           Selector:
+            {
+               Single:false ,
+               Source: "parent", 
+               Predicate: (unit) => unit.Faction == "Narnia",
+            }
+           }
+      }
+        {
+          Effect : {
+              Name: "ReturnHand",
+            },  
+           Selector:
+            {
+               Single:false ,
+               Source: "board", 
+               Predicate: (unit) => unit.Name == "Fauno",
+              }  
+    }
 ]
 }

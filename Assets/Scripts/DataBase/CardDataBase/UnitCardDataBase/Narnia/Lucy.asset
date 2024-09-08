@@ -15,6 +15,9 @@ MonoBehaviour:
   Name: Lucy  Luz de Narnia
   Faction: Narnia
   Description: 'Tiene la habilidad de poner  el efecto de un aumento '
+  Owner: 0
+  IdCard: 37
+  Factory: Game
   CardImage: {fileID: 21300000, guid: 4bc29852cd3f6f44190594d3d1ff3412, type: 3}
   TypeIcon: {fileID: 21300000, guid: 619b1dd0a2f2cfb44bf2a77287d0dbce, type: 3}
   UnitType: 0

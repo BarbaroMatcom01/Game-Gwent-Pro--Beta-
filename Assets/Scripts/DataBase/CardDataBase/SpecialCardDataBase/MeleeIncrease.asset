@@ -15,6 +15,9 @@ MonoBehaviour:
   Name: Increase
   Faction: Neutral
   Description: Aumenta el poder en dos de las unidades de tipo Melee
+  Owner: 0
+  IdCard: 25
+  Factory: Game
   CardImage: {fileID: 21300000, guid: 988ec761c3e9bac45a163875a686aa7c, type: 3}
   TypeIcon: {fileID: 21300000, guid: 0bce26f87698a8f4788b8115e09be943, type: 3}
   SpecialType: 1

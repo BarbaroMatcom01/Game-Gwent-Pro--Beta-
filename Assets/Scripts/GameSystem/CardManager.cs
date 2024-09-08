@@ -67,6 +67,7 @@ public class CardManager : MonoBehaviour
                 Battlefields[numberCurrentPlayer].MeleeRow.ActivateIncrease();
                 newPosition = Battlefields[numberCurrentPlayer].MeleeRow.IncreaseSlot.transform;
                 Debug.Log("IncreaseMelee");
+                
                 break;
 
             case Special special when special.SpecialType == SpecialType.RangedIncrease:

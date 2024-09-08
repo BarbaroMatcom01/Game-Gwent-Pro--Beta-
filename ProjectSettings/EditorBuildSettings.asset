@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BattleBoard.unity
     guid: 4d574fe7ba22ebd469370f3cc6ab081f
+  - enabled: 1
+    path: Assets/Scenes/CardFactory.unity
+    guid: 569485faaf80d3a49a3a0cbdc7f4084c
   m_configObjects: {}

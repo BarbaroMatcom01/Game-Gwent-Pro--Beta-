@@ -15,6 +15,9 @@ MonoBehaviour:
   Name: Increase
   Faction: Neutral
   Description: Aumenta el poder en dos de las unidades de tipo Siege
+  Owner: 0
+  IdCard: 7
+  Factory: GAme
   CardImage: {fileID: 21300000, guid: 988ec761c3e9bac45a163875a686aa7c, type: 3}
   TypeIcon: {fileID: 21300000, guid: 619b1dd0a2f2cfb44bf2a77287d0dbce, type: 3}
   SpecialType: 3

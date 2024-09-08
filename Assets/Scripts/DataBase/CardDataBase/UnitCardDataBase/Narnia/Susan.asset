@@ -15,6 +15,9 @@ MonoBehaviour:
   Name: Susan  La Protectora
   Faction: Narnia
   Description: Tiene el poder de eliminar la unidad de plata de mayor poder
+  Owner: 0
+  IdCard: 38
+  Factory: Game
   CardImage: {fileID: 21300000, guid: b7aa7989933943541ab84d6905ac959e, type: 3}
   TypeIcon: {fileID: 21300000, guid: 4bc26a7a1baa7184986ff553fd7f13b5, type: 3}
   UnitType: 0

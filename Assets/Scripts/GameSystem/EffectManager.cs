@@ -8,7 +8,6 @@ public class EffectManager : MonoBehaviour
     public Board Board;
     public Battlefield[] Battlefields = new Battlefield[2];
     public GameObject[] Graveyard = new GameObject[2];
-
     public void ActivateUnitEffect(Unit unit)
     {
         switch (unit.UnitCardData.Skill)
@@ -38,8 +37,7 @@ public class EffectManager : MonoBehaviour
                 SetAveragePower(Board);
                 break;
             case Skills.Special:
-                ActivateOnActivation(unit);                
-                Debug.Log($"Se activo el on activation de la carta {unit.UnitCardData.Name}");
+                ActivateOnActivation(unit);
                 break;
         }
     }
@@ -47,7 +45,7 @@ public class EffectManager : MonoBehaviour
     {
         foreach (var activation in unit.OnActivation)
         {
-            activation.ActivateEffect(CardFactory.Instance.effects,GameManager.Instance);
+            activation.ActivateEffect(CardFactory.Instance.effects, GameManager.Instance, null);
         }
     }
     public void ActivateLeaderEffect(Leader leader)

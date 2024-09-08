@@ -17,19 +17,28 @@ public partial class OnActivationObject : InterpretedElement
         Selector = selector;
         PostAction = postAction;
     }
-    public void ActivateEffect(List<InterpretedEffect> effects, GameManager gameManager)
+    public void ActivateEffect(List<InterpretedEffect> effects, GameManager gameManager,Selector selector)
     {
+        if(effects==null)
+        {
+             Debug.Log($"La lista de efectos es vacia");
+        }
         var effect = effects.FirstOrDefault(e => e.Name == this.Info.Name);
+
 
         if (effect != null)
         {
             if (Selector != null)
-            {
+            {   
+                if(Selector.Source == "parent")
+                {
+                      Selector.Source=selector.Source;
+                }
                 if (Selector.Source == "deck" || Selector.Source == "otherDeck")
                 {
                     effect.Action.InvokeAction(Info, GetTargetsCardData(gameManager), gameManager);
                 }
-                else
+                 else
                 {
                     effect.Action.InvokeAction(Info, GetTargetsCard(gameManager), gameManager);
                 }
@@ -39,8 +48,17 @@ public partial class OnActivationObject : InterpretedElement
         {
             Debug.LogWarning($"Efecto {this.Info.Name} no encontrado en la lista de efectos.");
         }
+
+        ActivatePostAction(effects);
     }
 
+    public void ActivatePostAction(List<InterpretedEffect> effects)
+    {
+        if (PostAction != null)
+        {
+            PostAction.ActivateEffect(effects, GameManager.Instance, Selector);
+        }
+    }
     private List<Card> GetTargetsCard(GameManager gameManager)
     {
         if (Selector is null) return new List<Card>();
@@ -50,14 +68,14 @@ public partial class OnActivationObject : InterpretedElement
         foreach (var target in targetsSource)
         {
             Debug.Log(target.Name.ToString());
-          
+
             if ((bool)Selector.Delegate.InvokeDelegate(target))
             {
                 filtredCard.Add(target);
             }
         }
         if (Selector.Single)
-        { 
+        {
             return filtredCard.Count > 0 ? new List<Card>() { filtredCard[0] } : new();
         }
         return filtredCard;
@@ -101,7 +119,7 @@ public partial class OnActivationObject : InterpretedElement
     {
         int player = (int)GameManager.Instance.CurrentPlayer;
         int otherPlayer = (player + 1) % 2;
-        
+
         return Selector.Source switch
         {
             "deck" => gameManager.DeckOfPlayer(player),
@@ -125,7 +143,7 @@ public partial class EffectInfo : InterpretedElement
 public partial class Selector : InterpretedElement
 {
     public bool Single { get; }
-    public string Source { get; }
+    public string Source { get;set; }
     public Delegate Delegate { get; }
     public Selector(bool single, string source, Delegate deleg)
     {

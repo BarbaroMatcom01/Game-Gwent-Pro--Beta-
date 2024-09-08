@@ -15,6 +15,9 @@ MonoBehaviour:
   Name: Centaur El Temible
   Faction: Narnia
   Description: 'Tiene  la habilidad de robar una carta '
+  Owner: 0
+  IdCard: 32
+  Factory: Game
   CardImage: {fileID: 21300000, guid: 9793f9b1a2a865f459ba37bb42a18a89, type: 3}
   TypeIcon: {fileID: 21300000, guid: 4bc26a7a1baa7184986ff553fd7f13b5, type: 3}
   UnitType: 1

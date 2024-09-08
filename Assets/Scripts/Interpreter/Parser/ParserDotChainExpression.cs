@@ -69,14 +69,24 @@ public partial class Parser
     }
     private Expr Increment(Expr expr)
     {
-        var tok = Consume(TokenType.Plus_Plus, "Expected '++' after expression.");
-        return new Unary(new Token(TokenType.Plus_Plus, "++", tok.Line, tok.Column), expr);
+         var tok = Consume(TokenType.Plus_Plus, "Expected '++' after expression.");
+            var incrementedExpr = new Binary(expr, new Token(TokenType.Plus, "+", tok.Line, tok.Column), new Literal(1));
+            return AssignIncrementOrDecrement(expr, incrementedExpr);
     }
     private Expr Decrement(Expr expr)
     {
-        var tok = Consume(TokenType.Minus_Minus, "Expected '--' after expression.");
-        return new Unary(new Token(TokenType.Minus_Minus, "--", tok.Line, tok.Column), expr);
+         var tok = Consume(TokenType.Minus_Minus, "Expected '--' after expression.");
+            var decrementedExpr = new Binary(expr, new Token(TokenType.Minus, "-", tok.Line, tok.Column), new Literal(1));
+            return AssignIncrementOrDecrement(expr, decrementedExpr);
     }
+     private Expr AssignIncrementOrDecrement(Expr variable, Expr value)
+        {
+            if (variable is Variable varExpr)
+            {
+                return new Assign(varExpr.Name, value);
+            }
+            throw new ParseError();
+        }
     private Expr Indexer(Expr expr)
     {
         Consume(TokenType.Left_Brackets, "Expected '['");
