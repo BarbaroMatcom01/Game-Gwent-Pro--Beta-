@@ -9,7 +9,6 @@ public class ErrorReporter : MonoBehaviour
     public GameObject prefabError;
     public static ErrorReporter Instance;
 
-    // Start is called before the first frame update
     void Start()
     {
         Instance = this;

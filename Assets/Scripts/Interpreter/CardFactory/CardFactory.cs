@@ -9,15 +9,15 @@ using TMPro;
 public class CardFactory : MonoBehaviour
 {
     [SerializeField] private DeckData deckData;
-    public List<InterpretedEffect> effects =new();
+    public List<InterpretedEffect> effects = new();
     public static CardFactory Instance;
     void Start()
     {
         Instance = this;
-        
-         Debug.Log("CardFactory instance initialized.");
+
+        Debug.Log("CardFactory instance initialized.");
     }
-    
+
     public void ProcessInput(string inputText)
     {
 
@@ -27,8 +27,32 @@ public class CardFactory : MonoBehaviour
 
         List<Token> listTokens = Lexer.LexicalAnalysis(input);
 
+        if (Lexer.HasErrors())
+        {
+            Console.WriteLine("Errors were found during lexical analysis:");
+            foreach (var error in Lexer.GetErrors())
+            {
+                Console.WriteLine($"Line {error.Line}, Column {error.Column}: {error.Value} {error.Message}");
+                ErrorReporter.Instance.Report($"Line {error.Line}, Column {error.Column}: {error.Value} {error.Message}");
+
+            }
+            return;
+        }
+
         Parser parser = new Parser(listTokens);
         List<Stmt> statements = parser.Parse();
+
+        if (parser.SyntaxError.HasErrors())
+        {
+            Console.WriteLine("Errors were found during parsing:");
+            foreach (var error in parser.SyntaxError.Errors)
+            {
+                Console.WriteLine($"Line {error.Line}, Column {error.Column}: {error.Value} {error.Message}");
+                ErrorReporter.Instance.Report($"Line {error.Line}, Column {error.Column}: {error.Value} {error.Message}");
+            }
+            return;
+        }
+
 
         Interpreter interpreter = new Interpreter();
         interpreter.Interpret(statements);

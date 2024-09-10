@@ -15,22 +15,22 @@
         }
         private Stmt Declaration()
         {
-            try
-            {
-                Console.WriteLine("Current token: " + Peek().Type);
+            // try
+            // {
+            //     Console.WriteLine("Current token: " + Peek().Type);
 
                 if (Match(TokenType.Var)) return VarDeclaration();
                 if (Match(TokenType.Card)) return CardDeclaration();
                 if (Match(TokenType.Effect)) return EffectDeclaration();
 
                 return Statement();
-            }
-            catch (ParseError error)
-            {
-                Console.WriteLine("Parse error: " + error.Message);
-                Synchronize();
-                return null;
-            }
+            // }
+            // catch (ParseError error)
+            // {
+            //     Console.WriteLine("Parse error: " + error.Message);
+            //     Synchronize();
+            //     return null;
+            // }
         }
 
         private Stmt VarDeclaration()
@@ -67,7 +67,7 @@
             Expr condition = Expression();
             Consume(TokenType.Right_Paren, "Expect ')' after condition.");
             Stmt body = Statement();
-
+            Consume(TokenType.Semicolon, "Expect ';' after 'while' statement.");
             return new While(condition, body);
         }
 
@@ -79,6 +79,7 @@
             Expr collection = Expression();
             Consume(TokenType.Right_Paren, "Expected ')' after collection.");
             Stmt body = Statement();
+            Consume(TokenType.Semicolon, "Expect ';' after 'for' statement.");
 
             return new For(variable, collection, body);
         }

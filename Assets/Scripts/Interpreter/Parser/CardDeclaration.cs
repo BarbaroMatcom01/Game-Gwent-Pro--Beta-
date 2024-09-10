@@ -69,10 +69,12 @@ public partial class Parser
                     }
                     Consume(TokenType.Right_Brackets, "Expected ']' after 'OnActivation' block.");
                 }
-                else
-                {
-                    throw new ParseError();
-                }
+            }
+            else
+            {
+                // throw new ParseError();
+                ReportError(Previous(), "Unexpected property in card declaration.");
+                break;
             }
 
         }
@@ -104,11 +106,7 @@ public partial class Parser
 
                 effectInfoExpr = new EffectInfoExpr(name, param);
                 Consume(TokenType.Right_Brace, "Expected '}' after 'Effect' block.");
-
-                if (Check(TokenType.Comma))
-                {
-                    Consume(TokenType.Comma, "Expected ',' after 'Effect' block.");
-                }
+                Consume(TokenType.Comma, "Expected ',' after 'Effect' block.");
             }
             else if (Previous().Value == "Selector")
             {
@@ -124,37 +122,29 @@ public partial class Parser
                     {
                         Consume(TokenType.Colon, "Expected ':' after 'Source'.");
                         source = Expression();
-                        if (Check(TokenType.Comma))
-                        {
-                            Consume(TokenType.Comma, "Expected ',' after 'Source' expression.");
-                        }
+
+                        Consume(TokenType.Comma, "Expected ',' after 'Source' expression.");
                     }
                     else if (Previous().Value == "Single")
                     {
                         Consume(TokenType.Colon, "Expected ':' after 'Single'.");
                         single = Expression();
-                        if (Check(TokenType.Comma))
-                        {
-                            Consume(TokenType.Comma, "Expected ',' after 'Single' expression.");
-                        }
+
+                        Consume(TokenType.Comma, "Expected ',' after 'Single' expression.");
                     }
                     else if (Previous().Value == "Predicate")
                     {
                         Consume(TokenType.Colon, "Expected ':' after 'Predicate'.");
                         del = (DelegateExpr)DelegateEx();
-                        if (Check(TokenType.Comma))
-                        {
-                            Consume(TokenType.Comma, "Expected ',' after 'Predicate' expression.");
-                        }
+                        Consume(TokenType.Semicolon, "Expected ';' after 'Predicate' expression.");
                     }
                 }
                 Consume(TokenType.Right_Brace, "Expected '}' after 'Selector' block.");
-
                 selectorExpr = new SelectorExpr(single, source, del);
             }
             else if (Previous().Value == "PostAction")
             {
-                Consume(TokenType.Colon, "asa");
+                Consume(TokenType.Colon, "Expected ':' after 'PostAction'.");
                 Consume(TokenType.Left_Brace, "Expected '{' after ':' in 'OnActivation'.");
                 onActivationExpr = ParseOnActivation();
                 Consume(TokenType.Right_Brace, "Expected '}' after 'OnActivation' block.");
@@ -168,8 +158,8 @@ public partial class Parser
         Dictionary<string, Expr> paramsEffect = new();
         while (Match(TokenType.Identifier))
         {
-            Consume(TokenType.Colon, "Expected ':' after parameter name.");
             string key = Previous().Value;
+            Consume(TokenType.Colon, "Expected ':' after parameter name.");
             Expr value = Expression();
             paramsEffect.Add(key, value);
             if (Check(TokenType.Comma))

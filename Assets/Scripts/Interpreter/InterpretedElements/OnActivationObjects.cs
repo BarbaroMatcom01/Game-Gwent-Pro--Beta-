@@ -8,22 +8,22 @@ using UnityEditor.EditorTools;
 
 public partial class OnActivationObject : InterpretedElement
 {
-    public EffectInfo Info { get; }
+    public EffectInfo effectInfo { get; }
     public Selector Selector { get; }
     public OnActivationObject PostAction { get; }
     public OnActivationObject(EffectInfo info, Selector selector, OnActivationObject postAction)
     {
-        Info = info;
+        effectInfo = info;
         Selector = selector;
         PostAction = postAction;
     }
-    public void ActivateEffect(List<InterpretedEffect> effects, GameManager gameManager,Selector selector)
+    public void ActivateEffect(EffectInfo effectInfo,List<InterpretedEffect> effects, GameManager gameManager,Selector selector)
     {
         if(effects==null)
         {
              Debug.Log($"La lista de efectos es vacia");
         }
-        var effect = effects.FirstOrDefault(e => e.Name == this.Info.Name);
+        var effect = effects.FirstOrDefault(e => e.Name == this.effectInfo.Name);
 
 
         if (effect != null)
@@ -36,27 +36,27 @@ public partial class OnActivationObject : InterpretedElement
                 }
                 if (Selector.Source == "deck" || Selector.Source == "otherDeck")
                 {
-                    effect.Action.InvokeAction(Info, GetTargetsCardData(gameManager), gameManager);
+                    effect.Action.InvokeAction(effectInfo, GetTargetsCardData(gameManager), gameManager);
                 }
                  else
                 {
-                    effect.Action.InvokeAction(Info, GetTargetsCard(gameManager), gameManager);
+                    effect.Action.InvokeAction(effectInfo, GetTargetsCard(gameManager), gameManager);
                 }
             }
         }
         else
         {
-            Debug.LogWarning($"Efecto {this.Info.Name} no encontrado en la lista de efectos.");
+            Debug.LogWarning($"Efecto {this.effectInfo.Name} no encontrado en la lista de efectos.");
         }
 
-        ActivatePostAction(effects);
+        ActivatePostAction(effectInfo,effects);
     }
 
-    public void ActivatePostAction(List<InterpretedEffect> effects)
+    public void ActivatePostAction(EffectInfo effectInfo,List<InterpretedEffect> effects)
     {
         if (PostAction != null)
         {
-            PostAction.ActivateEffect(effects, GameManager.Instance, Selector);
+            PostAction.ActivateEffect(effectInfo,effects, GameManager.Instance, Selector);
         }
     }
     private List<Card> GetTargetsCard(GameManager gameManager)

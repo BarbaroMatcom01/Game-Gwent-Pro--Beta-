@@ -17,6 +17,13 @@
             catch (RuntimeError error)
             {
                 ReportRuntimeError(error);
+                ErrorReporter.Instance.Report(ReportRuntimeError(error));
+            }
+              catch (Exception ex)
+            {
+                ReportRuntimeError(new RuntimeError(null, ex.Message));
+                  ErrorReporter.Instance.Report(ReportRuntimeError(new RuntimeError(null, ex.Message)));
+                throw;
             }
         }
 
@@ -132,8 +139,15 @@
             return obj.ToString();
         }
 
-        private void ReportRuntimeError(RuntimeError error)
+        private string ReportRuntimeError(RuntimeError error)
         {
-            Console.WriteLine($"[line {error.Token.Line}] Error: {error.Message}");
+           if (error.Token == null)
+            {
+                return "Error:" + error.Message ;
+            }
+            else
+            {
+                return "[line" + error.Token.Line + "] Error:" + error.Message ;
+            }
         }
     }

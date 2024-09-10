@@ -20,12 +20,12 @@ public partial class Interpreter
 
         if (stmt.ActionParams == null)
         {
-            throw new ArgumentNullException(nameof(stmt.ActionParams), "ActionParams cannot be null.");
+            throw new RuntimeError(null, "ActionParams cannot be null.");
         }
 
         if (stmt.ActionBlock == null)
         {
-            throw new ArgumentNullException(nameof(stmt.ActionBlock), "ActionBlock cannot be null.");
+            throw new RuntimeError(null, "ActionBlock cannot be null.");
         }
 
         Action action = new Action(stmt.ActionParams, stmt.ActionBlock);

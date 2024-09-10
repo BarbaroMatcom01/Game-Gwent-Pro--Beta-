@@ -8,9 +8,22 @@ public partial class Interpreter
     public object VisitCardStmt(CardStmt stmt)
     {
         string type = (string)Evaluate(stmt.TypeValue);
+        if (type != "Golden" && type != "Silver")
+        {
+            throw new RuntimeError(null, "Invalid card type. Only 'Golden' and 'Silver' are accepted.");
+        }
         string name = (string)Evaluate(stmt.NameValue);
         string faction = (string)Evaluate(stmt.FactionValue);
+        if (faction != "Narnia")
+        {
+            throw new RuntimeError(null, "Invalid faction. Only 'Narnia' is accepted.");
+        }
         string range = (string)Evaluate(stmt.RangeValue);
+        if (range != "Melee" && range != "Ranged" && range != "Siege")
+        {
+            throw new RuntimeError(null, "Invalid range. Only 'melee', 'ranged', and 'siege' are accepted.");
+        }
+
         object powerValue = Evaluate(stmt.PowerValue);
         int power;
         if (powerValue is string powerString && int.TryParse(powerString, out power))
@@ -31,7 +44,10 @@ public partial class Interpreter
         {
             onActivation.Add((OnActivationObject)Evaluate(stmt.OnActivationExprs[i]));
         }
-
+        if (type == null || name == null || faction == null || range == null || description == null)
+        {
+            throw new RuntimeError(null, "Missing properties in card. All properties must be filled.");
+        }
         InterpretedCard card = new InterpretedCard(name, type, faction, range, power, description, onActivation);
         cards.Add(card);
 
@@ -82,6 +98,6 @@ public partial class Interpreter
 
     public object VisitDelegateExpr(DelegateExpr expr)
     {
-        return new Delegate(expr.ParamasDelegate,expr.Expr);
+        return new Delegate(expr.ParamasDelegate, expr.Expr);
     }
 }

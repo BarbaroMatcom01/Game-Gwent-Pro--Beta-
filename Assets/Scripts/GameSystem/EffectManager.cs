@@ -45,7 +45,7 @@ public class EffectManager : MonoBehaviour
     {
         foreach (var activation in unit.OnActivation)
         {
-            activation.ActivateEffect(CardFactory.Instance.effects, GameManager.Instance, null);
+            activation.ActivateEffect(activation.effectInfo,CardFactory.Instance.effects, GameManager.Instance, null);
         }
     }
     public void ActivateLeaderEffect(Leader leader)

@@ -15,7 +15,7 @@
             ActionParams = actionParams;
             ActionBlock = actionBlock;
         }
-        public void InvokeAction(EffectInfo effectInfo,params object[] args )
+        public void InvokeAction(EffectInfo effectInfo ,params object[] args )
         {
             Interpreter interpreter = new Interpreter();
             Environment actionEnvironment = new Environment(interpreter.environment);
@@ -25,8 +25,11 @@
                 actionEnvironment.Define(ActionParams[i].Value, args[i]);
             }
             foreach (var param in effectInfo.Param)
-            {
+            {   
+                Debug.Log("el param es "+ param.Key);
                 actionEnvironment.Define(param.Key,param.Value);
+                Debug.Log($"No se esta anadiendo nada creo");
+                
             }
             interpreter.ExecuteBlock(ActionBlock.Statements, actionEnvironment);
         }

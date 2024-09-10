@@ -38,8 +38,13 @@ public partial class Parser
     {
         propertyToken = Previous();
         Consume(TokenType.Colon, "Expected ':' after properties" + propertyName);
+          if(!Check(TokenType.Comma))
         propertyValue = Expression();
-        Consume(TokenType.Comma, "Expected ':' after properties" + propertyName);
+          else
+            {
+                 ReportError(Peek(), "Expect expression.");
+            }
+        Consume(TokenType.Comma, "Expected ',' after properties" + propertyName);
         Console.WriteLine("Parsed " + propertyName + ": " + propertyToken.Value);
     }
 
@@ -74,8 +79,10 @@ public partial class Parser
     private Token Consume(TokenType type, string message)
     {
         if (Check(type)) return Advance();
-        var x = Peek();
-        throw Error(x, message);
+        var token = Peek();
+        // throw Error(x, message);
+          ReportError(token, message);
+            return null;
     }
 
     private void Synchronize()
@@ -84,7 +91,7 @@ public partial class Parser
 
         while (!IsAtEnd())
         {
-            if (Previous().Type == TokenType.Semicolon) return;
+            if (Previous().Type == TokenType.Semicolon||Previous().Type == TokenType.Colon||Previous().Type == TokenType.Right_Brace||Previous().Type == TokenType.Right_Paren) return;
             Advance();
         }
     }
