@@ -14,7 +14,7 @@ card {
     Type: "Silver",
     Name: "Carta Interpretada",
     Faction: "Narnia",
-    Power: 10,
+    Power: 6,
     Range: "Ranged", 
     Description:" Carta creada en el compilador",
     
@@ -50,7 +50,7 @@ Action: (targets, context) => {
        while(i < 3){
              target.Power = target.Power - 1;
             i=i+1;
-            }
+            };
        };
     }
 }
@@ -59,8 +59,8 @@ card {
     Type: "Silver",
     Name: "Carta Interpretada",
     Faction: "Narnia",
-    Power: 10,
-    Range: "Ranged", 
+    Power: 4,
+    Range: "Siege", 
     Description:" Carta creada en el compilador",
     
 OnActivation: [
@@ -73,7 +73,7 @@ OnActivation: [
             {
                Single:false ,
                Source: "otherHand", 
-               Predicate: (unit) => unit.Faction == "Narnia",
+               Predicate: (unit) => unit.Faction == "Narnia";
             }
       }
 ]
@@ -88,16 +88,15 @@ effect {
 Action: (targets, context) => { 
     for (target in targets) 
     {
-           
        context.Board.Remove(target);
-    }
+    };
 }
 }
 card {
-    Type: "Silver",
+    Type: "Golden",
     Name: "Carta Interpretada",
-    Faction: "Narni",
-    Power: 10,
+    Faction: "Narnia",
+    Power: 5,
     Range: "Ranged", 
     Description:" Carta creada en el compilador",
     
@@ -110,7 +109,7 @@ OnActivation: [
             {
                Single:false ,
                Source: "board", 
-               Predicate: (unit) => unit.Faction == "Narnia",
+               Predicate: (unit) => unit.Name != "Carta Interpretada";
             }
       }
 ]
@@ -132,7 +131,7 @@ card {
     Type: "Silver",
     Name: "Carta Interpretada",
     Faction: "Narnia",
-    Power: 10,
+    Power:6,
     Range: "Ranged", 
     Description:" Carta creada en el compilador",
     
@@ -145,11 +144,13 @@ OnActivation: [
             {
                Single:false ,
                Source: "board", 
-               Predicate: (unit) => unit.Faction == "Narnia",
+               Predicate: (unit) => unit.Faction == "Narnia";
             }
       }
 ]
 }
+
+
 
 
 
@@ -163,7 +164,7 @@ Action: (targets , context) =>
        var hand = context.HandOfPlayer(owner);
       hand.Push(target);
       context.Board.Remove(target);
-  }
+  };
   }
 }
 effect {
@@ -186,7 +187,7 @@ Action: (targets, context) => {
        while(i < 2){
              target.Power = target.Power - 1;
             i=i+1;
-            }
+            };
        };
     }
 }
@@ -207,7 +208,7 @@ OnActivation: [
             {
                Single:false ,
                Source: "board", 
-               Predicate: (unit) => unit.Faction == "Narnia",
+               Predicate: (unit) => unit.Faction == "Narnia";
             }
 
             PostAction: {
@@ -218,8 +219,8 @@ OnActivation: [
            Selector:
             {
                Single:false ,
-               Source: "parent", 
-               Predicate: (unit) => unit.Faction == "Narnia",
+               Source: "board", 
+               Predicate: (unit) => unit.Faction == "Narnia";
             }
            }
       }
@@ -231,7 +232,7 @@ OnActivation: [
             {
                Single:false ,
                Source: "board", 
-               Predicate: (unit) => unit.Name == "Fauno",
+               Predicate: (unit) => unit.Name == "Fauno";
               }  
     }
 ]

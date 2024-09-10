@@ -39,12 +39,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e4aa936a10dfe94448ba71427485ab3c, type: 2}
   - {fileID: 11400000, guid: 9806314b48654254c8fd6b993cd10d08, type: 2}
   - {fileID: 11400000, guid: 62f5c1c25683ef643aeb5baa9fa53431, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   LeaderCard: {fileID: 11400000, guid: f0fee3e6fa847d649b9735c6cc21b939, type: 2}
